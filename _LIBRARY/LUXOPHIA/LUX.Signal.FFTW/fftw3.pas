@@ -502,16 +502,16 @@ const filename_ :PC_CHAR;
       output_file_ :TC_PTR;
     ); cdecl; external _DLLNAME_;
     
-    type(C_PTR) function fftw_export_wisdom_to_string() bind(C, name='fftw_export_wisdom_to_string')
-    end function fftw_export_wisdom_to_string
+    function fftw_export_wisdom_to_string(
+    ) :TC_PTR; cdecl; external _DLLNAME_;
     
     procedure fftw_export_wisdom(
       write_char_ :TC_FUNPTR;
       data_ :TC_PTR;
     ); cdecl; external _DLLNAME_;
     
-    integer(C_INT) function fftw_import_system_wisdom() bind(C, name='fftw_import_system_wisdom')
-    end function fftw_import_system_wisdom
+    function fftw_import_system_wisdom(
+    ) :TC_INT; cdecl; external _DLLNAME_;
     
     function fftw_import_wisdom_from_filename(
 const filename_ :PC_CHAR;
@@ -1006,8 +1006,8 @@ const kind_ :PC_FFTW_R2R_KIND;
       nthreads_ :TC_INT;
     ); cdecl; external _DLLNAME_;
     
-    integer(C_INT) function fftwf_init_threads() bind(C, name='fftwf_init_threads')
-    end function fftwf_init_threads
+    function fftwf_init_threads(
+    ) :TC_INT; cdecl; external _DLLNAME_;
     
     procedure fftwf_cleanup_threads(
     ); cdecl; external _DLLNAME_;
@@ -1023,16 +1023,16 @@ const filename_ :PC_CHAR;
       output_file_ :TC_PTR;
     ); cdecl; external _DLLNAME_;
     
-    type(C_PTR) function fftwf_export_wisdom_to_string() bind(C, name='fftwf_export_wisdom_to_string')
-    end function fftwf_export_wisdom_to_string
+    function fftwf_export_wisdom_to_string(
+    ) :TC_PTR; cdecl; external _DLLNAME_;
     
     procedure fftwf_export_wisdom(
       write_char_ :TC_FUNPTR;
       data_ :TC_PTR;
     ); cdecl; external _DLLNAME_;
     
-    integer(C_INT) function fftwf_import_system_wisdom() bind(C, name='fftwf_import_system_wisdom')
-    end function fftwf_import_system_wisdom
+    function fftwf_import_system_wisdom(
+    ) :TC_INT; cdecl; external _DLLNAME_;
     
     function fftwf_import_wisdom_from_filename(
 const filename_ :PC_CHAR;
