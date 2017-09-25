@@ -202,10 +202,19 @@ end;
 //------------------------------------------------------------------------------
 
 procedure TForm1.ScrollBarNChange(Sender: TObject);
+var
+   N, I :Integer;
 begin
-     _FFT.TimesN := Round( ScrollBarN.Value );
+     with _FFT do
+     begin
+          N := TimesN;
 
-     LabelN.Text := _FFT.TimesN.ToString;
+          TimesN := Round( ScrollBarN.Value );
+
+          LabelN.Text := TimesN.ToString;
+
+          for I := N to TimesN-1 do Times[ I ] := MetroWalk( Times[ I-1 ] );
+     end;
 
      MakeCharts;
 end;
