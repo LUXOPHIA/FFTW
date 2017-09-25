@@ -4,7 +4,7 @@ interface //####################################################################
 
 uses Winapi.Windows, LUX.Complex;
 
-type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【型】
 
      TC_INT = Integer;  PC_INT = PInteger;
 
@@ -27,9 +27,12 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
      TC_FLOAT = Single;  PC_FLOAT = PSingle;
 
-const _DLLNAME_ = 'libfftw3-3.dll';
+const //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【定数】
 
-////////////////////////////////////////////////////////////////////////////////
+      _DLLNAME_ = 'libfftw3-3.dll';
+      _DLLNAMEF_ = 'libfftw3-3f.dll';
+
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
   type TC_FFTW_R2R_KIND = TC_INT32_T;
        PC_FFTW_R2R_KIND = ^TC_FFTW_R2R_KIND;
@@ -70,6 +73,8 @@ const _DLLNAME_ = 'libfftw3-3.dll';
   const FFTW_NO_SLOW                :TC_INT = 262144;
   const FFTW_NO_FIXED_RADIX_LARGE_N :TC_INT = 524288;
   const FFTW_ALLOW_PRUNING          :TC_INT = 1048576;
+
+//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& Double
 
   type Tfftw_iodim = record
          _n  :TC_INT;
@@ -595,6 +600,8 @@ const input_string_ :PC_CHAR
   out p_ :PC_DOUBLE
     ) :TC_INT; cdecl; external _DLLNAME_;
 
+//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& Single
+
   type Tfftwf_iodim = record
          _n  :TC_INT;
          _is :TC_INT;
@@ -616,7 +623,7 @@ const n_ :PC_INT;
   out out_ :PC_FLOAT_COMPLEX;
       sign_ :TC_INT;
       flags_ :TC_INT
-    ) :TC_PTR; cdecl; external _DLLNAME_;
+    ) :TC_PTR; cdecl; external _DLLNAMEF_;
     
     function fftwf_plan_dft_1d(
       n_ :TC_INT;
@@ -624,7 +631,7 @@ const n_ :PC_INT;
   out out_ :PC_FLOAT_COMPLEX;
       sign_ :TC_INT;
       flags_ :TC_INT
-    ) :TC_PTR; cdecl; external _DLLNAME_;
+    ) :TC_PTR; cdecl; external _DLLNAMEF_;
     
     function fftwf_plan_dft_2d(
       n0_ :TC_INT;
@@ -633,7 +640,7 @@ const n_ :PC_INT;
   out out_ :PC_FLOAT_COMPLEX;
       sign_ :TC_INT;
       flags_ :TC_INT
-    ) :TC_PTR; cdecl; external _DLLNAME_;
+    ) :TC_PTR; cdecl; external _DLLNAMEF_;
     
     function fftwf_plan_dft_3d(
       n0_ :TC_INT;
@@ -643,7 +650,7 @@ const n_ :PC_INT;
   out out_ :PC_FLOAT_COMPLEX;
       sign_ :TC_INT;
       flags_ :TC_INT
-    ) :TC_PTR; cdecl; external _DLLNAME_;
+    ) :TC_PTR; cdecl; external _DLLNAMEF_;
     
     function fftwf_plan_many_dft(
       rank_ :TC_INT;
@@ -659,7 +666,7 @@ const onembed_ :PC_INT;
       odist_ :TC_INT;
       sign_ :TC_INT;
       flags_ :TC_INT
-    ) :TC_PTR; cdecl; external _DLLNAME_;
+    ) :TC_PTR; cdecl; external _DLLNAMEF_;
     
     function fftwf_plan_guru_dft(
       rank_ :TC_INT;
@@ -670,7 +677,7 @@ const howmany_dims_ :Pfftwf_iodim;
   out out_ :PC_FLOAT_COMPLEX;
       sign_ :TC_INT;
       flags_ :TC_INT
-    ) :TC_PTR; cdecl; external _DLLNAME_;
+    ) :TC_PTR; cdecl; external _DLLNAMEF_;
     
     function fftwf_plan_guru_split_dft(
       rank_ :TC_INT;
@@ -682,7 +689,7 @@ const howmany_dims_ :Pfftwf_iodim;
   out ro_ :PC_FLOAT;
   out io_ :PC_FLOAT;
       flags_ :TC_INT
-    ) :TC_PTR; cdecl; external _DLLNAME_;
+    ) :TC_PTR; cdecl; external _DLLNAMEF_;
     
     function fftwf_plan_guru64_dft(
       rank_ :TC_INT;
@@ -693,7 +700,7 @@ const howmany_dims_ :Pfftwf_iodim64;
   out out_ :PC_FLOAT_COMPLEX;
       sign_ :TC_INT;
       flags_ :TC_INT
-    ) :TC_PTR; cdecl; external _DLLNAME_;
+    ) :TC_PTR; cdecl; external _DLLNAMEF_;
     
     function fftwf_plan_guru64_split_dft(
       rank_ :TC_INT;
@@ -705,13 +712,13 @@ const howmany_dims_ :Pfftwf_iodim64;
   out ro_ :PC_FLOAT;
   out io_ :PC_FLOAT;
       flags_ :TC_INT
-    ) :TC_PTR; cdecl; external _DLLNAME_;
+    ) :TC_PTR; cdecl; external _DLLNAMEF_;
     
     procedure fftwf_execute_dft(
       p_ :TC_PTR;
   var in_ :PC_FLOAT_COMPLEX;
   out out_ :PC_FLOAT_COMPLEX
-    ); cdecl; external _DLLNAME_;
+    ); cdecl; external _DLLNAMEF_;
     
     procedure fftwf_execute_split_dft(
       p_ :TC_PTR;
@@ -719,7 +726,7 @@ const howmany_dims_ :Pfftwf_iodim64;
   var ii_ :PC_FLOAT;
   out ro_ :PC_FLOAT;
   out io_ :PC_FLOAT
-    ); cdecl; external _DLLNAME_;
+    ); cdecl; external _DLLNAMEF_;
     
     function fftwf_plan_many_dft_r2c(
       rank_ :TC_INT;
@@ -734,7 +741,7 @@ const onembed_ :PC_INT;
       ostride_ :TC_INT;
       odist_ :TC_INT;
       flags_ :TC_INT
-    ) :TC_PTR; cdecl; external _DLLNAME_;
+    ) :TC_PTR; cdecl; external _DLLNAMEF_;
     
     function fftwf_plan_dft_r2c(
       rank_ :TC_INT;
@@ -742,14 +749,14 @@ const n_ :PC_INT;
   out in_ :PC_FLOAT;
   out out_ :PC_FLOAT_COMPLEX;
       flags_ :TC_INT
-    ) :TC_PTR; cdecl; external _DLLNAME_;
+    ) :TC_PTR; cdecl; external _DLLNAMEF_;
     
     function fftwf_plan_dft_r2c_1d(
       n_ :TC_INT;
   out in_ :PC_FLOAT;
   out out_ :PC_FLOAT_COMPLEX;
       flags_ :TC_INT
-    ) :TC_PTR; cdecl; external _DLLNAME_;
+    ) :TC_PTR; cdecl; external _DLLNAMEF_;
     
     function fftwf_plan_dft_r2c_2d(
       n0_ :TC_INT;
@@ -757,7 +764,7 @@ const n_ :PC_INT;
   out in_ :PC_FLOAT;
   out out_ :PC_FLOAT_COMPLEX;
       flags_ :TC_INT
-    ) :TC_PTR; cdecl; external _DLLNAME_;
+    ) :TC_PTR; cdecl; external _DLLNAMEF_;
     
     function fftwf_plan_dft_r2c_3d(
       n0_ :TC_INT;
@@ -766,7 +773,7 @@ const n_ :PC_INT;
   out in_ :PC_FLOAT;
   out out_ :PC_FLOAT_COMPLEX;
       flags_ :TC_INT
-    ) :TC_PTR; cdecl; external _DLLNAME_;
+    ) :TC_PTR; cdecl; external _DLLNAMEF_;
     
     function fftwf_plan_many_dft_c2r(
       rank_ :TC_INT;
@@ -781,7 +788,7 @@ const onembed_ :PC_INT;
       ostride_ :TC_INT;
       odist_ :TC_INT;
       flags_ :TC_INT
-    ) :TC_PTR; cdecl; external _DLLNAME_;
+    ) :TC_PTR; cdecl; external _DLLNAMEF_;
     
     function fftwf_plan_dft_c2r(
       rank_ :TC_INT;
@@ -789,14 +796,14 @@ const n_ :PC_INT;
   out in_ :PC_FLOAT_COMPLEX;
   out out_ :PC_FLOAT;
       flags_ :TC_INT
-    ) :TC_PTR; cdecl; external _DLLNAME_;
+    ) :TC_PTR; cdecl; external _DLLNAMEF_;
     
     function fftwf_plan_dft_c2r_1d(
       n_ :TC_INT;
   out in_ :PC_FLOAT_COMPLEX;
   out out_ :PC_FLOAT;
       flags_ :TC_INT
-    ) :TC_PTR; cdecl; external _DLLNAME_;
+    ) :TC_PTR; cdecl; external _DLLNAMEF_;
     
     function fftwf_plan_dft_c2r_2d(
       n0_ :TC_INT;
@@ -804,7 +811,7 @@ const n_ :PC_INT;
   out in_ :PC_FLOAT_COMPLEX;
   out out_ :PC_FLOAT;
       flags_ :TC_INT
-    ) :TC_PTR; cdecl; external _DLLNAME_;
+    ) :TC_PTR; cdecl; external _DLLNAMEF_;
     
     function fftwf_plan_dft_c2r_3d(
       n0_ :TC_INT;
@@ -813,7 +820,7 @@ const n_ :PC_INT;
   out in_ :PC_FLOAT_COMPLEX;
   out out_ :PC_FLOAT;
       flags_ :TC_INT
-    ) :TC_PTR; cdecl; external _DLLNAME_;
+    ) :TC_PTR; cdecl; external _DLLNAMEF_;
     
     function fftwf_plan_guru_dft_r2c(
       rank_ :TC_INT;
@@ -823,7 +830,7 @@ const howmany_dims_ :Pfftwf_iodim;
   out in_ :PC_FLOAT;
   out out_ :PC_FLOAT_COMPLEX;
       flags_ :TC_INT
-    ) :TC_PTR; cdecl; external _DLLNAME_;
+    ) :TC_PTR; cdecl; external _DLLNAMEF_;
     
     function fftwf_plan_guru_dft_c2r(
       rank_ :TC_INT;
@@ -833,7 +840,7 @@ const howmany_dims_ :Pfftwf_iodim;
   out in_ :PC_FLOAT_COMPLEX;
   out out_ :PC_FLOAT;
       flags_ :TC_INT
-    ) :TC_PTR; cdecl; external _DLLNAME_;
+    ) :TC_PTR; cdecl; external _DLLNAMEF_;
     
     function fftwf_plan_guru_split_dft_r2c(
       rank_ :TC_INT;
@@ -844,7 +851,7 @@ const howmany_dims_ :Pfftwf_iodim;
   out ro_ :PC_FLOAT;
   out io_ :PC_FLOAT;
       flags_ :TC_INT
-    ) :TC_PTR; cdecl; external _DLLNAME_;
+    ) :TC_PTR; cdecl; external _DLLNAMEF_;
     
     function fftwf_plan_guru_split_dft_c2r(
       rank_ :TC_INT;
@@ -855,7 +862,7 @@ const howmany_dims_ :Pfftwf_iodim;
   out ii_ :PC_FLOAT;
   out out_ :PC_FLOAT;
       flags_ :TC_INT
-    ) :TC_PTR; cdecl; external _DLLNAME_;
+    ) :TC_PTR; cdecl; external _DLLNAMEF_;
     
     function fftwf_plan_guru64_dft_r2c(
       rank_ :TC_INT;
@@ -865,7 +872,7 @@ const howmany_dims_ :Pfftwf_iodim64;
   out in_ :PC_FLOAT;
   out out_ :PC_FLOAT_COMPLEX;
       flags_ :TC_INT
-    ) :TC_PTR; cdecl; external _DLLNAME_;
+    ) :TC_PTR; cdecl; external _DLLNAMEF_;
     
     function fftwf_plan_guru64_dft_c2r(
       rank_ :TC_INT;
@@ -875,7 +882,7 @@ const howmany_dims_ :Pfftwf_iodim64;
   out in_ :PC_FLOAT_COMPLEX;
   out out_ :PC_FLOAT;
       flags_ :TC_INT
-    ) :TC_PTR; cdecl; external _DLLNAME_;
+    ) :TC_PTR; cdecl; external _DLLNAMEF_;
     
     function fftwf_plan_guru64_split_dft_r2c(
       rank_ :TC_INT;
@@ -886,7 +893,7 @@ const howmany_dims_ :Pfftwf_iodim64;
   out ro_ :PC_FLOAT;
   out io_ :PC_FLOAT;
       flags_ :TC_INT
-    ) :TC_PTR; cdecl; external _DLLNAME_;
+    ) :TC_PTR; cdecl; external _DLLNAMEF_;
     
     function fftwf_plan_guru64_split_dft_c2r(
       rank_ :TC_INT;
@@ -897,33 +904,33 @@ const howmany_dims_ :Pfftwf_iodim64;
   out ii_ :PC_FLOAT;
   out out_ :PC_FLOAT;
       flags_ :TC_INT
-    ) :TC_PTR; cdecl; external _DLLNAME_;
+    ) :TC_PTR; cdecl; external _DLLNAMEF_;
     
     procedure fftwf_execute_dft_r2c(
       p_ :TC_PTR;
   var in_ :PC_FLOAT;
   out out_ :PC_FLOAT_COMPLEX
-    ); cdecl; external _DLLNAME_;
+    ); cdecl; external _DLLNAMEF_;
     
     procedure fftwf_execute_dft_c2r(
       p_ :TC_PTR;
   var in_ :PC_FLOAT_COMPLEX;
   out out_ :PC_FLOAT
-    ); cdecl; external _DLLNAME_;
+    ); cdecl; external _DLLNAMEF_;
     
     procedure fftwf_execute_split_dft_r2c(
       p_ :TC_PTR;
   var in_ :PC_FLOAT;
   out ro_ :PC_FLOAT;
   out io_ :PC_FLOAT
-    ); cdecl; external _DLLNAME_;
+    ); cdecl; external _DLLNAMEF_;
     
     procedure fftwf_execute_split_dft_c2r(
       p_ :TC_PTR;
   var ri_ :PC_FLOAT;
   var ii_ :PC_FLOAT;
   out out_ :PC_FLOAT
-    ); cdecl; external _DLLNAME_;
+    ); cdecl; external _DLLNAMEF_;
     
     function fftwf_plan_many_r2r(
       rank_ :TC_INT;
@@ -939,7 +946,7 @@ const onembed_ :PC_INT;
       odist_ :TC_INT;
 const kind_ :PC_FFTW_R2R_KIND;
       flags_ :TC_INT
-    ) :TC_PTR; cdecl; external _DLLNAME_;
+    ) :TC_PTR; cdecl; external _DLLNAMEF_;
     
     function fftwf_plan_r2r(
       rank_ :TC_INT;
@@ -948,7 +955,7 @@ const n_ :PC_INT;
   out out_ :PC_FLOAT;
 const kind_ :PC_FFTW_R2R_KIND;
       flags_ :TC_INT
-    ) :TC_PTR; cdecl; external _DLLNAME_;
+    ) :TC_PTR; cdecl; external _DLLNAMEF_;
     
     function fftwf_plan_r2r_1d(
       n_ :TC_INT;
@@ -956,7 +963,7 @@ const kind_ :PC_FFTW_R2R_KIND;
   out out_ :PC_FLOAT;
       kind_ :TC_FFTW_R2R_KIND;
       flags_ :TC_INT
-    ) :TC_PTR; cdecl; external _DLLNAME_;
+    ) :TC_PTR; cdecl; external _DLLNAMEF_;
     
     function fftwf_plan_r2r_2d(
       n0_ :TC_INT;
@@ -966,7 +973,7 @@ const kind_ :PC_FFTW_R2R_KIND;
       kind0_ :TC_FFTW_R2R_KIND;
       kind1_ :TC_FFTW_R2R_KIND;
       flags_ :TC_INT
-    ) :TC_PTR; cdecl; external _DLLNAME_;
+    ) :TC_PTR; cdecl; external _DLLNAMEF_;
     
     function fftwf_plan_r2r_3d(
       n0_ :TC_INT;
@@ -978,7 +985,7 @@ const kind_ :PC_FFTW_R2R_KIND;
       kind1_ :TC_FFTW_R2R_KIND;
       kind2_ :TC_FFTW_R2R_KIND;
       flags_ :TC_INT
-    ) :TC_PTR; cdecl; external _DLLNAME_;
+    ) :TC_PTR; cdecl; external _DLLNAMEF_;
     
     function fftwf_plan_guru_r2r(
       rank_ :TC_INT;
@@ -989,7 +996,7 @@ const howmany_dims_ :Pfftwf_iodim;
   out out_ :PC_FLOAT;
 const kind_ :PC_FFTW_R2R_KIND;
       flags_ :TC_INT
-    ) :TC_PTR; cdecl; external _DLLNAME_;
+    ) :TC_PTR; cdecl; external _DLLNAMEF_;
     
     function fftwf_plan_guru64_r2r(
       rank_ :TC_INT;
@@ -1000,124 +1007,124 @@ const howmany_dims_ :Pfftwf_iodim64;
   out out_ :PC_FLOAT;
 const kind_ :PC_FFTW_R2R_KIND;
       flags_ :TC_INT
-    ) :TC_PTR; cdecl; external _DLLNAME_;
+    ) :TC_PTR; cdecl; external _DLLNAMEF_;
     
     procedure fftwf_execute_r2r(
       p_ :TC_PTR;
   var in_ :PC_FLOAT;
   out out_ :PC_FLOAT
-    ); cdecl; external _DLLNAME_;
+    ); cdecl; external _DLLNAMEF_;
     
     procedure fftwf_destroy_plan(
       p_ :TC_PTR
-    ); cdecl; external _DLLNAME_;
+    ); cdecl; external _DLLNAMEF_;
     
     procedure fftwf_forget_wisdom(
-    ); cdecl; external _DLLNAME_;
+    ); cdecl; external _DLLNAMEF_;
     
     procedure fftwf_cleanup(
-    ); cdecl; external _DLLNAME_;
+    ); cdecl; external _DLLNAMEF_;
     
     procedure fftwf_set_timelimit(
       t_ :TC_DOUBLE
-    ); cdecl; external _DLLNAME_;
+    ); cdecl; external _DLLNAMEF_;
     
     procedure fftwf_plan_with_nthreads(
       nthreads_ :TC_INT
-    ); cdecl; external _DLLNAME_;
+    ); cdecl; external _DLLNAMEF_;
     
     function fftwf_init_threads(
-    ) :TC_INT; cdecl; external _DLLNAME_;
+    ) :TC_INT; cdecl; external _DLLNAMEF_;
     
     procedure fftwf_cleanup_threads(
-    ); cdecl; external _DLLNAME_;
+    ); cdecl; external _DLLNAMEF_;
     
     procedure fftwf_make_planner_thread_safe(
-    ); cdecl; external _DLLNAME_;
+    ); cdecl; external _DLLNAMEF_;
     
     function fftwf_export_wisdom_to_filename(
 const filename_ :PC_CHAR
-    ) :TC_INT; cdecl; external _DLLNAME_;
+    ) :TC_INT; cdecl; external _DLLNAMEF_;
     
     procedure fftwf_export_wisdom_to_file(
       output_file_ :TC_PTR
-    ); cdecl; external _DLLNAME_;
+    ); cdecl; external _DLLNAMEF_;
     
     function fftwf_export_wisdom_to_string(
-    ) :TC_PTR; cdecl; external _DLLNAME_;
+    ) :TC_PTR; cdecl; external _DLLNAMEF_;
     
     procedure fftwf_export_wisdom(
       write_char_ :TC_FUNPTR;
       data_ :TC_PTR
-    ); cdecl; external _DLLNAME_;
+    ); cdecl; external _DLLNAMEF_;
     
     function fftwf_import_system_wisdom(
-    ) :TC_INT; cdecl; external _DLLNAME_;
+    ) :TC_INT; cdecl; external _DLLNAMEF_;
     
     function fftwf_import_wisdom_from_filename(
 const filename_ :PC_CHAR
-    ) :TC_INT; cdecl; external _DLLNAME_;
+    ) :TC_INT; cdecl; external _DLLNAMEF_;
     
     function fftwf_import_wisdom_from_file(
       input_file_ :TC_PTR
-    ) :TC_INT; cdecl; external _DLLNAME_;
+    ) :TC_INT; cdecl; external _DLLNAMEF_;
     
     function fftwf_import_wisdom_from_string(
 const input_string_ :PC_CHAR
-    ) :TC_INT; cdecl; external _DLLNAME_;
+    ) :TC_INT; cdecl; external _DLLNAMEF_;
     
     function fftwf_import_wisdom(
       read_char_ :TC_FUNPTR;
       data_ :TC_PTR
-    ) :TC_INT; cdecl; external _DLLNAME_;
+    ) :TC_INT; cdecl; external _DLLNAMEF_;
     
     procedure fftwf_fprint_plan(
       p_ :TC_PTR;
       output_file_ :TC_PTR
-    ); cdecl; external _DLLNAME_;
+    ); cdecl; external _DLLNAMEF_;
     
     procedure fftwf_print_plan(
       p_ :TC_PTR
-    ); cdecl; external _DLLNAME_;
+    ); cdecl; external _DLLNAMEF_;
     
     function fftwf_sprint_plan(
       p_ :TC_PTR
-    ) :TC_PTR; cdecl; external _DLLNAME_;
+    ) :TC_PTR; cdecl; external _DLLNAMEF_;
     
     function fftwf_malloc(
       n_ :TC_SIZE_T
-    ) :TC_PTR; cdecl; external _DLLNAME_;
+    ) :TC_PTR; cdecl; external _DLLNAMEF_;
     
     function fftwf_alloc_real(
       n_ :TC_SIZE_T
-    ) :TC_PTR; cdecl; external _DLLNAME_;
+    ) :TC_PTR; cdecl; external _DLLNAMEF_;
     
     function fftwf_alloc_complex(
       n_ :TC_SIZE_T
-    ) :TC_PTR; cdecl; external _DLLNAME_;
+    ) :TC_PTR; cdecl; external _DLLNAMEF_;
     
     procedure fftwf_free(
       p_ :TC_PTR
-    ); cdecl; external _DLLNAME_;
+    ); cdecl; external _DLLNAMEF_;
     
     procedure fftwf_flops(
       p_ :TC_PTR;
   out add_  :TC_DOUBLE;
   out mul_  :TC_DOUBLE;
   out fmas_ :TC_DOUBLE
-    ); cdecl; external _DLLNAME_;
+    ); cdecl; external _DLLNAMEF_;
     
     function fftwf_estimate_cost(
       p_ :TC_PTR
-    ) :TC_DOUBLE; cdecl; external _DLLNAME_;
+    ) :TC_DOUBLE; cdecl; external _DLLNAMEF_;
     
     function fftwf_cost(
       p_ :TC_PTR
-    ) :TC_DOUBLE; cdecl; external _DLLNAME_;
+    ) :TC_DOUBLE; cdecl; external _DLLNAMEF_;
     
     function fftwf_alignment_of(
   out p_ :PC_FLOAT
-    ) :TC_INT; cdecl; external _DLLNAME_;
+    ) :TC_INT; cdecl; external _DLLNAMEF_;
 
 implementation //############################################################### ■
 
