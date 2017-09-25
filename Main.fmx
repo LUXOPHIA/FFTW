@@ -1,14 +1,59 @@
 object Form1: TForm1
   Left = 0
   Top = 0
+  BorderStyle = Single
   Caption = 'FFTW'
-  ClientHeight = 480
-  ClientWidth = 640
+  ClientHeight = 430
+  ClientWidth = 670
   Position = ScreenCenter
   FormFactor.Width = 320
   FormFactor.Height = 480
   FormFactor.Devices = [Desktop]
   OnCreate = FormCreate
-  OnDestroy = FormDestroy
   DesignerMasterStyle = 0
+  object Panel1: TPanel
+    Align = Right
+    Position.X = 620.000000000000000000
+    Size.Width = 50.000000000000000000
+    Size.Height = 430.000000000000000000
+    Size.PlatformDefault = False
+    StyleLookup = 'pushpanel'
+    TabOrder = 0
+    object ScrollBar1: TScrollBar
+      Max = 2048.000000000000000000
+      Min = 2.000000000000000000
+      Value = 512.000000000000000000
+      SmallChange = 0.000000000000000000
+      Orientation = Vertical
+      Position.X = 10.000000000000000000
+      Position.Y = 10.000000000000000000
+      Size.Width = 25.000000000000000000
+      Size.Height = 410.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 0
+      OnChange = ScrollBar1Change
+    end
+  end
+  inline LineChart1: TLineChart
+    ClipChildren = True
+    Position.X = 10.000000000000000000
+    Position.Y = 10.000000000000000000
+    Size.Width = 600.000000000000000000
+    Size.Height = 200.000000000000000000
+    Size.PlatformDefault = False
+  end
+  inline LineChart2: TLineChart
+    ClipChildren = True
+    Position.X = 10.000000000000000000
+    Position.Y = 220.000000000000000000
+    Size.Width = 600.000000000000000000
+    Size.Height = 200.000000000000000000
+    Size.PlatformDefault = False
+  end
+  object Timer1: TTimer
+    Interval = 10
+    OnTimer = Timer1Timer
+    Left = 30
+    Top = 25
+  end
 end

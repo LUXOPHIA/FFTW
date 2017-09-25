@@ -27,7 +27,9 @@ uses
   LUX.FMX.Forms in '_LIBRARY\LUXOPHIA\LUX\FMX\LUX.FMX.Forms.pas',
   LUX.Complex in '_LIBRARY\LUXOPHIA\LUX.Complex\LUX.Complex.pas',
   LUX.Complex.D1 in '_LIBRARY\LUXOPHIA\LUX.Complex\LUX.Complex.D1.pas',
-  fftw3 in '_LIBRARY\LUXOPHIA\LUX.Signal.FFTW\fftw3.pas';
+  fftw3 in '_LIBRARY\LUXOPHIA\LUX.Signal.FFTW\fftw3.pas',
+  LUX.Signal.FFTW in '_LIBRARY\LUXOPHIA\LUX.Signal.FFTW\LUX.Signal.FFTW.pas',
+  LUX.Chart.LineChart in '_LIBRARY\LUX.Chart.LineChart.pas' {LineChart: TFrame};
 
 {$R *.res}
 
