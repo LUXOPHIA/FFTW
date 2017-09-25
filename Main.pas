@@ -14,8 +14,8 @@ uses
 
 type
   TForm1 = class(TForm)
-    LineChart1: TLineChart;
-    LineChart2: TLineChart;
+    LineChartT: TLineChart;
+    LineChartF: TLineChart;
     Timer1: TTimer;
     Panel1: TPanel;
       ScrollBar1: TScrollBar;
@@ -47,7 +47,7 @@ uses System.Math;
 
 procedure TForm1.MakeCharts;
 begin
-     with LineChart1 do
+     with LineChartT do
      begin
           MinY := -1;
           MaxY := +1;
@@ -68,7 +68,7 @@ begin
           end;
      end;
 
-     with LineChart2 do
+     with LineChartF do
      begin
           MinY := -Pi4;
           MaxY := +Pi4;
@@ -96,7 +96,7 @@ procedure TForm1.DrawTimes;
 var
    J :Integer;
 begin
-     with LineChart1 do
+     with LineChartT do
      begin
           with _FFT do
           begin
@@ -118,7 +118,7 @@ procedure TForm1.DrawFreqs;
 var
    J :Integer;
 begin
-     with LineChart2 do
+     with LineChartF do
      begin
           with _FFT do
           begin
@@ -174,8 +174,6 @@ end;
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
 
 procedure TForm1.FormCreate(Sender: TObject);
-var
-   I :Integer;
 begin
      _FFT := TDoubleFFT.Create;
 

@@ -34,7 +34,7 @@ object Form1: TForm1
       OnChange = ScrollBar1Change
     end
   end
-  inline LineChart1: TLineChart
+  inline LineChartT: TLineChart
     ClipChildren = True
     Position.X = 10.000000000000000000
     Position.Y = 10.000000000000000000
@@ -42,7 +42,7 @@ object Form1: TForm1
     Size.Height = 200.000000000000000000
     Size.PlatformDefault = False
   end
-  inline LineChart2: TLineChart
+  inline LineChartF: TLineChart
     ClipChildren = True
     Position.X = 10.000000000000000000
     Position.Y = 220.000000000000000000
