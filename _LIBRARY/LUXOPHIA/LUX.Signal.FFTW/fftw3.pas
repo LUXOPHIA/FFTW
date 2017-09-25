@@ -52,7 +52,6 @@ interface //####################################################################
          _os :TC_INTPTR_T;
        end;
 
-  interface
     type(C_PTR) function fftw_plan_dft(rank,n,in,out,sign,flags) bind(C, name='fftw_plan_dft')
       import
       integer(C_INT), value :: rank
@@ -93,8 +92,7 @@ interface //####################################################################
       integer(C_INT), value :: flags
     end function fftw_plan_dft_3d
     
-    type(C_PTR) function fftw_plan_many_dft(rank,n,howmany,in,inembed,istride,idist,out,onembed,ostride,odist,sign,flags) &
-                         bind(C, name='fftw_plan_many_dft')
+    type(C_PTR) function fftw_plan_many_dft(rank,n,howmany,in,inembed,istride,idist,out,onembed,ostride,odist,sign,flags) bind(C, name='fftw_plan_many_dft')
       import
       integer(C_INT), value :: rank
       integer(C_INT), dimension(*), intent(in) :: n
@@ -111,8 +109,7 @@ interface //####################################################################
       integer(C_INT), value :: flags
     end function fftw_plan_many_dft
     
-    type(C_PTR) function fftw_plan_guru_dft(rank,dims,howmany_rank,howmany_dims,in,out,sign,flags) &
-                         bind(C, name='fftw_plan_guru_dft')
+    type(C_PTR) function fftw_plan_guru_dft(rank,dims,howmany_rank,howmany_dims,in,out,sign,flags) bind(C, name='fftw_plan_guru_dft')
       import
       integer(C_INT), value :: rank
       type(fftw_iodim), dimension(*), intent(in) :: dims
@@ -124,8 +121,7 @@ interface //####################################################################
       integer(C_INT), value :: flags
     end function fftw_plan_guru_dft
     
-    type(C_PTR) function fftw_plan_guru_split_dft(rank,dims,howmany_rank,howmany_dims,ri,ii,ro,io,flags) &
-                         bind(C, name='fftw_plan_guru_split_dft')
+    type(C_PTR) function fftw_plan_guru_split_dft(rank,dims,howmany_rank,howmany_dims,ri,ii,ro,io,flags) bind(C, name='fftw_plan_guru_split_dft')
       import
       integer(C_INT), value :: rank
       type(fftw_iodim), dimension(*), intent(in) :: dims
@@ -138,8 +134,7 @@ interface //####################################################################
       integer(C_INT), value :: flags
     end function fftw_plan_guru_split_dft
     
-    type(C_PTR) function fftw_plan_guru64_dft(rank,dims,howmany_rank,howmany_dims,in,out,sign,flags) &
-                         bind(C, name='fftw_plan_guru64_dft')
+    type(C_PTR) function fftw_plan_guru64_dft(rank,dims,howmany_rank,howmany_dims,in,out,sign,flags) bind(C, name='fftw_plan_guru64_dft')
       import
       integer(C_INT), value :: rank
       type(fftw_iodim64), dimension(*), intent(in) :: dims
@@ -151,8 +146,7 @@ interface //####################################################################
       integer(C_INT), value :: flags
     end function fftw_plan_guru64_dft
     
-    type(C_PTR) function fftw_plan_guru64_split_dft(rank,dims,howmany_rank,howmany_dims,ri,ii,ro,io,flags) &
-                         bind(C, name='fftw_plan_guru64_split_dft')
+    type(C_PTR) function fftw_plan_guru64_split_dft(rank,dims,howmany_rank,howmany_dims,ri,ii,ro,io,flags) bind(C, name='fftw_plan_guru64_split_dft')
       import
       integer(C_INT), value :: rank
       type(fftw_iodim64), dimension(*), intent(in) :: dims
@@ -181,8 +175,7 @@ interface //####################################################################
       real(C_DOUBLE), dimension(*), intent(out) :: io
     end subroutine fftw_execute_split_dft
     
-    type(C_PTR) function fftw_plan_many_dft_r2c(rank,n,howmany,in,inembed,istride,idist,out,onembed,ostride,odist,flags) &
-                         bind(C, name='fftw_plan_many_dft_r2c')
+    type(C_PTR) function fftw_plan_many_dft_r2c(rank,n,howmany,in,inembed,istride,idist,out,onembed,ostride,odist,flags) bind(C, name='fftw_plan_many_dft_r2c')
       import
       integer(C_INT), value :: rank
       integer(C_INT), dimension(*), intent(in) :: n
@@ -234,8 +227,7 @@ interface //####################################################################
       integer(C_INT), value :: flags
     end function fftw_plan_dft_r2c_3d
     
-    type(C_PTR) function fftw_plan_many_dft_c2r(rank,n,howmany,in,inembed,istride,idist,out,onembed,ostride,odist,flags) &
-                         bind(C, name='fftw_plan_many_dft_c2r')
+    type(C_PTR) function fftw_plan_many_dft_c2r(rank,n,howmany,in,inembed,istride,idist,out,onembed,ostride,odist,flags) bind(C, name='fftw_plan_many_dft_c2r')
       import
       integer(C_INT), value :: rank
       integer(C_INT), dimension(*), intent(in) :: n
@@ -287,8 +279,7 @@ interface //####################################################################
       integer(C_INT), value :: flags
     end function fftw_plan_dft_c2r_3d
     
-    type(C_PTR) function fftw_plan_guru_dft_r2c(rank,dims,howmany_rank,howmany_dims,in,out,flags) &
-                         bind(C, name='fftw_plan_guru_dft_r2c')
+    type(C_PTR) function fftw_plan_guru_dft_r2c(rank,dims,howmany_rank,howmany_dims,in,out,flags) bind(C, name='fftw_plan_guru_dft_r2c')
       import
       integer(C_INT), value :: rank
       type(fftw_iodim), dimension(*), intent(in) :: dims
@@ -299,8 +290,7 @@ interface //####################################################################
       integer(C_INT), value :: flags
     end function fftw_plan_guru_dft_r2c
     
-    type(C_PTR) function fftw_plan_guru_dft_c2r(rank,dims,howmany_rank,howmany_dims,in,out,flags) &
-                         bind(C, name='fftw_plan_guru_dft_c2r')
+    type(C_PTR) function fftw_plan_guru_dft_c2r(rank,dims,howmany_rank,howmany_dims,in,out,flags) bind(C, name='fftw_plan_guru_dft_c2r')
       import
       integer(C_INT), value :: rank
       type(fftw_iodim), dimension(*), intent(in) :: dims
@@ -311,8 +301,7 @@ interface //####################################################################
       integer(C_INT), value :: flags
     end function fftw_plan_guru_dft_c2r
     
-    type(C_PTR) function fftw_plan_guru_split_dft_r2c(rank,dims,howmany_rank,howmany_dims,in,ro,io,flags) &
-                         bind(C, name='fftw_plan_guru_split_dft_r2c')
+    type(C_PTR) function fftw_plan_guru_split_dft_r2c(rank,dims,howmany_rank,howmany_dims,in,ro,io,flags) bind(C, name='fftw_plan_guru_split_dft_r2c')
       import
       integer(C_INT), value :: rank
       type(fftw_iodim), dimension(*), intent(in) :: dims
@@ -324,8 +313,7 @@ interface //####################################################################
       integer(C_INT), value :: flags
     end function fftw_plan_guru_split_dft_r2c
     
-    type(C_PTR) function fftw_plan_guru_split_dft_c2r(rank,dims,howmany_rank,howmany_dims,ri,ii,out,flags) &
-                         bind(C, name='fftw_plan_guru_split_dft_c2r')
+    type(C_PTR) function fftw_plan_guru_split_dft_c2r(rank,dims,howmany_rank,howmany_dims,ri,ii,out,flags) bind(C, name='fftw_plan_guru_split_dft_c2r')
       import
       integer(C_INT), value :: rank
       type(fftw_iodim), dimension(*), intent(in) :: dims
@@ -337,8 +325,7 @@ interface //####################################################################
       integer(C_INT), value :: flags
     end function fftw_plan_guru_split_dft_c2r
     
-    type(C_PTR) function fftw_plan_guru64_dft_r2c(rank,dims,howmany_rank,howmany_dims,in,out,flags) &
-                         bind(C, name='fftw_plan_guru64_dft_r2c')
+    type(C_PTR) function fftw_plan_guru64_dft_r2c(rank,dims,howmany_rank,howmany_dims,in,out,flags) bind(C, name='fftw_plan_guru64_dft_r2c')
       import
       integer(C_INT), value :: rank
       type(fftw_iodim64), dimension(*), intent(in) :: dims
@@ -349,8 +336,7 @@ interface //####################################################################
       integer(C_INT), value :: flags
     end function fftw_plan_guru64_dft_r2c
     
-    type(C_PTR) function fftw_plan_guru64_dft_c2r(rank,dims,howmany_rank,howmany_dims,in,out,flags) &
-                         bind(C, name='fftw_plan_guru64_dft_c2r')
+    type(C_PTR) function fftw_plan_guru64_dft_c2r(rank,dims,howmany_rank,howmany_dims,in,out,flags) bind(C, name='fftw_plan_guru64_dft_c2r')
       import
       integer(C_INT), value :: rank
       type(fftw_iodim64), dimension(*), intent(in) :: dims
@@ -361,8 +347,7 @@ interface //####################################################################
       integer(C_INT), value :: flags
     end function fftw_plan_guru64_dft_c2r
     
-    type(C_PTR) function fftw_plan_guru64_split_dft_r2c(rank,dims,howmany_rank,howmany_dims,in,ro,io,flags) &
-                         bind(C, name='fftw_plan_guru64_split_dft_r2c')
+    type(C_PTR) function fftw_plan_guru64_split_dft_r2c(rank,dims,howmany_rank,howmany_dims,in,ro,io,flags) bind(C, name='fftw_plan_guru64_split_dft_r2c')
       import
       integer(C_INT), value :: rank
       type(fftw_iodim64), dimension(*), intent(in) :: dims
@@ -374,8 +359,7 @@ interface //####################################################################
       integer(C_INT), value :: flags
     end function fftw_plan_guru64_split_dft_r2c
     
-    type(C_PTR) function fftw_plan_guru64_split_dft_c2r(rank,dims,howmany_rank,howmany_dims,ri,ii,out,flags) &
-                         bind(C, name='fftw_plan_guru64_split_dft_c2r')
+    type(C_PTR) function fftw_plan_guru64_split_dft_c2r(rank,dims,howmany_rank,howmany_dims,ri,ii,out,flags) bind(C, name='fftw_plan_guru64_split_dft_c2r')
       import
       integer(C_INT), value :: rank
       type(fftw_iodim64), dimension(*), intent(in) :: dims
@@ -417,8 +401,7 @@ interface //####################################################################
       real(C_DOUBLE), dimension(*), intent(out) :: out
     end subroutine fftw_execute_split_dft_c2r
     
-    type(C_PTR) function fftw_plan_many_r2r(rank,n,howmany,in,inembed,istride,idist,out,onembed,ostride,odist,kind,flags) &
-                         bind(C, name='fftw_plan_many_r2r')
+    type(C_PTR) function fftw_plan_many_r2r(rank,n,howmany,in,inembed,istride,idist,out,onembed,ostride,odist,kind,flags) bind(C, name='fftw_plan_many_r2r')
       import
       integer(C_INT), value :: rank
       integer(C_INT), dimension(*), intent(in) :: n
@@ -478,8 +461,7 @@ interface //####################################################################
       integer(C_INT), value :: flags
     end function fftw_plan_r2r_3d
     
-    type(C_PTR) function fftw_plan_guru_r2r(rank,dims,howmany_rank,howmany_dims,in,out,kind,flags) &
-                         bind(C, name='fftw_plan_guru_r2r')
+    type(C_PTR) function fftw_plan_guru_r2r(rank,dims,howmany_rank,howmany_dims,in,out,kind,flags) bind(C, name='fftw_plan_guru_r2r')
       import
       integer(C_INT), value :: rank
       type(fftw_iodim), dimension(*), intent(in) :: dims
@@ -491,8 +473,7 @@ interface //####################################################################
       integer(C_INT), value :: flags
     end function fftw_plan_guru_r2r
     
-    type(C_PTR) function fftw_plan_guru64_r2r(rank,dims,howmany_rank,howmany_dims,in,out,kind,flags) &
-                         bind(C, name='fftw_plan_guru64_r2r')
+    type(C_PTR) function fftw_plan_guru64_r2r(rank,dims,howmany_rank,howmany_dims,in,out,kind,flags) bind(C, name='fftw_plan_guru64_r2r')
       import
       integer(C_INT), value :: rank
       type(fftw_iodim64), dimension(*), intent(in) :: dims
@@ -700,8 +681,7 @@ interface //####################################################################
       integer(C_INT), value :: flags
     end function fftwf_plan_dft_3d
     
-    type(C_PTR) function fftwf_plan_many_dft(rank,n,howmany,in,inembed,istride,idist,out,onembed,ostride,odist,sign,flags) &
-                         bind(C, name='fftwf_plan_many_dft')
+    type(C_PTR) function fftwf_plan_many_dft(rank,n,howmany,in,inembed,istride,idist,out,onembed,ostride,odist,sign,flags) bind(C, name='fftwf_plan_many_dft')
       import
       integer(C_INT), value :: rank
       integer(C_INT), dimension(*), intent(in) :: n
@@ -718,8 +698,7 @@ interface //####################################################################
       integer(C_INT), value :: flags
     end function fftwf_plan_many_dft
     
-    type(C_PTR) function fftwf_plan_guru_dft(rank,dims,howmany_rank,howmany_dims,in,out,sign,flags) &
-                         bind(C, name='fftwf_plan_guru_dft')
+    type(C_PTR) function fftwf_plan_guru_dft(rank,dims,howmany_rank,howmany_dims,in,out,sign,flags) bind(C, name='fftwf_plan_guru_dft')
       import
       integer(C_INT), value :: rank
       type(fftwf_iodim), dimension(*), intent(in) :: dims
@@ -731,8 +710,7 @@ interface //####################################################################
       integer(C_INT), value :: flags
     end function fftwf_plan_guru_dft
     
-    type(C_PTR) function fftwf_plan_guru_split_dft(rank,dims,howmany_rank,howmany_dims,ri,ii,ro,io,flags) &
-                         bind(C, name='fftwf_plan_guru_split_dft')
+    type(C_PTR) function fftwf_plan_guru_split_dft(rank,dims,howmany_rank,howmany_dims,ri,ii,ro,io,flags) bind(C, name='fftwf_plan_guru_split_dft')
       import
       integer(C_INT), value :: rank
       type(fftwf_iodim), dimension(*), intent(in) :: dims
@@ -745,8 +723,7 @@ interface //####################################################################
       integer(C_INT), value :: flags
     end function fftwf_plan_guru_split_dft
     
-    type(C_PTR) function fftwf_plan_guru64_dft(rank,dims,howmany_rank,howmany_dims,in,out,sign,flags) &
-                         bind(C, name='fftwf_plan_guru64_dft')
+    type(C_PTR) function fftwf_plan_guru64_dft(rank,dims,howmany_rank,howmany_dims,in,out,sign,flags) bind(C, name='fftwf_plan_guru64_dft')
       import
       integer(C_INT), value :: rank
       type(fftwf_iodim64), dimension(*), intent(in) :: dims
@@ -758,8 +735,7 @@ interface //####################################################################
       integer(C_INT), value :: flags
     end function fftwf_plan_guru64_dft
     
-    type(C_PTR) function fftwf_plan_guru64_split_dft(rank,dims,howmany_rank,howmany_dims,ri,ii,ro,io,flags) &
-                         bind(C, name='fftwf_plan_guru64_split_dft')
+    type(C_PTR) function fftwf_plan_guru64_split_dft(rank,dims,howmany_rank,howmany_dims,ri,ii,ro,io,flags) bind(C, name='fftwf_plan_guru64_split_dft')
       import
       integer(C_INT), value :: rank
       type(fftwf_iodim64), dimension(*), intent(in) :: dims
@@ -788,8 +764,7 @@ interface //####################################################################
       real(C_FLOAT), dimension(*), intent(out) :: io
     end subroutine fftwf_execute_split_dft
     
-    type(C_PTR) function fftwf_plan_many_dft_r2c(rank,n,howmany,in,inembed,istride,idist,out,onembed,ostride,odist,flags) &
-                         bind(C, name='fftwf_plan_many_dft_r2c')
+    type(C_PTR) function fftwf_plan_many_dft_r2c(rank,n,howmany,in,inembed,istride,idist,out,onembed,ostride,odist,flags) bind(C, name='fftwf_plan_many_dft_r2c')
       import
       integer(C_INT), value :: rank
       integer(C_INT), dimension(*), intent(in) :: n
@@ -841,8 +816,7 @@ interface //####################################################################
       integer(C_INT), value :: flags
     end function fftwf_plan_dft_r2c_3d
     
-    type(C_PTR) function fftwf_plan_many_dft_c2r(rank,n,howmany,in,inembed,istride,idist,out,onembed,ostride,odist,flags) &
-                         bind(C, name='fftwf_plan_many_dft_c2r')
+    type(C_PTR) function fftwf_plan_many_dft_c2r(rank,n,howmany,in,inembed,istride,idist,out,onembed,ostride,odist,flags) bind(C, name='fftwf_plan_many_dft_c2r')
       import
       integer(C_INT), value :: rank
       integer(C_INT), dimension(*), intent(in) :: n
@@ -894,8 +868,7 @@ interface //####################################################################
       integer(C_INT), value :: flags
     end function fftwf_plan_dft_c2r_3d
     
-    type(C_PTR) function fftwf_plan_guru_dft_r2c(rank,dims,howmany_rank,howmany_dims,in,out,flags) &
-                         bind(C, name='fftwf_plan_guru_dft_r2c')
+    type(C_PTR) function fftwf_plan_guru_dft_r2c(rank,dims,howmany_rank,howmany_dims,in,out,flags) bind(C, name='fftwf_plan_guru_dft_r2c')
       import
       integer(C_INT), value :: rank
       type(fftwf_iodim), dimension(*), intent(in) :: dims
@@ -906,8 +879,7 @@ interface //####################################################################
       integer(C_INT), value :: flags
     end function fftwf_plan_guru_dft_r2c
     
-    type(C_PTR) function fftwf_plan_guru_dft_c2r(rank,dims,howmany_rank,howmany_dims,in,out,flags) &
-                         bind(C, name='fftwf_plan_guru_dft_c2r')
+    type(C_PTR) function fftwf_plan_guru_dft_c2r(rank,dims,howmany_rank,howmany_dims,in,out,flags) bind(C, name='fftwf_plan_guru_dft_c2r')
       import
       integer(C_INT), value :: rank
       type(fftwf_iodim), dimension(*), intent(in) :: dims
@@ -918,8 +890,7 @@ interface //####################################################################
       integer(C_INT), value :: flags
     end function fftwf_plan_guru_dft_c2r
     
-    type(C_PTR) function fftwf_plan_guru_split_dft_r2c(rank,dims,howmany_rank,howmany_dims,in,ro,io,flags) &
-                         bind(C, name='fftwf_plan_guru_split_dft_r2c')
+    type(C_PTR) function fftwf_plan_guru_split_dft_r2c(rank,dims,howmany_rank,howmany_dims,in,ro,io,flags) bind(C, name='fftwf_plan_guru_split_dft_r2c')
       import
       integer(C_INT), value :: rank
       type(fftwf_iodim), dimension(*), intent(in) :: dims
@@ -931,8 +902,7 @@ interface //####################################################################
       integer(C_INT), value :: flags
     end function fftwf_plan_guru_split_dft_r2c
     
-    type(C_PTR) function fftwf_plan_guru_split_dft_c2r(rank,dims,howmany_rank,howmany_dims,ri,ii,out,flags) &
-                         bind(C, name='fftwf_plan_guru_split_dft_c2r')
+    type(C_PTR) function fftwf_plan_guru_split_dft_c2r(rank,dims,howmany_rank,howmany_dims,ri,ii,out,flags) bind(C, name='fftwf_plan_guru_split_dft_c2r')
       import
       integer(C_INT), value :: rank
       type(fftwf_iodim), dimension(*), intent(in) :: dims
@@ -944,8 +914,7 @@ interface //####################################################################
       integer(C_INT), value :: flags
     end function fftwf_plan_guru_split_dft_c2r
     
-    type(C_PTR) function fftwf_plan_guru64_dft_r2c(rank,dims,howmany_rank,howmany_dims,in,out,flags) &
-                         bind(C, name='fftwf_plan_guru64_dft_r2c')
+    type(C_PTR) function fftwf_plan_guru64_dft_r2c(rank,dims,howmany_rank,howmany_dims,in,out,flags) bind(C, name='fftwf_plan_guru64_dft_r2c')
       import
       integer(C_INT), value :: rank
       type(fftwf_iodim64), dimension(*), intent(in) :: dims
@@ -956,8 +925,7 @@ interface //####################################################################
       integer(C_INT), value :: flags
     end function fftwf_plan_guru64_dft_r2c
     
-    type(C_PTR) function fftwf_plan_guru64_dft_c2r(rank,dims,howmany_rank,howmany_dims,in,out,flags) &
-                         bind(C, name='fftwf_plan_guru64_dft_c2r')
+    type(C_PTR) function fftwf_plan_guru64_dft_c2r(rank,dims,howmany_rank,howmany_dims,in,out,flags) bind(C, name='fftwf_plan_guru64_dft_c2r')
       import
       integer(C_INT), value :: rank
       type(fftwf_iodim64), dimension(*), intent(in) :: dims
@@ -968,8 +936,7 @@ interface //####################################################################
       integer(C_INT), value :: flags
     end function fftwf_plan_guru64_dft_c2r
     
-    type(C_PTR) function fftwf_plan_guru64_split_dft_r2c(rank,dims,howmany_rank,howmany_dims,in,ro,io,flags) &
-                         bind(C, name='fftwf_plan_guru64_split_dft_r2c')
+    type(C_PTR) function fftwf_plan_guru64_split_dft_r2c(rank,dims,howmany_rank,howmany_dims,in,ro,io,flags) bind(C, name='fftwf_plan_guru64_split_dft_r2c')
       import
       integer(C_INT), value :: rank
       type(fftwf_iodim64), dimension(*), intent(in) :: dims
@@ -981,8 +948,7 @@ interface //####################################################################
       integer(C_INT), value :: flags
     end function fftwf_plan_guru64_split_dft_r2c
     
-    type(C_PTR) function fftwf_plan_guru64_split_dft_c2r(rank,dims,howmany_rank,howmany_dims,ri,ii,out,flags) &
-                         bind(C, name='fftwf_plan_guru64_split_dft_c2r')
+    type(C_PTR) function fftwf_plan_guru64_split_dft_c2r(rank,dims,howmany_rank,howmany_dims,ri,ii,out,flags) bind(C, name='fftwf_plan_guru64_split_dft_c2r')
       import
       integer(C_INT), value :: rank
       type(fftwf_iodim64), dimension(*), intent(in) :: dims
@@ -1024,8 +990,7 @@ interface //####################################################################
       real(C_FLOAT), dimension(*), intent(out) :: out
     end subroutine fftwf_execute_split_dft_c2r
     
-    type(C_PTR) function fftwf_plan_many_r2r(rank,n,howmany,in,inembed,istride,idist,out,onembed,ostride,odist,kind,flags) &
-                         bind(C, name='fftwf_plan_many_r2r')
+    type(C_PTR) function fftwf_plan_many_r2r(rank,n,howmany,in,inembed,istride,idist,out,onembed,ostride,odist,kind,flags) bind(C, name='fftwf_plan_many_r2r')
       import
       integer(C_INT), value :: rank
       integer(C_INT), dimension(*), intent(in) :: n
@@ -1085,8 +1050,7 @@ interface //####################################################################
       integer(C_INT), value :: flags
     end function fftwf_plan_r2r_3d
     
-    type(C_PTR) function fftwf_plan_guru_r2r(rank,dims,howmany_rank,howmany_dims,in,out,kind,flags) &
-                         bind(C, name='fftwf_plan_guru_r2r')
+    type(C_PTR) function fftwf_plan_guru_r2r(rank,dims,howmany_rank,howmany_dims,in,out,kind,flags) bind(C, name='fftwf_plan_guru_r2r')
       import
       integer(C_INT), value :: rank
       type(fftwf_iodim), dimension(*), intent(in) :: dims
@@ -1098,8 +1062,7 @@ interface //####################################################################
       integer(C_INT), value :: flags
     end function fftwf_plan_guru_r2r
     
-    type(C_PTR) function fftwf_plan_guru64_r2r(rank,dims,howmany_rank,howmany_dims,in,out,kind,flags) &
-                         bind(C, name='fftwf_plan_guru64_r2r')
+    type(C_PTR) function fftwf_plan_guru64_r2r(rank,dims,howmany_rank,howmany_dims,in,out,kind,flags) bind(C, name='fftwf_plan_guru64_r2r')
       import
       integer(C_INT), value :: rank
       type(fftwf_iodim64), dimension(*), intent(in) :: dims
@@ -1256,8 +1219,6 @@ interface //####################################################################
       import
       real(C_FLOAT), dimension(*), intent(out) :: p
     end function fftwf_alignment_of
-    
-  end interface
 
 implementation //############################################################### ■
 
