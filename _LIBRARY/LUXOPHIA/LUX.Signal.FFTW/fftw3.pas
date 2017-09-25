@@ -630,17 +630,18 @@ interface //####################################################################
       import
       real(C_DOUBLE), dimension(*), intent(out) :: p
     end function fftw_alignment_of
-    
-  end interface
 
-  type, bind(C) :: fftwf_iodim
-     integer(C_INT) n, is, os
-  end type fftwf_iodim
-  type, bind(C) :: fftwf_iodim64
-     integer(C_INTPTR_T) n, is, os
-  end type fftwf_iodim64
+  type Tfftwf_iodim = record
+         _n  :TC_INT;
+         _is :TC_INT;
+         _os :TC_INT;
+       end;
+  type Tfftwf_iodim64 = record
+         _n  :TC_INTPTR_T;
+         _is :TC_INTPTR_T;
+         _os :TC_INTPTR_T;
+       end;
 
-  interface
     function fftwf_plan_dft(
       import
       integer(C_INT), value :: rank
