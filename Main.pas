@@ -195,6 +195,8 @@ end;
 
 procedure TForm1.FormCreate(Sender: TObject);
 begin
+     ScrollBarN.SmallChange := 1;
+
      _FFT := TDoubleFFT.Create;
 
      ScrollBarNChange( Sender );
