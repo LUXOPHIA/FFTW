@@ -2,6 +2,22 @@
 
 interface //#################################################################### ■
 
+uses LUX.Complex;
+
+type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+     TC_INT = Integer;  PC_INT = PInteger;
+
+     TC_INT32_T = Int32;
+
+     TC_INTPTR_T = IntPtr;
+
+     TC_DOUBLE_COMPLEX = TDoubleC;  PC_DOUBLE_COMPLEX = ^TSingleC;
+
+     TC_PTR = Pointer;
+
+////////////////////////////////////////////////////////////////////////////////
+
   type TC_FFTW_R2R_KIND = TC_INT32_T;
 
   const FFTW_R2HC                   :TC_INT = 0;
@@ -54,7 +70,7 @@ interface //####################################################################
 
     function fftw_plan_dft(
       rank_ :TC_INT;
-   in n_ :PC_INT;
+const n_ :PC_INT;
   out in_ :PC_DOUBLE_COMPLEX;
   out out_ :PC_DOUBLE_COMPLEX;
       sign_ :TC_INT;
@@ -90,14 +106,14 @@ interface //####################################################################
     
     function fftw_plan_many_dft(
       rank_ :TC_INT;
-   in n_ :PC_INT;
+const n_ :PC_INT;
       howmany_ :TC_INT;
   out in_ :PC_DOUBLE_COMPLEX;
-   in inembed_ :PC_INT;
+const inembed_ :PC_INT;
       istride_ :TC_INT;
       idist_ :TC_INT;
   out out_ :PC_DOUBLE_COMPLEX;
-   in onembed_ :PC_INT;
+const onembed_ :PC_INT;
       ostride_ :TC_INT;
       odist_ :TC_INT;
       sign_ :TC_INT;
@@ -106,9 +122,9 @@ interface //####################################################################
     
     function fftw_plan_guru_dft(
       rank_ :TC_INT;
-   in dims_ :Pfftw_iodim;
+const dims_ :Pfftw_iodim;
       howmany_rank_ :TC_INT;
-   in howmany_dims_ :Pfftw_iodim;
+const howmany_dims_ :Pfftw_iodim;
   out in_ :PC_DOUBLE_COMPLEX;
   out out_ :PC_DOUBLE_COMPLEX;
       sign_ :TC_INT;
@@ -117,9 +133,9 @@ interface //####################################################################
     
     function fftw_plan_guru_split_dft(
       rank_ :TC_INT;
-   in dims_ :Pfftw_iodim;
+const dims_ :Pfftw_iodim;
       howmany_rank_ :TC_INT;
-   in howmany_dims_ :Pfftw_iodim;
+const howmany_dims_ :Pfftw_iodim;
   out ri_ :PC_DOUBLE;
   out ii_ :PC_DOUBLE;
   out ro_ :PC_DOUBLE;
@@ -129,9 +145,9 @@ interface //####################################################################
     
     function fftw_plan_guru64_dft(
       rank_ :TC_INT;
-   in dims_ :Pfftw_iodim64;
+const dims_ :Pfftw_iodim64;
       howmany_rank_ :TC_INT;
-   in howmany_dims_ :Pfftw_iodim64;
+const howmany_dims_ :Pfftw_iodim64;
   out in_ :PC_DOUBLE_COMPLEX;
   out out_ :PC_DOUBLE_COMPLEX;
       sign_ :TC_INT;
@@ -140,9 +156,9 @@ interface //####################################################################
     
     function fftw_plan_guru64_split_dft(
       rank_ :TC_INT;
-   in dims_ :Pfftw_iodim64;
+const dims_ :Pfftw_iodim64;
       howmany_rank_ :TC_INT;
-   in howmany_dims_ :Pfftw_iodim64;
+const howmany_dims_ :Pfftw_iodim64;
   out ri_ :PC_DOUBLE;
   out ii_ :PC_DOUBLE;
   out ro_ :PC_DOUBLE;
@@ -166,14 +182,14 @@ interface //####################################################################
     
     function fftw_plan_many_dft_r2c(
       rank_ :TC_INT;
-   in n_ :PC_INT;
+const n_ :PC_INT;
       howmany_ :TC_INT;
   out in_ :PC_DOUBLE;
-   in inembed_ :PC_INT;
+const inembed_ :PC_INT;
       istride_ :TC_INT;
       idist_ :TC_INT;
   out out_ :PC_DOUBLE_COMPLEX;
-   in onembed_ :PC_INT;
+const onembed_ :PC_INT;
       ostride_ :TC_INT;
       odist_ :TC_INT;
       flags_ :TC_INT;
@@ -181,7 +197,7 @@ interface //####################################################################
     
     function fftw_plan_dft_r2c(
       rank_ :TC_INT;
-   in n_ :PC_INT;
+const n_ :PC_INT;
   out in_ :PC_DOUBLE;
   out out_ :PC_DOUBLE_COMPLEX;
       flags_ :TC_INT;
@@ -213,14 +229,14 @@ interface //####################################################################
     
     function fftw_plan_many_dft_c2r(
       rank_ :TC_INT;
-   in n_ :PC_INT;
+const n_ :PC_INT;
       howmany_ :TC_INT;
   out in_ :PC_DOUBLE_COMPLEX;
-   in inembed_ :PC_INT;
+const inembed_ :PC_INT;
       istride_ :TC_INT;
       idist_ :TC_INT;
   out out_ :PC_DOUBLE;
-   in onembed_ :PC_INT;
+const onembed_ :PC_INT;
       ostride_ :TC_INT;
       odist_ :TC_INT;
       flags_ :TC_INT;
@@ -228,7 +244,7 @@ interface //####################################################################
     
     function fftw_plan_dft_c2r(
       rank_ :TC_INT;
-   in n_ :PC_INT;
+const n_ :PC_INT;
   out in_ :PC_DOUBLE_COMPLEX;
   out out_ :PC_DOUBLE;
       flags_ :TC_INT;
@@ -260,9 +276,9 @@ interface //####################################################################
     
     function fftw_plan_guru_dft_r2c(
       rank_ :TC_INT;
-   in dims_ :Pfftw_iodim;
+const dims_ :Pfftw_iodim;
       howmany_rank_ :TC_INT;
-   in howmany_dims_ :Pfftw_iodim;
+const howmany_dims_ :Pfftw_iodim;
   out in_ :PC_DOUBLE;
   out out_ :PC_DOUBLE_COMPLEX;
       flags_ :TC_INT;
@@ -270,9 +286,9 @@ interface //####################################################################
     
     function fftw_plan_guru_dft_c2r(
       rank_ :TC_INT;
-   in dims_ :Pfftw_iodim;
+const dims_ :Pfftw_iodim;
       howmany_rank_ :TC_INT;
-   in howmany_dims_ :Pfftw_iodim;
+const howmany_dims_ :Pfftw_iodim;
   out in_ :PC_DOUBLE_COMPLEX;
   out out_ :PC_DOUBLE;
       flags_ :TC_INT;
@@ -280,9 +296,9 @@ interface //####################################################################
     
     function fftw_plan_guru_split_dft_r2c(
       rank_ :TC_INT;
-   in dims_ :Pfftw_iodim;
+const dims_ :Pfftw_iodim;
       howmany_rank_ :TC_INT;
-   in howmany_dims_ :Pfftw_iodim;
+const howmany_dims_ :Pfftw_iodim;
   out in_ :PC_DOUBLE;
   out ro_ :PC_DOUBLE;
   out io_ :PC_DOUBLE;
@@ -291,9 +307,9 @@ interface //####################################################################
     
     function fftw_plan_guru_split_dft_c2r(
       rank_ :TC_INT;
-   in dims_ :Pfftw_iodim;
+const dims_ :Pfftw_iodim;
       howmany_rank_ :TC_INT;
-   in howmany_dims_ :Pfftw_iodim;
+const howmany_dims_ :Pfftw_iodim;
   out ri_ :PC_DOUBLE;
   out ii_ :PC_DOUBLE;
   out out_ :PC_DOUBLE;
@@ -302,9 +318,9 @@ interface //####################################################################
     
     function fftw_plan_guru64_dft_r2c(
       rank_ :TC_INT;
-   in dims_ :Pfftw_iodim64;
+const dims_ :Pfftw_iodim64;
       howmany_rank_ :TC_INT;
-   in howmany_dims_ :Pfftw_iodim64;
+const howmany_dims_ :Pfftw_iodim64;
   out in_ :PC_DOUBLE;
   out out_ :PC_DOUBLE_COMPLEX;
       flags_ :TC_INT;
@@ -312,9 +328,9 @@ interface //####################################################################
     
     function fftw_plan_guru64_dft_c2r(
       rank_ :TC_INT;
-   in dims_ :Pfftw_iodim64;
+const dims_ :Pfftw_iodim64;
       howmany_rank_ :TC_INT;
-   in howmany_dims_ :Pfftw_iodim64;
+const howmany_dims_ :Pfftw_iodim64;
   out in_ :PC_DOUBLE_COMPLEX;
   out out_ :PC_DOUBLE;
       flags_ :TC_INT;
@@ -322,9 +338,9 @@ interface //####################################################################
     
     function fftw_plan_guru64_split_dft_r2c(
       rank_ :TC_INT;
-   in dims_ :Pfftw_iodim64;
+const dims_ :Pfftw_iodim64;
       howmany_rank_ :TC_INT;
-   in howmany_dims_ :Pfftw_iodim64;
+const howmany_dims_ :Pfftw_iodim64;
   out in_ :PC_DOUBLE;
   out ro_ :PC_DOUBLE;
   out io_ :PC_DOUBLE;
@@ -333,9 +349,9 @@ interface //####################################################################
     
     function fftw_plan_guru64_split_dft_c2r(
       rank_ :TC_INT;
-   in dims_ :Pfftw_iodim64;
+const dims_ :Pfftw_iodim64;
       howmany_rank_ :TC_INT;
-   in howmany_dims_ :Pfftw_iodim64;
+const howmany_dims_ :Pfftw_iodim64;
   out ri_ :PC_DOUBLE;
   out ii_ :PC_DOUBLE;
   out out_ :PC_DOUBLE;
@@ -370,26 +386,26 @@ interface //####################################################################
     
     function fftw_plan_many_r2r(
       rank_ :TC_INT;
-   in n_ :PC_INT;
+const n_ :PC_INT;
       howmany_ :TC_INT;
   out in_ :PC_DOUBLE;
-   in inembed_ :PC_INT;
+const inembed_ :PC_INT;
       istride_ :TC_INT;
       idist_ :TC_INT;
   out out_ :PC_DOUBLE;
-   in onembed_ :PC_INT;
+const onembed_ :PC_INT;
       ostride_ :TC_INT;
       odist_ :TC_INT;
-   in kind_ :PC_FFTW_R2R_KIND;
+const kind_ :PC_FFTW_R2R_KIND;
       flags_ :TC_INT;
     ) :TC_PTR; cdecl; external _DLLNAME_;
     
     function fftw_plan_r2r(
       rank_ :TC_INT;
-   in n_ :PC_INT;
+const n_ :PC_INT;
   out in_ :PC_DOUBLE;
   out out_ :PC_DOUBLE;
-   in kind_ :PC_FFTW_R2R_KIND;
+const kind_ :PC_FFTW_R2R_KIND;
       flags_ :TC_INT;
     ) :TC_PTR; cdecl; external _DLLNAME_;
     
@@ -425,23 +441,23 @@ interface //####################################################################
     
     function fftw_plan_guru_r2r(
       rank_ :TC_INT;
-   in dims_ :Pfftw_iodim;
+const dims_ :Pfftw_iodim;
       howmany_rank_ :TC_INT;
-   in howmany_dims_ :Pfftw_iodim;
+const howmany_dims_ :Pfftw_iodim;
   out in_ :PC_DOUBLE;
   out out_ :PC_DOUBLE;
-   in kind_ :PC_FFTW_R2R_KIND;
+const kind_ :PC_FFTW_R2R_KIND;
       flags_ :TC_INT;
     ) :TC_PTR; cdecl; external _DLLNAME_;
     
     function fftw_plan_guru64_r2r(
       rank_ :TC_INT;
-   in dims_ :Pfftw_iodim64;
+const dims_ :Pfftw_iodim64;
       howmany_rank_ :TC_INT;
-   in howmany_dims_ :Pfftw_iodim64;
+const howmany_dims_ :Pfftw_iodim64;
   out in_ :PC_DOUBLE;
   out out_ :PC_DOUBLE;
-   in kind_ :PC_FFTW_R2R_KIND;
+const kind_ :PC_FFTW_R2R_KIND;
       flags_ :TC_INT;
     ) :TC_PTR; cdecl; external _DLLNAME_;
     
@@ -479,7 +495,7 @@ interface //####################################################################
     ); cdecl; external _DLLNAME_;
     
     function fftw_export_wisdom_to_filename(
-   in filename_ :PC_CHAR;
+const filename_ :PC_CHAR;
     ) :TC_INT; cdecl; external _DLLNAME_;
     
     procedure fftw_export_wisdom_to_file(
@@ -498,7 +514,7 @@ interface //####################################################################
     end function fftw_import_system_wisdom
     
     function fftw_import_wisdom_from_filename(
-   in filename_ :PC_CHAR;
+const filename_ :PC_CHAR;
     ) :TC_INT; cdecl; external _DLLNAME_;
     
     function fftw_import_wisdom_from_file(
@@ -506,7 +522,7 @@ interface //####################################################################
     ) :TC_INT; cdecl; external _DLLNAME_;
     
     function fftw_import_wisdom_from_string(
-   in input_string_ :PC_CHAR;
+const input_string_ :PC_CHAR;
     ) :TC_INT; cdecl; external _DLLNAME_;
     
     function fftw_import_wisdom(
@@ -575,7 +591,7 @@ interface //####################################################################
 
     function fftwf_plan_dft(
       rank_ :TC_INT;
-   in n_ :PC_INT;
+const n_ :PC_INT;
   out in_ :PC_FLOAT_COMPLEX;
   out out_ :PC_FLOAT_COMPLEX;
       sign_ :TC_INT;
@@ -611,14 +627,14 @@ interface //####################################################################
     
     function fftwf_plan_many_dft(
       rank_ :TC_INT;
-   in n_ :PC_INT;
+const n_ :PC_INT;
       howmany_ :TC_INT;
   out in_ :PC_FLOAT_COMPLEX;
-   in inembed_ :PC_INT;
+const inembed_ :PC_INT;
       istride_ :TC_INT;
       idist_ :TC_INT;
   out out_ :PC_FLOAT_COMPLEX;
-   in onembed_ :PC_INT;
+const onembed_ :PC_INT;
       ostride_ :TC_INT;
       odist_ :TC_INT;
       sign_ :TC_INT;
@@ -627,9 +643,9 @@ interface //####################################################################
     
     function fftwf_plan_guru_dft(
       rank_ :TC_INT;
-   in dims_ :Pfftwf_iodim;
+const dims_ :Pfftwf_iodim;
       howmany_rank_ :TC_INT;
-   in howmany_dims_ :Pfftwf_iodim;
+const howmany_dims_ :Pfftwf_iodim;
   out in_ :PC_FLOAT_COMPLEX;
   out out_ :PC_FLOAT_COMPLEX;
       sign_ :TC_INT;
@@ -638,9 +654,9 @@ interface //####################################################################
     
     function fftwf_plan_guru_split_dft(
       rank_ :TC_INT;
-   in dims_ :Pfftwf_iodim;
+const dims_ :Pfftwf_iodim;
       howmany_rank_ :TC_INT;
-   in howmany_dims_ :Pfftwf_iodim;
+const howmany_dims_ :Pfftwf_iodim;
   out ri_ :PC_FLOAT;
   out ii_ :PC_FLOAT;
   out ro_ :PC_FLOAT;
@@ -650,9 +666,9 @@ interface //####################################################################
     
     function fftwf_plan_guru64_dft(
       rank_ :TC_INT;
-   in dims_ :Pfftwf_iodim64;
+const dims_ :Pfftwf_iodim64;
       howmany_rank_ :TC_INT;
-   in howmany_dims_ :Pfftwf_iodim64;
+const howmany_dims_ :Pfftwf_iodim64;
   out in_ :PC_FLOAT_COMPLEX;
   out out_ :PC_FLOAT_COMPLEX;
       sign_ :TC_INT;
@@ -661,9 +677,9 @@ interface //####################################################################
     
     function fftwf_plan_guru64_split_dft(
       rank_ :TC_INT;
-   in dims_ :Pfftwf_iodim64;
+const dims_ :Pfftwf_iodim64;
       howmany_rank_ :TC_INT;
-   in howmany_dims_ :Pfftwf_iodim64;
+const howmany_dims_ :Pfftwf_iodim64;
   out ri_ :PC_FLOAT;
   out ii_ :PC_FLOAT;
   out ro_ :PC_FLOAT;
@@ -687,14 +703,14 @@ interface //####################################################################
     
     function fftwf_plan_many_dft_r2c(
       rank_ :TC_INT;
-   in n_ :PC_INT;
+const n_ :PC_INT;
       howmany_ :TC_INT;
   out in_ :PC_FLOAT;
-   in inembed_ :PC_INT;
+const inembed_ :PC_INT;
       istride_ :TC_INT;
       idist_ :TC_INT;
   out out_ :PC_FLOAT_COMPLEX;
-   in onembed_ :PC_INT;
+const onembed_ :PC_INT;
       ostride_ :TC_INT;
       odist_ :TC_INT;
       flags_ :TC_INT;
@@ -702,7 +718,7 @@ interface //####################################################################
     
     function fftwf_plan_dft_r2c(
       rank_ :TC_INT;
-   in n_ :PC_INT;
+const n_ :PC_INT;
   out in_ :PC_FLOAT;
   out out_ :PC_FLOAT_COMPLEX;
       flags_ :TC_INT;
@@ -734,14 +750,14 @@ interface //####################################################################
     
     function fftwf_plan_many_dft_c2r(
       rank_ :TC_INT;
-   in n_ :PC_INT;
+const n_ :PC_INT;
       howmany_ :TC_INT;
   out in_ :PC_FLOAT_COMPLEX;
-   in inembed_ :PC_INT;
+const inembed_ :PC_INT;
       istride_ :TC_INT;
       idist_ :TC_INT;
   out out_ :PC_FLOAT;
-   in onembed_ :PC_INT;
+const onembed_ :PC_INT;
       ostride_ :TC_INT;
       odist_ :TC_INT;
       flags_ :TC_INT;
@@ -749,7 +765,7 @@ interface //####################################################################
     
     function fftwf_plan_dft_c2r(
       rank_ :TC_INT;
-   in n_ :PC_INT;
+const n_ :PC_INT;
   out in_ :PC_FLOAT_COMPLEX;
   out out_ :PC_FLOAT;
       flags_ :TC_INT;
@@ -781,9 +797,9 @@ interface //####################################################################
     
     function fftwf_plan_guru_dft_r2c(
       rank_ :TC_INT;
-   in dims_ :Pfftwf_iodim;
+const dims_ :Pfftwf_iodim;
       howmany_rank_ :TC_INT;
-   in howmany_dims_ :Pfftwf_iodim;
+const howmany_dims_ :Pfftwf_iodim;
   out in_ :PC_FLOAT;
   out out_ :PC_FLOAT_COMPLEX;
       flags_ :TC_INT;
@@ -791,9 +807,9 @@ interface //####################################################################
     
     function fftwf_plan_guru_dft_c2r(
       rank_ :TC_INT;
-   in dims_ :Pfftwf_iodim;
+const dims_ :Pfftwf_iodim;
       howmany_rank_ :TC_INT;
-   in howmany_dims_ :Pfftwf_iodim;
+const howmany_dims_ :Pfftwf_iodim;
   out in_ :PC_FLOAT_COMPLEX;
   out out_ :PC_FLOAT;
       flags_ :TC_INT;
@@ -801,9 +817,9 @@ interface //####################################################################
     
     function fftwf_plan_guru_split_dft_r2c(
       rank_ :TC_INT;
-   in dims_ :Pfftwf_iodim;
+const dims_ :Pfftwf_iodim;
       howmany_rank_ :TC_INT;
-   in howmany_dims_ :Pfftwf_iodim;
+const howmany_dims_ :Pfftwf_iodim;
   out in_ :PC_FLOAT;
   out ro_ :PC_FLOAT;
   out io_ :PC_FLOAT;
@@ -812,9 +828,9 @@ interface //####################################################################
     
     function fftwf_plan_guru_split_dft_c2r(
       rank_ :TC_INT;
-   in dims_ :Pfftwf_iodim;
+const dims_ :Pfftwf_iodim;
       howmany_rank_ :TC_INT;
-   in howmany_dims_ :Pfftwf_iodim;
+const howmany_dims_ :Pfftwf_iodim;
   out ri_ :PC_FLOAT;
   out ii_ :PC_FLOAT;
   out out_ :PC_FLOAT;
@@ -823,9 +839,9 @@ interface //####################################################################
     
     function fftwf_plan_guru64_dft_r2c(
       rank_ :TC_INT;
-   in dims_ :Pfftwf_iodim64;
+const dims_ :Pfftwf_iodim64;
       howmany_rank_ :TC_INT;
-   in howmany_dims_ :Pfftwf_iodim64;
+const howmany_dims_ :Pfftwf_iodim64;
   out in_ :PC_FLOAT;
   out out_ :PC_FLOAT_COMPLEX;
       flags_ :TC_INT;
@@ -833,9 +849,9 @@ interface //####################################################################
     
     function fftwf_plan_guru64_dft_c2r(
       rank_ :TC_INT;
-   in dims_ :Pfftwf_iodim64;
+const dims_ :Pfftwf_iodim64;
       howmany_rank_ :TC_INT;
-   in howmany_dims_ :Pfftwf_iodim64;
+const howmany_dims_ :Pfftwf_iodim64;
   out in_ :PC_FLOAT_COMPLEX;
   out out_ :PC_FLOAT;
       flags_ :TC_INT;
@@ -843,9 +859,9 @@ interface //####################################################################
     
     function fftwf_plan_guru64_split_dft_r2c(
       rank_ :TC_INT;
-   in dims_ :Pfftwf_iodim64;
+const dims_ :Pfftwf_iodim64;
       howmany_rank_ :TC_INT;
-   in howmany_dims_ :Pfftwf_iodim64;
+const howmany_dims_ :Pfftwf_iodim64;
   out in_ :PC_FLOAT;
   out ro_ :PC_FLOAT;
   out io_ :PC_FLOAT;
@@ -854,9 +870,9 @@ interface //####################################################################
     
     function fftwf_plan_guru64_split_dft_c2r(
       rank_ :TC_INT;
-   in dims_ :Pfftwf_iodim64;
+const dims_ :Pfftwf_iodim64;
       howmany_rank_ :TC_INT;
-   in howmany_dims_ :Pfftwf_iodim64;
+const howmany_dims_ :Pfftwf_iodim64;
   out ri_ :PC_FLOAT;
   out ii_ :PC_FLOAT;
   out out_ :PC_FLOAT;
@@ -891,26 +907,26 @@ interface //####################################################################
     
     function fftwf_plan_many_r2r(
       rank_ :TC_INT;
-   in n_ :PC_INT;
+const n_ :PC_INT;
       howmany_ :TC_INT;
   out in_ :PC_FLOAT;
-   in inembed_ :PC_INT;
+const inembed_ :PC_INT;
       istride_ :TC_INT;
       idist_ :TC_INT;
   out out_ :PC_FLOAT;
-   in onembed_ :PC_INT;
+const onembed_ :PC_INT;
       ostride_ :TC_INT;
       odist_ :TC_INT;
-   in kind_ :PC_FFTW_R2R_KIND;
+const kind_ :PC_FFTW_R2R_KIND;
       flags_ :TC_INT;
     ) :TC_PTR; cdecl; external _DLLNAME_;
     
     function fftwf_plan_r2r(
       rank_ :TC_INT;
-   in n_ :PC_INT;
+const n_ :PC_INT;
   out in_ :PC_FLOAT;
   out out_ :PC_FLOAT;
-   in kind_ :PC_FFTW_R2R_KIND;
+const kind_ :PC_FFTW_R2R_KIND;
       flags_ :TC_INT;
     ) :TC_PTR; cdecl; external _DLLNAME_;
     
@@ -946,23 +962,23 @@ interface //####################################################################
     
     function fftwf_plan_guru_r2r(
       rank_ :TC_INT;
-   in dims_ :Pfftwf_iodim;
+const dims_ :Pfftwf_iodim;
       howmany_rank_ :TC_INT;
-   in howmany_dims_ :Pfftwf_iodim;
+const howmany_dims_ :Pfftwf_iodim;
   out in_ :PC_FLOAT;
   out out_ :PC_FLOAT;
-   in kind_ :PC_FFTW_R2R_KIND;
+const kind_ :PC_FFTW_R2R_KIND;
       flags_ :TC_INT;
     ) :TC_PTR; cdecl; external _DLLNAME_;
     
     function fftwf_plan_guru64_r2r(
       rank_ :TC_INT;
-   in dims_ :Pfftwf_iodim64;
+const dims_ :Pfftwf_iodim64;
       howmany_rank_ :TC_INT;
-   in howmany_dims_ :Pfftwf_iodim64;
+const howmany_dims_ :Pfftwf_iodim64;
   out in_ :PC_FLOAT;
   out out_ :PC_FLOAT;
-   in kind_ :PC_FFTW_R2R_KIND;
+const kind_ :PC_FFTW_R2R_KIND;
       flags_ :TC_INT;
     ) :TC_PTR; cdecl; external _DLLNAME_;
     
@@ -1000,7 +1016,7 @@ interface //####################################################################
     ); cdecl; external _DLLNAME_;
     
     function fftwf_export_wisdom_to_filename(
-   in filename_ :PC_CHAR;
+const filename_ :PC_CHAR;
     ) :TC_INT; cdecl; external _DLLNAME_;
     
     procedure fftwf_export_wisdom_to_file(
@@ -1019,7 +1035,7 @@ interface //####################################################################
     end function fftwf_import_system_wisdom
     
     function fftwf_import_wisdom_from_filename(
-   in filename_ :PC_CHAR;
+const filename_ :PC_CHAR;
     ) :TC_INT; cdecl; external _DLLNAME_;
     
     function fftwf_import_wisdom_from_file(
@@ -1027,7 +1043,7 @@ interface //####################################################################
     ) :TC_INT; cdecl; external _DLLNAME_;
     
     function fftwf_import_wisdom_from_string(
-   in input_string_ :PC_CHAR;
+const input_string_ :PC_CHAR;
     ) :TC_INT; cdecl; external _DLLNAME_;
     
     function fftwf_import_wisdom(
