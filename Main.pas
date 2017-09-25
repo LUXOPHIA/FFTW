@@ -5,12 +5,12 @@ interface //####################################################################
 uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs,
+  FMX.StdCtrls, FMX.Controls.Presentation,
   LUX,
   LUX.D1,
   LUX.Complex,
   LUX.Signal.FFTW,
-  FMX.Controls.Presentation, FMX.ScrollBox, FMX.Memo, FMX.Media, FMX.StdCtrls,
-  FMX.Objects, LUX.Chart.LineChart;
+  LUX.Chart.LineChart;
 
 type
   TForm1 = class(TForm)
@@ -18,10 +18,11 @@ type
     LineChartF: TLineChart;
     Timer1: TTimer;
     Panel1: TPanel;
-      ScrollBar1: TScrollBar;
+      LabelN: TLabel;
+      ScrollBarN: TScrollBar;
     procedure FormCreate(Sender: TObject);
     procedure Timer1Timer(Sender: TObject);
-    procedure ScrollBar1Change(Sender: TObject);
+    procedure ScrollBarNChange(Sender: TObject);
   private
     { private 宣言 }
     ///// メソッド
@@ -146,26 +147,31 @@ end;
 
 function CosBell( const C_:TDoubleC ) :Double; overload;
 begin
-     with C_ do Result := CosBell( R ) * CosBell( I );
+     Result := CosBell( C_.Size );
+end;
+
+function MetroWalk( const C0:TDoubleC ) :TDoubleC;
+var
+   C1 :TDoubleC;
+   A :Double;
+begin
+     C1 := C0 + 0.05 * TDoubleC.RandG;
+
+     A := CosBell( C1 ) / CosBell( C0 );
+
+     if Random < A then Result := C1
+                   else Result := C0;
 end;
 
 procedure TForm1.RandomWalk;
 var
    I :Integer;
-   C0, C1 :TDoubleC;
-   A :Double;
 begin
      with _FFT do
      begin
           for I := 0 to TimesN-2 do Times[ I ] := Times[ I+1 ];
 
-          C0 := Times[ TimesN-2 ];
-
-          C1 := C0 + 0.05 * TDoubleC.RandG;
-
-          A := CosBell( C1 ) / CosBell( C0 );
-
-          if Random < A then Times[ TimesN-1 ] := C1;
+          Times[ TimesN-1 ] := MetroWalk( Times[ TimesN-2 ] );
      end;
 end;
 
@@ -177,7 +183,7 @@ procedure TForm1.FormCreate(Sender: TObject);
 begin
      _FFT := TDoubleFFT.Create;
 
-     ScrollBar1Change( Sender );
+     ScrollBarNChange( Sender );
 end;
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -195,10 +201,11 @@ end;
 
 //------------------------------------------------------------------------------
 
-procedure TForm1.ScrollBar1Change(Sender: TObject);
-
+procedure TForm1.ScrollBarNChange(Sender: TObject);
 begin
-     _FFT.TimesN := Round( ScrollBar1.Value );
+     _FFT.TimesN := Round( ScrollBarN.Value );
+
+     LabelN.Text := _FFT.TimesN.ToString;
 
      MakeCharts;
 end;
