@@ -41,7 +41,7 @@ object Form1: TForm1
       Size.PlatformDefault = False
       TextSettings.HorzAlign = Center
       Text = '512'
-      TabOrder = 2
+      TabOrder = 1
     end
   end
   inline LineChartT: TLineChart
