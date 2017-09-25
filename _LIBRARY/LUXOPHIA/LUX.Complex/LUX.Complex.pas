@@ -2,7 +2,7 @@
 
 interface //#################################################################### ■
 
-uses LUX;
+uses LUX, LUX.D1;
 
 type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【型】
 
@@ -44,6 +44,11 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
        class operator Divide( const A_:TSingleC; const B_:Single ) :TSingleC;
        ///// 型変換
        class operator Implicit( const V_:Single ) :TSingleC;
+       ///// メソッド
+       class function RandG :TSingleC; static;
+       class function RandBS1 :TSingleC; static;
+       class function RandBS2 :TSingleC; static;
+       class function RandBS4 :TSingleC; static;
      end;
 
      //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TDoubleC
@@ -84,6 +89,11 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
        class operator Implicit( const V_:Double ) :TDoubleC;
        class operator Implicit( const V_:TSingleC ) :TDoubleC;
        class operator Implicit( const V_:TDoubleC ) :TSingleC;
+       ///// メソッド
+       class function RandG :TDoubleC; static;
+       class function RandBS1 :TDoubleC; static;
+       class function RandBS2 :TDoubleC; static;
+       class function RandBS4 :TDoubleC; static;
      end;
 
      //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TSingleAreaC
@@ -321,6 +331,46 @@ begin
      end
 end;
 
+/////////////////////////////////////////////////////////////////////// メソッド
+
+class function TSingleC.RandG :TSingleC;
+begin
+     with Result do
+     begin
+          R := System.Math.RandG( 0, 1 );
+          I := System.Math.RandG( 0, 1 );
+     end;
+end;
+
+//------------------------------------------------------------------------------
+
+class function TSingleC.RandBS1 :TSingleC;
+begin
+     with Result do
+     begin
+          R := TSingle.RandBS1;
+          I := TSingle.RandBS1;
+     end;
+end;
+
+class function TSingleC.RandBS2 :TSingleC;
+begin
+     with Result do
+     begin
+          R := TSingle.RandBS2;
+          I := TSingle.RandBS2;
+     end;
+end;
+
+class function TSingleC.RandBS4 :TSingleC;
+begin
+     with Result do
+     begin
+          R := TSingle.RandBS4;
+          I := TSingle.RandBS4;
+     end;
+end;
+
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TDoubleC
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& private
@@ -489,6 +539,46 @@ begin
           R := V_.R;
           I := V_.I;
      end
+end;
+
+/////////////////////////////////////////////////////////////////////// メソッド
+
+class function TDoubleC.RandG :TDoubleC;
+begin
+     with Result do
+     begin
+          R := System.Math.RandG( 0, 1 );
+          I := System.Math.RandG( 0, 1 );
+     end;
+end;
+
+//------------------------------------------------------------------------------
+
+class function TDoubleC.RandBS1 :TDoubleC;
+begin
+     with Result do
+     begin
+          R := TDouble.RandBS1;
+          I := TDouble.RandBS1;
+     end;
+end;
+
+class function TDoubleC.RandBS2 :TDoubleC;
+begin
+     with Result do
+     begin
+          R := TDouble.RandBS2;
+          I := TDouble.RandBS2;
+     end;
+end;
+
+class function TDoubleC.RandBS4 :TDoubleC;
+begin
+     with Result do
+     begin
+          R := TDouble.RandBS4;
+          I := TDouble.RandBS4;
+     end;
 end;
 
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TDoubleAreaC
