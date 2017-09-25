@@ -515,9 +515,9 @@ interface //####################################################################
       integer(C_INT), value :: nthreads
     ); cdecl; external _DLLNAME_;
     
-    integer(C_INT) function fftw_init_threads() bind(C, name='fftw_init_threads')
+    function fftw_init_threads(
       import
-    end function fftw_init_threads
+    ) :TC_INT; cdecl; external _DLLNAME_;
     
     procedure fftw_cleanup_threads(
       import
@@ -527,10 +527,10 @@ interface //####################################################################
       import
     ); cdecl; external _DLLNAME_;
     
-    integer(C_INT) function fftw_export_wisdom_to_filename(filename) bind(C, name='fftw_export_wisdom_to_filename')
+    function fftw_export_wisdom_to_filename(
       import
       character(C_CHAR), dimension(*), intent(in) :: filename
-    end function fftw_export_wisdom_to_filename
+    ) :TC_INT; cdecl; external _DLLNAME_;
     
     procedure fftw_export_wisdom_to_file(
       import
@@ -551,26 +551,26 @@ interface //####################################################################
       import
     end function fftw_import_system_wisdom
     
-    integer(C_INT) function fftw_import_wisdom_from_filename(filename) bind(C, name='fftw_import_wisdom_from_filename')
+    function fftw_import_wisdom_from_filename(
       import
       character(C_CHAR), dimension(*), intent(in) :: filename
-    end function fftw_import_wisdom_from_filename
+    ) :TC_INT; cdecl; external _DLLNAME_;
     
-    integer(C_INT) function fftw_import_wisdom_from_file(input_file) bind(C, name='fftw_import_wisdom_from_file')
+    function fftw_import_wisdom_from_file(
       import
       type(C_PTR), value :: input_file
-    end function fftw_import_wisdom_from_file
+    ) :TC_INT; cdecl; external _DLLNAME_;
     
-    integer(C_INT) function fftw_import_wisdom_from_string(input_string) bind(C, name='fftw_import_wisdom_from_string')
+    function fftw_import_wisdom_from_string(
       import
       character(C_CHAR), dimension(*), intent(in) :: input_string
-    end function fftw_import_wisdom_from_string
+    ) :TC_INT; cdecl; external _DLLNAME_;
     
-    integer(C_INT) function fftw_import_wisdom(read_char,data) bind(C, name='fftw_import_wisdom')
+    function fftw_import_wisdom(
       import
       type(C_FUNPTR), value :: read_char
       type(C_PTR), value :: data
-    end function fftw_import_wisdom
+    ) :TC_INT; cdecl; external _DLLNAME_;
     
     procedure fftw_fprint_plan(
       import
@@ -616,20 +616,20 @@ interface //####################################################################
       real(C_DOUBLE), intent(out) :: fmas
     ); cdecl; external _DLLNAME_;
     
-    real(C_DOUBLE) function fftw_estimate_cost(p) bind(C, name='fftw_estimate_cost')
+    function fftw_estimate_cost(
       import
       type(C_PTR), value :: p
-    end function fftw_estimate_cost
+    ) :TC_DOUBLE; cdecl; external _DLLNAME_;
     
-    real(C_DOUBLE) function fftw_cost(p) bind(C, name='fftw_cost')
+    function fftw_cost(
       import
       type(C_PTR), value :: p
-    end function fftw_cost
+    ) :TC_DOUBLE; cdecl; external _DLLNAME_;
     
-    integer(C_INT) function fftw_alignment_of(p) bind(C, name='fftw_alignment_of')
+    function fftw_alignment_of(
       import
       real(C_DOUBLE), dimension(*), intent(out) :: p
-    end function fftw_alignment_of
+    ) :TC_INT; cdecl; external _DLLNAME_;
 
   type Tfftwf_iodim = record
          _n  :TC_INT;
@@ -1117,10 +1117,10 @@ interface //####################################################################
       import
     ); cdecl; external _DLLNAME_;
     
-    integer(C_INT) function fftwf_export_wisdom_to_filename(filename) bind(C, name='fftwf_export_wisdom_to_filename')
+    function fftwf_export_wisdom_to_filename(
       import
       character(C_CHAR), dimension(*), intent(in) :: filename
-    end function fftwf_export_wisdom_to_filename
+    ) :TC_INT; cdecl; external _DLLNAME_;
     
     procedure fftwf_export_wisdom_to_file(
       import
@@ -1141,26 +1141,26 @@ interface //####################################################################
       import
     end function fftwf_import_system_wisdom
     
-    integer(C_INT) function fftwf_import_wisdom_from_filename(filename) bind(C, name='fftwf_import_wisdom_from_filename')
+    function fftwf_import_wisdom_from_filename(
       import
       character(C_CHAR), dimension(*), intent(in) :: filename
-    end function fftwf_import_wisdom_from_filename
+    ) :TC_INT; cdecl; external _DLLNAME_;
     
-    integer(C_INT) function fftwf_import_wisdom_from_file(input_file) bind(C, name='fftwf_import_wisdom_from_file')
+    function fftwf_import_wisdom_from_file(
       import
       type(C_PTR), value :: input_file
-    end function fftwf_import_wisdom_from_file
+    ) :TC_INT; cdecl; external _DLLNAME_;
     
-    integer(C_INT) function fftwf_import_wisdom_from_string(input_string) bind(C, name='fftwf_import_wisdom_from_string')
+    function fftwf_import_wisdom_from_string(
       import
       character(C_CHAR), dimension(*), intent(in) :: input_string
-    end function fftwf_import_wisdom_from_string
+    ) :TC_INT; cdecl; external _DLLNAME_;
     
-    integer(C_INT) function fftwf_import_wisdom(read_char,data) bind(C, name='fftwf_import_wisdom')
+    function fftwf_import_wisdom(
       import
       type(C_FUNPTR), value :: read_char
       type(C_PTR), value :: data
-    end function fftwf_import_wisdom
+    ) :TC_INT; cdecl; external _DLLNAME_;
     
     procedure fftwf_fprint_plan(
       import
@@ -1206,20 +1206,20 @@ interface //####################################################################
       real(C_DOUBLE), intent(out) :: fmas
     ); cdecl; external _DLLNAME_;
     
-    real(C_DOUBLE) function fftwf_estimate_cost(p) bind(C, name='fftwf_estimate_cost')
+    function fftwf_estimate_cost(
       import
       type(C_PTR), value :: p
-    end function fftwf_estimate_cost
+    ) :TC_DOUBLE; cdecl; external _DLLNAME_;
     
-    real(C_DOUBLE) function fftwf_cost(p) bind(C, name='fftwf_cost')
+    function fftwf_cost(
       import
       type(C_PTR), value :: p
-    end function fftwf_cost
+    ) :TC_DOUBLE; cdecl; external _DLLNAME_;
     
-    integer(C_INT) function fftwf_alignment_of(p) bind(C, name='fftwf_alignment_of')
+    function fftwf_alignment_of(
       import
       real(C_FLOAT), dimension(*), intent(out) :: p
-    end function fftwf_alignment_of
+    ) :TC_INT; cdecl; external _DLLNAME_;
 
 implementation //############################################################### ■
 
