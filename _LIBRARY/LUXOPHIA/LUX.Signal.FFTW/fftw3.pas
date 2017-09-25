@@ -2,7 +2,7 @@
 
 interface //#################################################################### ■
 
-uses LUX.Complex;
+uses Winapi.Windows, LUX.Complex;
 
 type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
@@ -12,13 +12,27 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
      TC_INTPTR_T = IntPtr;
 
-     TC_DOUBLE_COMPLEX = TDoubleC;  PC_DOUBLE_COMPLEX = ^TSingleC;
+     TC_DOUBLE = Double;  PC_DOUBLE = PDouble;
+
+     TC_DOUBLE_COMPLEX = TDoubleC;  PC_DOUBLE_COMPLEX = ^TDoubleC;
+     TC_FLOAT_COMPLEX  = TSingleC;  PC_FLOAT_COMPLEX  = ^TSingleC;
 
      TC_PTR = Pointer;
+
+     TC_FUNPTR = Pointer;
+
+     TC_CHAR = AnsiChar;  PC_CHAR = PAnsiChar;
+
+     TC_SIZE_T = size_t;
+
+     TC_FLOAT = Single;  PC_FLOAT = PSingle;
+
+const _DLLNAME_ = 'libfftw3-3.dll';
 
 ////////////////////////////////////////////////////////////////////////////////
 
   type TC_FFTW_R2R_KIND = TC_INT32_T;
+       PC_FFTW_R2R_KIND = ^TC_FFTW_R2R_KIND;
 
   const FFTW_R2HC                   :TC_INT = 0;
   const FFTW_HC2R                   :TC_INT = 1;
@@ -62,11 +76,14 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
          _is :TC_INT;
          _os :TC_INT;
        end;
+       Pfftw_iodim = ^Tfftw_iodim;
+
   type Tfftw_iodim64 = record
          _n  :TC_INTPTR_T;
          _is :TC_INTPTR_T;
          _os :TC_INTPTR_T;
        end;
+       Pfftw_iodim64 = ^Tfftw_iodim64;
 
     function fftw_plan_dft(
       rank_ :TC_INT;
@@ -561,9 +578,9 @@ const input_string_ :PC_CHAR
     
     procedure fftw_flops(
       p_ :TC_PTR;
-      real(C_DOUBLE), intent(out) :: add
-      real(C_DOUBLE), intent(out) :: mul
-      real(C_DOUBLE), intent(out) :: fmas
+  out add_  :TC_DOUBLE;
+  out mul_  :TC_DOUBLE;
+  out fmas_ :TC_DOUBLE
     ); cdecl; external _DLLNAME_;
     
     function fftw_estimate_cost(
@@ -583,11 +600,14 @@ const input_string_ :PC_CHAR
          _is :TC_INT;
          _os :TC_INT;
        end;
+       Pfftwf_iodim = ^Tfftwf_iodim;
+
   type Tfftwf_iodim64 = record
          _n  :TC_INTPTR_T;
          _is :TC_INTPTR_T;
          _os :TC_INTPTR_T;
        end;
+       Pfftwf_iodim64 = ^Tfftwf_iodim64;
 
     function fftwf_plan_dft(
       rank_ :TC_INT;
@@ -1082,9 +1102,9 @@ const input_string_ :PC_CHAR
     
     procedure fftwf_flops(
       p_ :TC_PTR;
-      real(C_DOUBLE), intent(out) :: add
-      real(C_DOUBLE), intent(out) :: mul
-      real(C_DOUBLE), intent(out) :: fmas
+  out add_  :TC_DOUBLE;
+  out mul_  :TC_DOUBLE;
+  out fmas_ :TC_DOUBLE
     ); cdecl; external _DLLNAME_;
     
     function fftwf_estimate_cost(
