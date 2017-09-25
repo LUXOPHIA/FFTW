@@ -25,6 +25,7 @@ type
     procedure ScrollBarNChange(Sender: TObject);
   private
     { private 宣言 }
+    _InitOK :Boolean;
     ///// メソッド
     procedure MakeCharts;
     procedure DrawTimes;
@@ -165,13 +166,26 @@ end;
 
 procedure TForm1.RandomWalk;
 var
-   I :Integer;
+   N, I :Integer;
 begin
      with _FFT do
      begin
           for I := 0 to TimesN-2 do Times[ I ] := Times[ I+1 ];
 
-          Times[ TimesN-1 ] := MetroWalk( Times[ TimesN-2 ] );
+          N := TimesN;
+
+          if _InitOK then
+          begin
+               TimesN := Round( ScrollBarN.Value );;
+
+               LabelN.Text := TimesN.ToString;
+
+               MakeCharts;
+
+               _InitOK := False;
+          end;
+
+          for I := N-1 to TimesN-1 do Times[ I ] := MetroWalk( Times[ I-1 ] );
      end;
 end;
 
@@ -202,21 +216,8 @@ end;
 //------------------------------------------------------------------------------
 
 procedure TForm1.ScrollBarNChange(Sender: TObject);
-var
-   N, I :Integer;
 begin
-     with _FFT do
-     begin
-          N := TimesN;
-
-          TimesN := Round( ScrollBarN.Value );
-
-          LabelN.Text := TimesN.ToString;
-
-          for I := N to TimesN-1 do Times[ I ] := MetroWalk( Times[ I-1 ] );
-     end;
-
-     MakeCharts;
+     _InitOK := True;
 end;
 
 end. //######################################################################### ■
