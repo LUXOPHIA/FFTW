@@ -23,7 +23,6 @@ object Form1: TForm1
       Max = 2048.000000000000000000
       Min = 2.000000000000000000
       Value = 512.000000000000000000
-      SmallChange = 0.000000000000000000
       Orientation = Vertical
       Position.X = 20.000000000000000000
       Position.Y = 40.000000000000000000
