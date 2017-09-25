@@ -1,0 +1,6 @@
+object LineChart: TLineChart
+  ClipChildren = True
+  Size.Width = 600.000000000000000000
+  Size.Height = 200.000000000000000000
+  Size.PlatformDefault = False
+end
