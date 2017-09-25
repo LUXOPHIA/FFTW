@@ -1,6 +1,6 @@
 ! Generated automatically.  DO NOT EDIT!
 
-  integer, parameter :: C_FFTW_R2R_KIND = C_INT32_T
+  type TC_FFTW_R2R_KIND = TC_INT32_T;
 
   integer(C_INT), parameter :: FFTW_R2HC = 0
   integer(C_INT), parameter :: FFTW_HC2R = 1
