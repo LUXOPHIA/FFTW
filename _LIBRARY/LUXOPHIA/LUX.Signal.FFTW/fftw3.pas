@@ -54,7 +54,7 @@ interface //####################################################################
 
     function fftw_plan_dft(
       rank_ :TC_INT;
-      integer(C_INT), dimension(*), intent(in) :: n
+   in n_ :PC_INT;
       complex(C_DOUBLE_COMPLEX), dimension(*), intent(out) :: in
       complex(C_DOUBLE_COMPLEX), dimension(*), intent(out) :: out
       sign_ :TC_INT;
@@ -90,14 +90,14 @@ interface //####################################################################
     
     function fftw_plan_many_dft(
       rank_ :TC_INT;
-      integer(C_INT), dimension(*), intent(in) :: n
+   in n_ :PC_INT;
       howmany_ :TC_INT;
       complex(C_DOUBLE_COMPLEX), dimension(*), intent(out) :: in
-      integer(C_INT), dimension(*), intent(in) :: inembed
+   in inembed_ :PC_INT;
       istride_ :TC_INT;
       idist_ :TC_INT;
       complex(C_DOUBLE_COMPLEX), dimension(*), intent(out) :: out
-      integer(C_INT), dimension(*), intent(in) :: onembed
+   in onembed_ :PC_INT;
       ostride_ :TC_INT;
       odist_ :TC_INT;
       sign_ :TC_INT;
@@ -106,9 +106,9 @@ interface //####################################################################
     
     function fftw_plan_guru_dft(
       rank_ :TC_INT;
-      type(fftw_iodim), dimension(*), intent(in) :: dims
+   in dims_ :Pfftw_iodim;
       howmany_rank_ :TC_INT;
-      type(fftw_iodim), dimension(*), intent(in) :: howmany_dims
+   in howmany_dims_ :Pfftw_iodim;
       complex(C_DOUBLE_COMPLEX), dimension(*), intent(out) :: in
       complex(C_DOUBLE_COMPLEX), dimension(*), intent(out) :: out
       sign_ :TC_INT;
@@ -117,9 +117,9 @@ interface //####################################################################
     
     function fftw_plan_guru_split_dft(
       rank_ :TC_INT;
-      type(fftw_iodim), dimension(*), intent(in) :: dims
+   in dims_ :Pfftw_iodim;
       howmany_rank_ :TC_INT;
-      type(fftw_iodim), dimension(*), intent(in) :: howmany_dims
+   in howmany_dims_ :Pfftw_iodim;
       real(C_DOUBLE), dimension(*), intent(out) :: ri
       real(C_DOUBLE), dimension(*), intent(out) :: ii
       real(C_DOUBLE), dimension(*), intent(out) :: ro
@@ -129,9 +129,9 @@ interface //####################################################################
     
     function fftw_plan_guru64_dft(
       rank_ :TC_INT;
-      type(fftw_iodim64), dimension(*), intent(in) :: dims
+   in dims_ :Pfftw_iodim64;
       howmany_rank_ :TC_INT;
-      type(fftw_iodim64), dimension(*), intent(in) :: howmany_dims
+   in howmany_dims_ :Pfftw_iodim64;
       complex(C_DOUBLE_COMPLEX), dimension(*), intent(out) :: in
       complex(C_DOUBLE_COMPLEX), dimension(*), intent(out) :: out
       sign_ :TC_INT;
@@ -140,9 +140,9 @@ interface //####################################################################
     
     function fftw_plan_guru64_split_dft(
       rank_ :TC_INT;
-      type(fftw_iodim64), dimension(*), intent(in) :: dims
+   in dims_ :Pfftw_iodim64;
       howmany_rank_ :TC_INT;
-      type(fftw_iodim64), dimension(*), intent(in) :: howmany_dims
+   in howmany_dims_ :Pfftw_iodim64;
       real(C_DOUBLE), dimension(*), intent(out) :: ri
       real(C_DOUBLE), dimension(*), intent(out) :: ii
       real(C_DOUBLE), dimension(*), intent(out) :: ro
@@ -166,14 +166,14 @@ interface //####################################################################
     
     function fftw_plan_many_dft_r2c(
       rank_ :TC_INT;
-      integer(C_INT), dimension(*), intent(in) :: n
+   in n_ :PC_INT;
       howmany_ :TC_INT;
       real(C_DOUBLE), dimension(*), intent(out) :: in
-      integer(C_INT), dimension(*), intent(in) :: inembed
+   in inembed_ :PC_INT;
       istride_ :TC_INT;
       idist_ :TC_INT;
       complex(C_DOUBLE_COMPLEX), dimension(*), intent(out) :: out
-      integer(C_INT), dimension(*), intent(in) :: onembed
+   in onembed_ :PC_INT;
       ostride_ :TC_INT;
       odist_ :TC_INT;
       flags_ :TC_INT;
@@ -181,7 +181,7 @@ interface //####################################################################
     
     function fftw_plan_dft_r2c(
       rank_ :TC_INT;
-      integer(C_INT), dimension(*), intent(in) :: n
+   in n_ :PC_INT;
       real(C_DOUBLE), dimension(*), intent(out) :: in
       complex(C_DOUBLE_COMPLEX), dimension(*), intent(out) :: out
       flags_ :TC_INT;
@@ -213,14 +213,14 @@ interface //####################################################################
     
     function fftw_plan_many_dft_c2r(
       rank_ :TC_INT;
-      integer(C_INT), dimension(*), intent(in) :: n
+   in n_ :PC_INT;
       howmany_ :TC_INT;
       complex(C_DOUBLE_COMPLEX), dimension(*), intent(out) :: in
-      integer(C_INT), dimension(*), intent(in) :: inembed
+   in inembed_ :PC_INT;
       istride_ :TC_INT;
       idist_ :TC_INT;
       real(C_DOUBLE), dimension(*), intent(out) :: out
-      integer(C_INT), dimension(*), intent(in) :: onembed
+   in onembed_ :PC_INT;
       ostride_ :TC_INT;
       odist_ :TC_INT;
       flags_ :TC_INT;
@@ -228,7 +228,7 @@ interface //####################################################################
     
     function fftw_plan_dft_c2r(
       rank_ :TC_INT;
-      integer(C_INT), dimension(*), intent(in) :: n
+   in n_ :PC_INT;
       complex(C_DOUBLE_COMPLEX), dimension(*), intent(out) :: in
       real(C_DOUBLE), dimension(*), intent(out) :: out
       flags_ :TC_INT;
@@ -260,9 +260,9 @@ interface //####################################################################
     
     function fftw_plan_guru_dft_r2c(
       rank_ :TC_INT;
-      type(fftw_iodim), dimension(*), intent(in) :: dims
+   in dims_ :Pfftw_iodim;
       howmany_rank_ :TC_INT;
-      type(fftw_iodim), dimension(*), intent(in) :: howmany_dims
+   in howmany_dims_ :Pfftw_iodim;
       real(C_DOUBLE), dimension(*), intent(out) :: in
       complex(C_DOUBLE_COMPLEX), dimension(*), intent(out) :: out
       flags_ :TC_INT;
@@ -270,9 +270,9 @@ interface //####################################################################
     
     function fftw_plan_guru_dft_c2r(
       rank_ :TC_INT;
-      type(fftw_iodim), dimension(*), intent(in) :: dims
+   in dims_ :Pfftw_iodim;
       howmany_rank_ :TC_INT;
-      type(fftw_iodim), dimension(*), intent(in) :: howmany_dims
+   in howmany_dims_ :Pfftw_iodim;
       complex(C_DOUBLE_COMPLEX), dimension(*), intent(out) :: in
       real(C_DOUBLE), dimension(*), intent(out) :: out
       flags_ :TC_INT;
@@ -280,9 +280,9 @@ interface //####################################################################
     
     function fftw_plan_guru_split_dft_r2c(
       rank_ :TC_INT;
-      type(fftw_iodim), dimension(*), intent(in) :: dims
+   in dims_ :Pfftw_iodim;
       howmany_rank_ :TC_INT;
-      type(fftw_iodim), dimension(*), intent(in) :: howmany_dims
+   in howmany_dims_ :Pfftw_iodim;
       real(C_DOUBLE), dimension(*), intent(out) :: in
       real(C_DOUBLE), dimension(*), intent(out) :: ro
       real(C_DOUBLE), dimension(*), intent(out) :: io
@@ -291,9 +291,9 @@ interface //####################################################################
     
     function fftw_plan_guru_split_dft_c2r(
       rank_ :TC_INT;
-      type(fftw_iodim), dimension(*), intent(in) :: dims
+   in dims_ :Pfftw_iodim;
       howmany_rank_ :TC_INT;
-      type(fftw_iodim), dimension(*), intent(in) :: howmany_dims
+   in howmany_dims_ :Pfftw_iodim;
       real(C_DOUBLE), dimension(*), intent(out) :: ri
       real(C_DOUBLE), dimension(*), intent(out) :: ii
       real(C_DOUBLE), dimension(*), intent(out) :: out
@@ -302,9 +302,9 @@ interface //####################################################################
     
     function fftw_plan_guru64_dft_r2c(
       rank_ :TC_INT;
-      type(fftw_iodim64), dimension(*), intent(in) :: dims
+   in dims_ :Pfftw_iodim64;
       howmany_rank_ :TC_INT;
-      type(fftw_iodim64), dimension(*), intent(in) :: howmany_dims
+   in howmany_dims_ :Pfftw_iodim64;
       real(C_DOUBLE), dimension(*), intent(out) :: in
       complex(C_DOUBLE_COMPLEX), dimension(*), intent(out) :: out
       flags_ :TC_INT;
@@ -312,9 +312,9 @@ interface //####################################################################
     
     function fftw_plan_guru64_dft_c2r(
       rank_ :TC_INT;
-      type(fftw_iodim64), dimension(*), intent(in) :: dims
+   in dims_ :Pfftw_iodim64;
       howmany_rank_ :TC_INT;
-      type(fftw_iodim64), dimension(*), intent(in) :: howmany_dims
+   in howmany_dims_ :Pfftw_iodim64;
       complex(C_DOUBLE_COMPLEX), dimension(*), intent(out) :: in
       real(C_DOUBLE), dimension(*), intent(out) :: out
       flags_ :TC_INT;
@@ -322,9 +322,9 @@ interface //####################################################################
     
     function fftw_plan_guru64_split_dft_r2c(
       rank_ :TC_INT;
-      type(fftw_iodim64), dimension(*), intent(in) :: dims
+   in dims_ :Pfftw_iodim64;
       howmany_rank_ :TC_INT;
-      type(fftw_iodim64), dimension(*), intent(in) :: howmany_dims
+   in howmany_dims_ :Pfftw_iodim64;
       real(C_DOUBLE), dimension(*), intent(out) :: in
       real(C_DOUBLE), dimension(*), intent(out) :: ro
       real(C_DOUBLE), dimension(*), intent(out) :: io
@@ -333,9 +333,9 @@ interface //####################################################################
     
     function fftw_plan_guru64_split_dft_c2r(
       rank_ :TC_INT;
-      type(fftw_iodim64), dimension(*), intent(in) :: dims
+   in dims_ :Pfftw_iodim64;
       howmany_rank_ :TC_INT;
-      type(fftw_iodim64), dimension(*), intent(in) :: howmany_dims
+   in howmany_dims_ :Pfftw_iodim64;
       real(C_DOUBLE), dimension(*), intent(out) :: ri
       real(C_DOUBLE), dimension(*), intent(out) :: ii
       real(C_DOUBLE), dimension(*), intent(out) :: out
@@ -370,26 +370,26 @@ interface //####################################################################
     
     function fftw_plan_many_r2r(
       rank_ :TC_INT;
-      integer(C_INT), dimension(*), intent(in) :: n
+   in n_ :PC_INT;
       howmany_ :TC_INT;
       real(C_DOUBLE), dimension(*), intent(out) :: in
-      integer(C_INT), dimension(*), intent(in) :: inembed
+   in inembed_ :PC_INT;
       istride_ :TC_INT;
       idist_ :TC_INT;
       real(C_DOUBLE), dimension(*), intent(out) :: out
-      integer(C_INT), dimension(*), intent(in) :: onembed
+   in onembed_ :PC_INT;
       ostride_ :TC_INT;
       odist_ :TC_INT;
-      integer(C_FFTW_R2R_KIND), dimension(*), intent(in) :: kind
+   in kind_ :PC_FFTW_R2R_KIND;
       flags_ :TC_INT;
     ) :TC_PTR; cdecl; external _DLLNAME_;
     
     function fftw_plan_r2r(
       rank_ :TC_INT;
-      integer(C_INT), dimension(*), intent(in) :: n
+   in n_ :PC_INT;
       real(C_DOUBLE), dimension(*), intent(out) :: in
       real(C_DOUBLE), dimension(*), intent(out) :: out
-      integer(C_FFTW_R2R_KIND), dimension(*), intent(in) :: kind
+   in kind_ :PC_FFTW_R2R_KIND;
       flags_ :TC_INT;
     ) :TC_PTR; cdecl; external _DLLNAME_;
     
@@ -425,23 +425,23 @@ interface //####################################################################
     
     function fftw_plan_guru_r2r(
       rank_ :TC_INT;
-      type(fftw_iodim), dimension(*), intent(in) :: dims
+   in dims_ :Pfftw_iodim;
       howmany_rank_ :TC_INT;
-      type(fftw_iodim), dimension(*), intent(in) :: howmany_dims
+   in howmany_dims_ :Pfftw_iodim;
       real(C_DOUBLE), dimension(*), intent(out) :: in
       real(C_DOUBLE), dimension(*), intent(out) :: out
-      integer(C_FFTW_R2R_KIND), dimension(*), intent(in) :: kind
+   in kind_ :PC_FFTW_R2R_KIND;
       flags_ :TC_INT;
     ) :TC_PTR; cdecl; external _DLLNAME_;
     
     function fftw_plan_guru64_r2r(
       rank_ :TC_INT;
-      type(fftw_iodim64), dimension(*), intent(in) :: dims
+   in dims_ :Pfftw_iodim64;
       howmany_rank_ :TC_INT;
-      type(fftw_iodim64), dimension(*), intent(in) :: howmany_dims
+   in howmany_dims_ :Pfftw_iodim64;
       real(C_DOUBLE), dimension(*), intent(out) :: in
       real(C_DOUBLE), dimension(*), intent(out) :: out
-      integer(C_FFTW_R2R_KIND), dimension(*), intent(in) :: kind
+   in kind_ :PC_FFTW_R2R_KIND;
       flags_ :TC_INT;
     ) :TC_PTR; cdecl; external _DLLNAME_;
     
@@ -479,7 +479,7 @@ interface //####################################################################
     ); cdecl; external _DLLNAME_;
     
     function fftw_export_wisdom_to_filename(
-      character(C_CHAR), dimension(*), intent(in) :: filename
+   in filename_ :PC_CHAR;
     ) :TC_INT; cdecl; external _DLLNAME_;
     
     procedure fftw_export_wisdom_to_file(
@@ -498,7 +498,7 @@ interface //####################################################################
     end function fftw_import_system_wisdom
     
     function fftw_import_wisdom_from_filename(
-      character(C_CHAR), dimension(*), intent(in) :: filename
+   in filename_ :PC_CHAR;
     ) :TC_INT; cdecl; external _DLLNAME_;
     
     function fftw_import_wisdom_from_file(
@@ -506,7 +506,7 @@ interface //####################################################################
     ) :TC_INT; cdecl; external _DLLNAME_;
     
     function fftw_import_wisdom_from_string(
-      character(C_CHAR), dimension(*), intent(in) :: input_string
+   in input_string_ :PC_CHAR;
     ) :TC_INT; cdecl; external _DLLNAME_;
     
     function fftw_import_wisdom(
@@ -575,7 +575,7 @@ interface //####################################################################
 
     function fftwf_plan_dft(
       rank_ :TC_INT;
-      integer(C_INT), dimension(*), intent(in) :: n
+   in n_ :PC_INT;
       complex(C_FLOAT_COMPLEX), dimension(*), intent(out) :: in
       complex(C_FLOAT_COMPLEX), dimension(*), intent(out) :: out
       sign_ :TC_INT;
@@ -611,14 +611,14 @@ interface //####################################################################
     
     function fftwf_plan_many_dft(
       rank_ :TC_INT;
-      integer(C_INT), dimension(*), intent(in) :: n
+   in n_ :PC_INT;
       howmany_ :TC_INT;
       complex(C_FLOAT_COMPLEX), dimension(*), intent(out) :: in
-      integer(C_INT), dimension(*), intent(in) :: inembed
+   in inembed_ :PC_INT;
       istride_ :TC_INT;
       idist_ :TC_INT;
       complex(C_FLOAT_COMPLEX), dimension(*), intent(out) :: out
-      integer(C_INT), dimension(*), intent(in) :: onembed
+   in onembed_ :PC_INT;
       ostride_ :TC_INT;
       odist_ :TC_INT;
       sign_ :TC_INT;
@@ -627,9 +627,9 @@ interface //####################################################################
     
     function fftwf_plan_guru_dft(
       rank_ :TC_INT;
-      type(fftwf_iodim), dimension(*), intent(in) :: dims
+   in dims_ :Pfftwf_iodim;
       howmany_rank_ :TC_INT;
-      type(fftwf_iodim), dimension(*), intent(in) :: howmany_dims
+   in howmany_dims_ :Pfftwf_iodim;
       complex(C_FLOAT_COMPLEX), dimension(*), intent(out) :: in
       complex(C_FLOAT_COMPLEX), dimension(*), intent(out) :: out
       sign_ :TC_INT;
@@ -638,9 +638,9 @@ interface //####################################################################
     
     function fftwf_plan_guru_split_dft(
       rank_ :TC_INT;
-      type(fftwf_iodim), dimension(*), intent(in) :: dims
+   in dims_ :Pfftwf_iodim;
       howmany_rank_ :TC_INT;
-      type(fftwf_iodim), dimension(*), intent(in) :: howmany_dims
+   in howmany_dims_ :Pfftwf_iodim;
       real(C_FLOAT), dimension(*), intent(out) :: ri
       real(C_FLOAT), dimension(*), intent(out) :: ii
       real(C_FLOAT), dimension(*), intent(out) :: ro
@@ -650,9 +650,9 @@ interface //####################################################################
     
     function fftwf_plan_guru64_dft(
       rank_ :TC_INT;
-      type(fftwf_iodim64), dimension(*), intent(in) :: dims
+   in dims_ :Pfftwf_iodim64;
       howmany_rank_ :TC_INT;
-      type(fftwf_iodim64), dimension(*), intent(in) :: howmany_dims
+   in howmany_dims_ :Pfftwf_iodim64;
       complex(C_FLOAT_COMPLEX), dimension(*), intent(out) :: in
       complex(C_FLOAT_COMPLEX), dimension(*), intent(out) :: out
       sign_ :TC_INT;
@@ -661,9 +661,9 @@ interface //####################################################################
     
     function fftwf_plan_guru64_split_dft(
       rank_ :TC_INT;
-      type(fftwf_iodim64), dimension(*), intent(in) :: dims
+   in dims_ :Pfftwf_iodim64;
       howmany_rank_ :TC_INT;
-      type(fftwf_iodim64), dimension(*), intent(in) :: howmany_dims
+   in howmany_dims_ :Pfftwf_iodim64;
       real(C_FLOAT), dimension(*), intent(out) :: ri
       real(C_FLOAT), dimension(*), intent(out) :: ii
       real(C_FLOAT), dimension(*), intent(out) :: ro
@@ -687,14 +687,14 @@ interface //####################################################################
     
     function fftwf_plan_many_dft_r2c(
       rank_ :TC_INT;
-      integer(C_INT), dimension(*), intent(in) :: n
+   in n_ :PC_INT;
       howmany_ :TC_INT;
       real(C_FLOAT), dimension(*), intent(out) :: in
-      integer(C_INT), dimension(*), intent(in) :: inembed
+   in inembed_ :PC_INT;
       istride_ :TC_INT;
       idist_ :TC_INT;
       complex(C_FLOAT_COMPLEX), dimension(*), intent(out) :: out
-      integer(C_INT), dimension(*), intent(in) :: onembed
+   in onembed_ :PC_INT;
       ostride_ :TC_INT;
       odist_ :TC_INT;
       flags_ :TC_INT;
@@ -702,7 +702,7 @@ interface //####################################################################
     
     function fftwf_plan_dft_r2c(
       rank_ :TC_INT;
-      integer(C_INT), dimension(*), intent(in) :: n
+   in n_ :PC_INT;
       real(C_FLOAT), dimension(*), intent(out) :: in
       complex(C_FLOAT_COMPLEX), dimension(*), intent(out) :: out
       flags_ :TC_INT;
@@ -734,14 +734,14 @@ interface //####################################################################
     
     function fftwf_plan_many_dft_c2r(
       rank_ :TC_INT;
-      integer(C_INT), dimension(*), intent(in) :: n
+   in n_ :PC_INT;
       howmany_ :TC_INT;
       complex(C_FLOAT_COMPLEX), dimension(*), intent(out) :: in
-      integer(C_INT), dimension(*), intent(in) :: inembed
+   in inembed_ :PC_INT;
       istride_ :TC_INT;
       idist_ :TC_INT;
       real(C_FLOAT), dimension(*), intent(out) :: out
-      integer(C_INT), dimension(*), intent(in) :: onembed
+   in onembed_ :PC_INT;
       ostride_ :TC_INT;
       odist_ :TC_INT;
       flags_ :TC_INT;
@@ -749,7 +749,7 @@ interface //####################################################################
     
     function fftwf_plan_dft_c2r(
       rank_ :TC_INT;
-      integer(C_INT), dimension(*), intent(in) :: n
+   in n_ :PC_INT;
       complex(C_FLOAT_COMPLEX), dimension(*), intent(out) :: in
       real(C_FLOAT), dimension(*), intent(out) :: out
       flags_ :TC_INT;
@@ -781,9 +781,9 @@ interface //####################################################################
     
     function fftwf_plan_guru_dft_r2c(
       rank_ :TC_INT;
-      type(fftwf_iodim), dimension(*), intent(in) :: dims
+   in dims_ :Pfftwf_iodim;
       howmany_rank_ :TC_INT;
-      type(fftwf_iodim), dimension(*), intent(in) :: howmany_dims
+   in howmany_dims_ :Pfftwf_iodim;
       real(C_FLOAT), dimension(*), intent(out) :: in
       complex(C_FLOAT_COMPLEX), dimension(*), intent(out) :: out
       flags_ :TC_INT;
@@ -791,9 +791,9 @@ interface //####################################################################
     
     function fftwf_plan_guru_dft_c2r(
       rank_ :TC_INT;
-      type(fftwf_iodim), dimension(*), intent(in) :: dims
+   in dims_ :Pfftwf_iodim;
       howmany_rank_ :TC_INT;
-      type(fftwf_iodim), dimension(*), intent(in) :: howmany_dims
+   in howmany_dims_ :Pfftwf_iodim;
       complex(C_FLOAT_COMPLEX), dimension(*), intent(out) :: in
       real(C_FLOAT), dimension(*), intent(out) :: out
       flags_ :TC_INT;
@@ -801,9 +801,9 @@ interface //####################################################################
     
     function fftwf_plan_guru_split_dft_r2c(
       rank_ :TC_INT;
-      type(fftwf_iodim), dimension(*), intent(in) :: dims
+   in dims_ :Pfftwf_iodim;
       howmany_rank_ :TC_INT;
-      type(fftwf_iodim), dimension(*), intent(in) :: howmany_dims
+   in howmany_dims_ :Pfftwf_iodim;
       real(C_FLOAT), dimension(*), intent(out) :: in
       real(C_FLOAT), dimension(*), intent(out) :: ro
       real(C_FLOAT), dimension(*), intent(out) :: io
@@ -812,9 +812,9 @@ interface //####################################################################
     
     function fftwf_plan_guru_split_dft_c2r(
       rank_ :TC_INT;
-      type(fftwf_iodim), dimension(*), intent(in) :: dims
+   in dims_ :Pfftwf_iodim;
       howmany_rank_ :TC_INT;
-      type(fftwf_iodim), dimension(*), intent(in) :: howmany_dims
+   in howmany_dims_ :Pfftwf_iodim;
       real(C_FLOAT), dimension(*), intent(out) :: ri
       real(C_FLOAT), dimension(*), intent(out) :: ii
       real(C_FLOAT), dimension(*), intent(out) :: out
@@ -823,9 +823,9 @@ interface //####################################################################
     
     function fftwf_plan_guru64_dft_r2c(
       rank_ :TC_INT;
-      type(fftwf_iodim64), dimension(*), intent(in) :: dims
+   in dims_ :Pfftwf_iodim64;
       howmany_rank_ :TC_INT;
-      type(fftwf_iodim64), dimension(*), intent(in) :: howmany_dims
+   in howmany_dims_ :Pfftwf_iodim64;
       real(C_FLOAT), dimension(*), intent(out) :: in
       complex(C_FLOAT_COMPLEX), dimension(*), intent(out) :: out
       flags_ :TC_INT;
@@ -833,9 +833,9 @@ interface //####################################################################
     
     function fftwf_plan_guru64_dft_c2r(
       rank_ :TC_INT;
-      type(fftwf_iodim64), dimension(*), intent(in) :: dims
+   in dims_ :Pfftwf_iodim64;
       howmany_rank_ :TC_INT;
-      type(fftwf_iodim64), dimension(*), intent(in) :: howmany_dims
+   in howmany_dims_ :Pfftwf_iodim64;
       complex(C_FLOAT_COMPLEX), dimension(*), intent(out) :: in
       real(C_FLOAT), dimension(*), intent(out) :: out
       flags_ :TC_INT;
@@ -843,9 +843,9 @@ interface //####################################################################
     
     function fftwf_plan_guru64_split_dft_r2c(
       rank_ :TC_INT;
-      type(fftwf_iodim64), dimension(*), intent(in) :: dims
+   in dims_ :Pfftwf_iodim64;
       howmany_rank_ :TC_INT;
-      type(fftwf_iodim64), dimension(*), intent(in) :: howmany_dims
+   in howmany_dims_ :Pfftwf_iodim64;
       real(C_FLOAT), dimension(*), intent(out) :: in
       real(C_FLOAT), dimension(*), intent(out) :: ro
       real(C_FLOAT), dimension(*), intent(out) :: io
@@ -854,9 +854,9 @@ interface //####################################################################
     
     function fftwf_plan_guru64_split_dft_c2r(
       rank_ :TC_INT;
-      type(fftwf_iodim64), dimension(*), intent(in) :: dims
+   in dims_ :Pfftwf_iodim64;
       howmany_rank_ :TC_INT;
-      type(fftwf_iodim64), dimension(*), intent(in) :: howmany_dims
+   in howmany_dims_ :Pfftwf_iodim64;
       real(C_FLOAT), dimension(*), intent(out) :: ri
       real(C_FLOAT), dimension(*), intent(out) :: ii
       real(C_FLOAT), dimension(*), intent(out) :: out
@@ -891,26 +891,26 @@ interface //####################################################################
     
     function fftwf_plan_many_r2r(
       rank_ :TC_INT;
-      integer(C_INT), dimension(*), intent(in) :: n
+   in n_ :PC_INT;
       howmany_ :TC_INT;
       real(C_FLOAT), dimension(*), intent(out) :: in
-      integer(C_INT), dimension(*), intent(in) :: inembed
+   in inembed_ :PC_INT;
       istride_ :TC_INT;
       idist_ :TC_INT;
       real(C_FLOAT), dimension(*), intent(out) :: out
-      integer(C_INT), dimension(*), intent(in) :: onembed
+   in onembed_ :PC_INT;
       ostride_ :TC_INT;
       odist_ :TC_INT;
-      integer(C_FFTW_R2R_KIND), dimension(*), intent(in) :: kind
+   in kind_ :PC_FFTW_R2R_KIND;
       flags_ :TC_INT;
     ) :TC_PTR; cdecl; external _DLLNAME_;
     
     function fftwf_plan_r2r(
       rank_ :TC_INT;
-      integer(C_INT), dimension(*), intent(in) :: n
+   in n_ :PC_INT;
       real(C_FLOAT), dimension(*), intent(out) :: in
       real(C_FLOAT), dimension(*), intent(out) :: out
-      integer(C_FFTW_R2R_KIND), dimension(*), intent(in) :: kind
+   in kind_ :PC_FFTW_R2R_KIND;
       flags_ :TC_INT;
     ) :TC_PTR; cdecl; external _DLLNAME_;
     
@@ -946,23 +946,23 @@ interface //####################################################################
     
     function fftwf_plan_guru_r2r(
       rank_ :TC_INT;
-      type(fftwf_iodim), dimension(*), intent(in) :: dims
+   in dims_ :Pfftwf_iodim;
       howmany_rank_ :TC_INT;
-      type(fftwf_iodim), dimension(*), intent(in) :: howmany_dims
+   in howmany_dims_ :Pfftwf_iodim;
       real(C_FLOAT), dimension(*), intent(out) :: in
       real(C_FLOAT), dimension(*), intent(out) :: out
-      integer(C_FFTW_R2R_KIND), dimension(*), intent(in) :: kind
+   in kind_ :PC_FFTW_R2R_KIND;
       flags_ :TC_INT;
     ) :TC_PTR; cdecl; external _DLLNAME_;
     
     function fftwf_plan_guru64_r2r(
       rank_ :TC_INT;
-      type(fftwf_iodim64), dimension(*), intent(in) :: dims
+   in dims_ :Pfftwf_iodim64;
       howmany_rank_ :TC_INT;
-      type(fftwf_iodim64), dimension(*), intent(in) :: howmany_dims
+   in howmany_dims_ :Pfftwf_iodim64;
       real(C_FLOAT), dimension(*), intent(out) :: in
       real(C_FLOAT), dimension(*), intent(out) :: out
-      integer(C_FFTW_R2R_KIND), dimension(*), intent(in) :: kind
+   in kind_ :PC_FFTW_R2R_KIND;
       flags_ :TC_INT;
     ) :TC_PTR; cdecl; external _DLLNAME_;
     
@@ -1000,7 +1000,7 @@ interface //####################################################################
     ); cdecl; external _DLLNAME_;
     
     function fftwf_export_wisdom_to_filename(
-      character(C_CHAR), dimension(*), intent(in) :: filename
+   in filename_ :PC_CHAR;
     ) :TC_INT; cdecl; external _DLLNAME_;
     
     procedure fftwf_export_wisdom_to_file(
@@ -1019,7 +1019,7 @@ interface //####################################################################
     end function fftwf_import_system_wisdom
     
     function fftwf_import_wisdom_from_filename(
-      character(C_CHAR), dimension(*), intent(in) :: filename
+   in filename_ :PC_CHAR;
     ) :TC_INT; cdecl; external _DLLNAME_;
     
     function fftwf_import_wisdom_from_file(
@@ -1027,7 +1027,7 @@ interface //####################################################################
     ) :TC_INT; cdecl; external _DLLNAME_;
     
     function fftwf_import_wisdom_from_string(
-      character(C_CHAR), dimension(*), intent(in) :: input_string
+   in input_string_ :PC_CHAR;
     ) :TC_INT; cdecl; external _DLLNAME_;
     
     function fftwf_import_wisdom(
