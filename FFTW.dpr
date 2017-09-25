@@ -29,7 +29,7 @@ uses
   LUX.Complex.D1 in '_LIBRARY\LUXOPHIA\LUX.Complex\LUX.Complex.D1.pas',
   fftw3 in '_LIBRARY\LUXOPHIA\LUX.Signal.FFTW\fftw3.pas',
   LUX.Signal.FFTW in '_LIBRARY\LUXOPHIA\LUX.Signal.FFTW\LUX.Signal.FFTW.pas',
-  LUX.Chart.LineChart in '_LIBRARY\LUX.Chart.LineChart.pas' {LineChart: TFrame};
+  LUX.Chart.LineChart in '_LIBRARY\LUXOPHIA\LUX.Chart\FMX\LUX.Chart.LineChart.pas' {LineChart: TFrame};
 
 {$R *.res}
 
