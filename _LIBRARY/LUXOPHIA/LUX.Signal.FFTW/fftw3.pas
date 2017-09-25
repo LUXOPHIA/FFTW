@@ -168,14 +168,14 @@ const howmany_dims_ :Pfftw_iodim64;
     
     procedure fftw_execute_dft(
       p_ :TC_PTR;
-      complex(C_DOUBLE_COMPLEX), dimension(*), intent(inout) :: in
+  var in_ :PC_DOUBLE_COMPLEX;
   out out_ :PC_DOUBLE_COMPLEX;
     ); cdecl; external _DLLNAME_;
     
     procedure fftw_execute_split_dft(
       p_ :TC_PTR;
-      real(C_DOUBLE), dimension(*), intent(inout) :: ri
-      real(C_DOUBLE), dimension(*), intent(inout) :: ii
+  var ri_ :PC_DOUBLE;
+  var ii_ :PC_DOUBLE;
   out ro_ :PC_DOUBLE;
   out io_ :PC_DOUBLE;
     ); cdecl; external _DLLNAME_;
@@ -360,27 +360,27 @@ const howmany_dims_ :Pfftw_iodim64;
     
     procedure fftw_execute_dft_r2c(
       p_ :TC_PTR;
-      real(C_DOUBLE), dimension(*), intent(inout) :: in
+  var in_ :PC_DOUBLE;
   out out_ :PC_DOUBLE_COMPLEX;
     ); cdecl; external _DLLNAME_;
     
     procedure fftw_execute_dft_c2r(
       p_ :TC_PTR;
-      complex(C_DOUBLE_COMPLEX), dimension(*), intent(inout) :: in
+  var in_ :PC_DOUBLE_COMPLEX;
   out out_ :PC_DOUBLE;
     ); cdecl; external _DLLNAME_;
     
     procedure fftw_execute_split_dft_r2c(
       p_ :TC_PTR;
-      real(C_DOUBLE), dimension(*), intent(inout) :: in
+  var in_ :PC_DOUBLE;
   out ro_ :PC_DOUBLE;
   out io_ :PC_DOUBLE;
     ); cdecl; external _DLLNAME_;
     
     procedure fftw_execute_split_dft_c2r(
       p_ :TC_PTR;
-      real(C_DOUBLE), dimension(*), intent(inout) :: ri
-      real(C_DOUBLE), dimension(*), intent(inout) :: ii
+  var ri_ :PC_DOUBLE;
+  var ii_ :PC_DOUBLE;
   out out_ :PC_DOUBLE;
     ); cdecl; external _DLLNAME_;
     
@@ -463,7 +463,7 @@ const kind_ :PC_FFTW_R2R_KIND;
     
     procedure fftw_execute_r2r(
       p_ :TC_PTR;
-      real(C_DOUBLE), dimension(*), intent(inout) :: in
+  var in_ :PC_DOUBLE;
   out out_ :PC_DOUBLE;
     ); cdecl; external _DLLNAME_;
     
@@ -689,14 +689,14 @@ const howmany_dims_ :Pfftwf_iodim64;
     
     procedure fftwf_execute_dft(
       p_ :TC_PTR;
-      complex(C_FLOAT_COMPLEX), dimension(*), intent(inout) :: in
+  var in_ :PC_FLOAT_COMPLEX;
   out out_ :PC_FLOAT_COMPLEX;
     ); cdecl; external _DLLNAME_;
     
     procedure fftwf_execute_split_dft(
       p_ :TC_PTR;
-      real(C_FLOAT), dimension(*), intent(inout) :: ri
-      real(C_FLOAT), dimension(*), intent(inout) :: ii
+  var ri_ :PC_FLOAT;
+  var ii_ :PC_FLOAT;
   out ro_ :PC_FLOAT;
   out io_ :PC_FLOAT;
     ); cdecl; external _DLLNAME_;
@@ -881,27 +881,27 @@ const howmany_dims_ :Pfftwf_iodim64;
     
     procedure fftwf_execute_dft_r2c(
       p_ :TC_PTR;
-      real(C_FLOAT), dimension(*), intent(inout) :: in
+  var in_ :PC_FLOAT;
   out out_ :PC_FLOAT_COMPLEX;
     ); cdecl; external _DLLNAME_;
     
     procedure fftwf_execute_dft_c2r(
       p_ :TC_PTR;
-      complex(C_FLOAT_COMPLEX), dimension(*), intent(inout) :: in
+  var in_ :PC_FLOAT_COMPLEX;
   out out_ :PC_FLOAT;
     ); cdecl; external _DLLNAME_;
     
     procedure fftwf_execute_split_dft_r2c(
       p_ :TC_PTR;
-      real(C_FLOAT), dimension(*), intent(inout) :: in
+  var in_ :PC_FLOAT;
   out ro_ :PC_FLOAT;
   out io_ :PC_FLOAT;
     ); cdecl; external _DLLNAME_;
     
     procedure fftwf_execute_split_dft_c2r(
       p_ :TC_PTR;
-      real(C_FLOAT), dimension(*), intent(inout) :: ri
-      real(C_FLOAT), dimension(*), intent(inout) :: ii
+  var ri_ :PC_FLOAT;
+  var ii_ :PC_FLOAT;
   out out_ :PC_FLOAT;
     ); cdecl; external _DLLNAME_;
     
@@ -984,7 +984,7 @@ const kind_ :PC_FFTW_R2R_KIND;
     
     procedure fftwf_execute_r2r(
       p_ :TC_PTR;
-      real(C_FLOAT), dimension(*), intent(inout) :: in
+  var in_ :PC_FLOAT;
   out out_ :PC_FLOAT;
     ); cdecl; external _DLLNAME_;
     
