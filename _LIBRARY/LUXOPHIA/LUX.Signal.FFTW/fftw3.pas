@@ -159,21 +159,21 @@ interface //####################################################################
       integer(C_INT), value :: flags
     ) :TC_PTR; cdecl; external _DLLNAME_;
     
-    subroutine fftw_execute_dft(p,in,out) bind(C, name='fftw_execute_dft')
+    procedure fftw_execute_dft(
       import
       type(C_PTR), value :: p
       complex(C_DOUBLE_COMPLEX), dimension(*), intent(inout) :: in
       complex(C_DOUBLE_COMPLEX), dimension(*), intent(out) :: out
-    end subroutine fftw_execute_dft
+    ); cdecl; external _DLLNAME_;
     
-    subroutine fftw_execute_split_dft(p,ri,ii,ro,io) bind(C, name='fftw_execute_split_dft')
+    procedure fftw_execute_split_dft(
       import
       type(C_PTR), value :: p
       real(C_DOUBLE), dimension(*), intent(inout) :: ri
       real(C_DOUBLE), dimension(*), intent(inout) :: ii
       real(C_DOUBLE), dimension(*), intent(out) :: ro
       real(C_DOUBLE), dimension(*), intent(out) :: io
-    end subroutine fftw_execute_split_dft
+    ); cdecl; external _DLLNAME_;
     
     function fftw_plan_many_dft_r2c(
       import
@@ -371,35 +371,35 @@ interface //####################################################################
       integer(C_INT), value :: flags
     ) :TC_PTR; cdecl; external _DLLNAME_;
     
-    subroutine fftw_execute_dft_r2c(p,in,out) bind(C, name='fftw_execute_dft_r2c')
+    procedure fftw_execute_dft_r2c(
       import
       type(C_PTR), value :: p
       real(C_DOUBLE), dimension(*), intent(inout) :: in
       complex(C_DOUBLE_COMPLEX), dimension(*), intent(out) :: out
-    end subroutine fftw_execute_dft_r2c
+    ); cdecl; external _DLLNAME_;
     
-    subroutine fftw_execute_dft_c2r(p,in,out) bind(C, name='fftw_execute_dft_c2r')
+    procedure fftw_execute_dft_c2r(
       import
       type(C_PTR), value :: p
       complex(C_DOUBLE_COMPLEX), dimension(*), intent(inout) :: in
       real(C_DOUBLE), dimension(*), intent(out) :: out
-    end subroutine fftw_execute_dft_c2r
+    ); cdecl; external _DLLNAME_;
     
-    subroutine fftw_execute_split_dft_r2c(p,in,ro,io) bind(C, name='fftw_execute_split_dft_r2c')
+    procedure fftw_execute_split_dft_r2c(
       import
       type(C_PTR), value :: p
       real(C_DOUBLE), dimension(*), intent(inout) :: in
       real(C_DOUBLE), dimension(*), intent(out) :: ro
       real(C_DOUBLE), dimension(*), intent(out) :: io
-    end subroutine fftw_execute_split_dft_r2c
+    ); cdecl; external _DLLNAME_;
     
-    subroutine fftw_execute_split_dft_c2r(p,ri,ii,out) bind(C, name='fftw_execute_split_dft_c2r')
+    procedure fftw_execute_split_dft_c2r(
       import
       type(C_PTR), value :: p
       real(C_DOUBLE), dimension(*), intent(inout) :: ri
       real(C_DOUBLE), dimension(*), intent(inout) :: ii
       real(C_DOUBLE), dimension(*), intent(out) :: out
-    end subroutine fftw_execute_split_dft_c2r
+    ); cdecl; external _DLLNAME_;
     
     function fftw_plan_many_r2r(
       import
@@ -485,67 +485,67 @@ interface //####################################################################
       integer(C_INT), value :: flags
     ) :TC_PTR; cdecl; external _DLLNAME_;
     
-    subroutine fftw_execute_r2r(p,in,out) bind(C, name='fftw_execute_r2r')
+    procedure fftw_execute_r2r(
       import
       type(C_PTR), value :: p
       real(C_DOUBLE), dimension(*), intent(inout) :: in
       real(C_DOUBLE), dimension(*), intent(out) :: out
-    end subroutine fftw_execute_r2r
+    ); cdecl; external _DLLNAME_;
     
-    subroutine fftw_destroy_plan(p) bind(C, name='fftw_destroy_plan')
+    procedure fftw_destroy_plan(
       import
       type(C_PTR), value :: p
-    end subroutine fftw_destroy_plan
+    ); cdecl; external _DLLNAME_;
     
-    subroutine fftw_forget_wisdom() bind(C, name='fftw_forget_wisdom')
+    procedure fftw_forget_wisdom(
       import
-    end subroutine fftw_forget_wisdom
+    ); cdecl; external _DLLNAME_;
     
-    subroutine fftw_cleanup() bind(C, name='fftw_cleanup')
+    procedure fftw_cleanup(
       import
-    end subroutine fftw_cleanup
+    ); cdecl; external _DLLNAME_;
     
-    subroutine fftw_set_timelimit(t) bind(C, name='fftw_set_timelimit')
+    procedure fftw_set_timelimit(
       import
       real(C_DOUBLE), value :: t
-    end subroutine fftw_set_timelimit
+    ); cdecl; external _DLLNAME_;
     
-    subroutine fftw_plan_with_nthreads(nthreads) bind(C, name='fftw_plan_with_nthreads')
+    procedure fftw_plan_with_nthreads(
       import
       integer(C_INT), value :: nthreads
-    end subroutine fftw_plan_with_nthreads
+    ); cdecl; external _DLLNAME_;
     
     integer(C_INT) function fftw_init_threads() bind(C, name='fftw_init_threads')
       import
     end function fftw_init_threads
     
-    subroutine fftw_cleanup_threads() bind(C, name='fftw_cleanup_threads')
+    procedure fftw_cleanup_threads(
       import
-    end subroutine fftw_cleanup_threads
+    ); cdecl; external _DLLNAME_;
     
-    subroutine fftw_make_planner_thread_safe() bind(C, name='fftw_make_planner_thread_safe')
+    procedure fftw_make_planner_thread_safe(
       import
-    end subroutine fftw_make_planner_thread_safe
+    ); cdecl; external _DLLNAME_;
     
     integer(C_INT) function fftw_export_wisdom_to_filename(filename) bind(C, name='fftw_export_wisdom_to_filename')
       import
       character(C_CHAR), dimension(*), intent(in) :: filename
     end function fftw_export_wisdom_to_filename
     
-    subroutine fftw_export_wisdom_to_file(output_file) bind(C, name='fftw_export_wisdom_to_file')
+    procedure fftw_export_wisdom_to_file(
       import
       type(C_PTR), value :: output_file
-    end subroutine fftw_export_wisdom_to_file
+    ); cdecl; external _DLLNAME_;
     
     type(C_PTR) function fftw_export_wisdom_to_string() bind(C, name='fftw_export_wisdom_to_string')
       import
     end function fftw_export_wisdom_to_string
     
-    subroutine fftw_export_wisdom(write_char,data) bind(C, name='fftw_export_wisdom')
+    procedure fftw_export_wisdom(
       import
       type(C_FUNPTR), value :: write_char
       type(C_PTR), value :: data
-    end subroutine fftw_export_wisdom
+    ); cdecl; external _DLLNAME_;
     
     integer(C_INT) function fftw_import_system_wisdom() bind(C, name='fftw_import_system_wisdom')
       import
@@ -572,16 +572,16 @@ interface //####################################################################
       type(C_PTR), value :: data
     end function fftw_import_wisdom
     
-    subroutine fftw_fprint_plan(p,output_file) bind(C, name='fftw_fprint_plan')
+    procedure fftw_fprint_plan(
       import
       type(C_PTR), value :: p
       type(C_PTR), value :: output_file
-    end subroutine fftw_fprint_plan
+    ); cdecl; external _DLLNAME_;
     
-    subroutine fftw_print_plan(p) bind(C, name='fftw_print_plan')
+    procedure fftw_print_plan(
       import
       type(C_PTR), value :: p
-    end subroutine fftw_print_plan
+    ); cdecl; external _DLLNAME_;
     
     function fftw_sprint_plan(
       import
@@ -603,18 +603,18 @@ interface //####################################################################
       integer(C_SIZE_T), value :: n
     ) :TC_PTR; cdecl; external _DLLNAME_;
     
-    subroutine fftw_free(p) bind(C, name='fftw_free')
+    procedure fftw_free(
       import
       type(C_PTR), value :: p
-    end subroutine fftw_free
+    ); cdecl; external _DLLNAME_;
     
-    subroutine fftw_flops(p,add,mul,fmas) bind(C, name='fftw_flops')
+    procedure fftw_flops(
       import
       type(C_PTR), value :: p
       real(C_DOUBLE), intent(out) :: add
       real(C_DOUBLE), intent(out) :: mul
       real(C_DOUBLE), intent(out) :: fmas
-    end subroutine fftw_flops
+    ); cdecl; external _DLLNAME_;
     
     real(C_DOUBLE) function fftw_estimate_cost(p) bind(C, name='fftw_estimate_cost')
       import
@@ -749,21 +749,21 @@ interface //####################################################################
       integer(C_INT), value :: flags
     ) :TC_PTR; cdecl; external _DLLNAME_;
     
-    subroutine fftwf_execute_dft(p,in,out) bind(C, name='fftwf_execute_dft')
+    procedure fftwf_execute_dft(
       import
       type(C_PTR), value :: p
       complex(C_FLOAT_COMPLEX), dimension(*), intent(inout) :: in
       complex(C_FLOAT_COMPLEX), dimension(*), intent(out) :: out
-    end subroutine fftwf_execute_dft
+    ); cdecl; external _DLLNAME_;
     
-    subroutine fftwf_execute_split_dft(p,ri,ii,ro,io) bind(C, name='fftwf_execute_split_dft')
+    procedure fftwf_execute_split_dft(
       import
       type(C_PTR), value :: p
       real(C_FLOAT), dimension(*), intent(inout) :: ri
       real(C_FLOAT), dimension(*), intent(inout) :: ii
       real(C_FLOAT), dimension(*), intent(out) :: ro
       real(C_FLOAT), dimension(*), intent(out) :: io
-    end subroutine fftwf_execute_split_dft
+    ); cdecl; external _DLLNAME_;
     
     function fftwf_plan_many_dft_r2c(
       import
@@ -961,35 +961,35 @@ interface //####################################################################
       integer(C_INT), value :: flags
     ) :TC_PTR; cdecl; external _DLLNAME_;
     
-    subroutine fftwf_execute_dft_r2c(p,in,out) bind(C, name='fftwf_execute_dft_r2c')
+    procedure fftwf_execute_dft_r2c(
       import
       type(C_PTR), value :: p
       real(C_FLOAT), dimension(*), intent(inout) :: in
       complex(C_FLOAT_COMPLEX), dimension(*), intent(out) :: out
-    end subroutine fftwf_execute_dft_r2c
+    ); cdecl; external _DLLNAME_;
     
-    subroutine fftwf_execute_dft_c2r(p,in,out) bind(C, name='fftwf_execute_dft_c2r')
+    procedure fftwf_execute_dft_c2r(
       import
       type(C_PTR), value :: p
       complex(C_FLOAT_COMPLEX), dimension(*), intent(inout) :: in
       real(C_FLOAT), dimension(*), intent(out) :: out
-    end subroutine fftwf_execute_dft_c2r
+    ); cdecl; external _DLLNAME_;
     
-    subroutine fftwf_execute_split_dft_r2c(p,in,ro,io) bind(C, name='fftwf_execute_split_dft_r2c')
+    procedure fftwf_execute_split_dft_r2c(
       import
       type(C_PTR), value :: p
       real(C_FLOAT), dimension(*), intent(inout) :: in
       real(C_FLOAT), dimension(*), intent(out) :: ro
       real(C_FLOAT), dimension(*), intent(out) :: io
-    end subroutine fftwf_execute_split_dft_r2c
+    ); cdecl; external _DLLNAME_;
     
-    subroutine fftwf_execute_split_dft_c2r(p,ri,ii,out) bind(C, name='fftwf_execute_split_dft_c2r')
+    procedure fftwf_execute_split_dft_c2r(
       import
       type(C_PTR), value :: p
       real(C_FLOAT), dimension(*), intent(inout) :: ri
       real(C_FLOAT), dimension(*), intent(inout) :: ii
       real(C_FLOAT), dimension(*), intent(out) :: out
-    end subroutine fftwf_execute_split_dft_c2r
+    ); cdecl; external _DLLNAME_;
     
     function fftwf_plan_many_r2r(
       import
@@ -1075,67 +1075,67 @@ interface //####################################################################
       integer(C_INT), value :: flags
     ) :TC_PTR; cdecl; external _DLLNAME_;
     
-    subroutine fftwf_execute_r2r(p,in,out) bind(C, name='fftwf_execute_r2r')
+    procedure fftwf_execute_r2r(
       import
       type(C_PTR), value :: p
       real(C_FLOAT), dimension(*), intent(inout) :: in
       real(C_FLOAT), dimension(*), intent(out) :: out
-    end subroutine fftwf_execute_r2r
+    ); cdecl; external _DLLNAME_;
     
-    subroutine fftwf_destroy_plan(p) bind(C, name='fftwf_destroy_plan')
+    procedure fftwf_destroy_plan(
       import
       type(C_PTR), value :: p
-    end subroutine fftwf_destroy_plan
+    ); cdecl; external _DLLNAME_;
     
-    subroutine fftwf_forget_wisdom() bind(C, name='fftwf_forget_wisdom')
+    procedure fftwf_forget_wisdom(
       import
-    end subroutine fftwf_forget_wisdom
+    ); cdecl; external _DLLNAME_;
     
-    subroutine fftwf_cleanup() bind(C, name='fftwf_cleanup')
+    procedure fftwf_cleanup(
       import
-    end subroutine fftwf_cleanup
+    ); cdecl; external _DLLNAME_;
     
-    subroutine fftwf_set_timelimit(t) bind(C, name='fftwf_set_timelimit')
+    procedure fftwf_set_timelimit(
       import
       real(C_DOUBLE), value :: t
-    end subroutine fftwf_set_timelimit
+    ); cdecl; external _DLLNAME_;
     
-    subroutine fftwf_plan_with_nthreads(nthreads) bind(C, name='fftwf_plan_with_nthreads')
+    procedure fftwf_plan_with_nthreads(
       import
       integer(C_INT), value :: nthreads
-    end subroutine fftwf_plan_with_nthreads
+    ); cdecl; external _DLLNAME_;
     
     integer(C_INT) function fftwf_init_threads() bind(C, name='fftwf_init_threads')
       import
     end function fftwf_init_threads
     
-    subroutine fftwf_cleanup_threads() bind(C, name='fftwf_cleanup_threads')
+    procedure fftwf_cleanup_threads(
       import
-    end subroutine fftwf_cleanup_threads
+    ); cdecl; external _DLLNAME_;
     
-    subroutine fftwf_make_planner_thread_safe() bind(C, name='fftwf_make_planner_thread_safe')
+    procedure fftwf_make_planner_thread_safe(
       import
-    end subroutine fftwf_make_planner_thread_safe
+    ); cdecl; external _DLLNAME_;
     
     integer(C_INT) function fftwf_export_wisdom_to_filename(filename) bind(C, name='fftwf_export_wisdom_to_filename')
       import
       character(C_CHAR), dimension(*), intent(in) :: filename
     end function fftwf_export_wisdom_to_filename
     
-    subroutine fftwf_export_wisdom_to_file(output_file) bind(C, name='fftwf_export_wisdom_to_file')
+    procedure fftwf_export_wisdom_to_file(
       import
       type(C_PTR), value :: output_file
-    end subroutine fftwf_export_wisdom_to_file
+    ); cdecl; external _DLLNAME_;
     
     type(C_PTR) function fftwf_export_wisdom_to_string() bind(C, name='fftwf_export_wisdom_to_string')
       import
     end function fftwf_export_wisdom_to_string
     
-    subroutine fftwf_export_wisdom(write_char,data) bind(C, name='fftwf_export_wisdom')
+    procedure fftwf_export_wisdom(
       import
       type(C_FUNPTR), value :: write_char
       type(C_PTR), value :: data
-    end subroutine fftwf_export_wisdom
+    ); cdecl; external _DLLNAME_;
     
     integer(C_INT) function fftwf_import_system_wisdom() bind(C, name='fftwf_import_system_wisdom')
       import
@@ -1162,16 +1162,16 @@ interface //####################################################################
       type(C_PTR), value :: data
     end function fftwf_import_wisdom
     
-    subroutine fftwf_fprint_plan(p,output_file) bind(C, name='fftwf_fprint_plan')
+    procedure fftwf_fprint_plan(
       import
       type(C_PTR), value :: p
       type(C_PTR), value :: output_file
-    end subroutine fftwf_fprint_plan
+    ); cdecl; external _DLLNAME_;
     
-    subroutine fftwf_print_plan(p) bind(C, name='fftwf_print_plan')
+    procedure fftwf_print_plan(
       import
       type(C_PTR), value :: p
-    end subroutine fftwf_print_plan
+    ); cdecl; external _DLLNAME_;
     
     function fftwf_sprint_plan(
       import
@@ -1193,18 +1193,18 @@ interface //####################################################################
       integer(C_SIZE_T), value :: n
     ) :TC_PTR; cdecl; external _DLLNAME_;
     
-    subroutine fftwf_free(p) bind(C, name='fftwf_free')
+    procedure fftwf_free(
       import
       type(C_PTR), value :: p
-    end subroutine fftwf_free
+    ); cdecl; external _DLLNAME_;
     
-    subroutine fftwf_flops(p,add,mul,fmas) bind(C, name='fftwf_flops')
+    procedure fftwf_flops(
       import
       type(C_PTR), value :: p
       real(C_DOUBLE), intent(out) :: add
       real(C_DOUBLE), intent(out) :: mul
       real(C_DOUBLE), intent(out) :: fmas
-    end subroutine fftwf_flops
+    ); cdecl; external _DLLNAME_;
     
     real(C_DOUBLE) function fftwf_estimate_cost(p) bind(C, name='fftwf_estimate_cost')
       import
