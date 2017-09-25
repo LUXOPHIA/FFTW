@@ -337,6 +337,12 @@
         <DCCReference Include="_LIBRARY\LUXOPHIA\LUX.Complex\LUX.Complex.pas"/>
         <DCCReference Include="_LIBRARY\LUXOPHIA\LUX.Complex\LUX.Complex.D1.pas"/>
         <DCCReference Include="_LIBRARY\LUXOPHIA\LUX.Signal.FFTW\fftw3.pas"/>
+        <DCCReference Include="_LIBRARY\LUXOPHIA\LUX.Signal.FFTW\LUX.Signal.FFTW.pas"/>
+        <DCCReference Include="_LIBRARY\LUX.Chart.LineChart.pas">
+            <Form>LineChart</Form>
+            <FormType>fmx</FormType>
+            <DesignClass>TFrame</DesignClass>
+        </DCCReference>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
