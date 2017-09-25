@@ -179,9 +179,7 @@ var
 begin
      _FFT := TDoubleFFT.Create;
 
-     _FFT.TimesN := Round( ScrollBar1.Value );
-
-     MakeCharts;
+     ScrollBar1Change( Sender );
 end;
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -200,6 +198,7 @@ end;
 //------------------------------------------------------------------------------
 
 procedure TForm1.ScrollBar1Change(Sender: TObject);
+
 begin
      _FFT.TimesN := Round( ScrollBar1.Value );
 
