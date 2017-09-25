@@ -39,12 +39,16 @@
   const FFTW_NO_FIXED_RADIX_LARGE_N :TC_INT = 524288;
   const FFTW_ALLOW_PRUNING          :TC_INT = 1048576;
 
-  type, bind(C) :: fftw_iodim
-     integer(C_INT) n, is, os
-  end type fftw_iodim
-  type, bind(C) :: fftw_iodim64
-     integer(C_INTPTR_T) n, is, os
-  end type fftw_iodim64
+  type Tfftw_iodim = record
+         _n  :TC_INT;
+         _is :TC_INT;
+         _os :TC_INT;
+       end;
+  type Tfftw_iodim64 = record
+         _n  :TC_INTPTR_T;
+         _is :TC_INTPTR_T;
+         _os :TC_INTPTR_T;
+       end;
 
   interface
     type(C_PTR) function fftw_plan_dft(rank,n,in,out,sign,flags) bind(C, name='fftw_plan_dft')
