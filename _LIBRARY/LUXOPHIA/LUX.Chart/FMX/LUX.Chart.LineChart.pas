@@ -49,7 +49,7 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
      //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TLineChart
 
-     TLineChart = class(TFrame)
+     TLineChart = class( TFrame )
      private
        { private 宣言 }
      protected
@@ -57,6 +57,7 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
        _LinesN :Integer;
        _MinY   :Single;
        _MaxY   :Single;
+       _Color  :TAlphaColor;
        ///// アクセス
        function GetLines( const I_:Integer ) :TChartLine;
        function GetLinesN :Integer;
@@ -65,6 +66,8 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
        procedure SetMinY( const MinY_:Single );
        function GetMaxY :Single;
        procedure SetMaxY( const MaxY_:Single );
+       function GetColor :TAlphaColor;
+       procedure SetColor( const Color_:TAlphaColor );
        ///// メソッド
        procedure Paint; override;
        function ValToScr( const Y_:Single ) :Single;
@@ -73,10 +76,11 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
        constructor Create( AOwner_:TComponent ); override;
        destructor Destroy; override;
        ///// プロパティ
-       property Lines[ const I_:Integer ] :TChartLine read GetLines                 ;
-       property LinesN                    :Integer    read GetLinesN write SetLinesN;
-       property MinY                      :Single     read GetMinY   write SetMinY  ;
-       property MaxY                      :Single     read GetMaxY   write SetMaxY  ;
+       property Lines[ const I_:Integer ] :TChartLine  read GetLines                 ;
+       property LinesN                    :Integer     read GetLinesN write SetLinesN;
+       property MinY                      :Single      read GetMinY   write SetMinY  ;
+       property MaxY                      :Single      read GetMaxY   write SetMaxY  ;
+       property Color                     :TAlphaColor read GetColor  write SetColor ;
      end;
 
 implementation //############################################################### ■
@@ -243,6 +247,16 @@ begin
      _MaxY := MaxY_;
 end;
 
+function TLineChart.GetColor :TAlphaColor;
+begin
+     Result := _Color;
+end;
+
+procedure TLineChart.SetColor( const Color_:TAlphaColor );
+begin
+     _Color := Color_;
+end;
+
 /////////////////////////////////////////////////////////////////////// メソッド
 
 procedure TLineChart.Paint;
@@ -251,7 +265,7 @@ var
 begin
      inherited;
 
-     Canvas.Clear( TAlphaColors.White );
+     Canvas.Clear( _Color );
 
      for I := 0 to _LinesN-1 do _Lines[ I ].Draw;
 end;
@@ -272,6 +286,7 @@ begin
      LinesN :=  1;
      MinY   := -1;
      MaxY   := +1;
+     Color  := TAlphaColors.White;
 end;
 
 destructor TLineChart.Destroy;
