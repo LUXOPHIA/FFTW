@@ -46,8 +46,8 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
        ///// メソッド
        function NextStep( const C_:TDoubleC ) :TDoubleC;
      protected
-       _Walks :TArray<TDoubleC>;
-       _StdDev  :TDoubleC;
+       _Walks  :TArray<TDoubleC>;
+       _StdDev :TDoubleC;
        ///// アクセス
        function GetWalks( const I_:Integer ) :TDoubleC;
        function GetWalksN :Integer;
@@ -56,7 +56,7 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
        procedure SetStdDev( const SDev_:TDoubleC );
      public
        constructor Create; overload;
-       constructor Create( const WalksN_:Integer ); overload;
+       constructor Create( const WalksN_:Integer ); overload; virtual;
        destructor Destroy; override;
        ///// プロパティ
        property Walks[ const I_:Integer ] :TDoubleC read GetWalks                 ; default;
