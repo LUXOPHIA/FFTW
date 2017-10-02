@@ -45,7 +45,8 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
        ///// 型変換
        class operator Implicit( const V_:Single ) :TSingleC;
        ///// メソッド
-       class function RandG :TSingleC; static;
+       class function RandG( const SD_:Single = 1 ) :TSingleC; overload; static;
+       class function RandG( const SD_:TSingleC ) :TSingleC; overload; static;
        class function RandBS1 :TSingleC; static;
        class function RandBS2 :TSingleC; static;
        class function RandBS4 :TSingleC; static;
@@ -90,7 +91,8 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
        class operator Implicit( const V_:TSingleC ) :TDoubleC;
        class operator Implicit( const V_:TDoubleC ) :TSingleC;
        ///// メソッド
-       class function RandG :TDoubleC; static;
+       class function RandG( const SD_:Double = 1 ) :TDoubleC; overload; static;
+       class function RandG( const SD_:TDoubleC ) :TDoubleC; overload; static;
        class function RandBS1 :TDoubleC; static;
        class function RandBS2 :TDoubleC; static;
        class function RandBS4 :TDoubleC; static;
@@ -333,12 +335,21 @@ end;
 
 /////////////////////////////////////////////////////////////////////// メソッド
 
-class function TSingleC.RandG :TSingleC;
+class function TSingleC.RandG( const SD_:Single = 1 ) :TSingleC;
 begin
      with Result do
      begin
-          R := System.Math.RandG( 0, 1 );
-          I := System.Math.RandG( 0, 1 );
+          R := System.Math.RandG( 0, SD_ );
+          I := System.Math.RandG( 0, SD_ );
+     end;
+end;
+
+class function TSingleC.RandG( const SD_:TSingleC ) :TSingleC;
+begin
+     with Result do
+     begin
+          R := System.Math.RandG( 0, SD_.R );
+          I := System.Math.RandG( 0, SD_.I );
      end;
 end;
 
@@ -543,12 +554,21 @@ end;
 
 /////////////////////////////////////////////////////////////////////// メソッド
 
-class function TDoubleC.RandG :TDoubleC;
+class function TDoubleC.RandG( const SD_:Double = 1 ) :TDoubleC;
 begin
      with Result do
      begin
-          R := System.Math.RandG( 0, 1 );
-          I := System.Math.RandG( 0, 1 );
+          R := System.Math.RandG( 0, SD_ );
+          I := System.Math.RandG( 0, SD_ );
+     end;
+end;
+
+class function TDoubleC.RandG( const SD_:TDoubleC ) :TDoubleC;
+begin
+     with Result do
+     begin
+          R := System.Math.RandG( 0, SD_.R );
+          I := System.Math.RandG( 0, SD_.I );
      end;
 end;
 
