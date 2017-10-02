@@ -9,6 +9,7 @@ uses
   LUX,
   LUX.D1,
   LUX.Complex,
+  LUX.Complex.D1,
   LUX.Signal.FFTW,
   LUX.Chart.LineChart;
 
@@ -25,12 +26,13 @@ type
     procedure ScrollBarNChange(Sender: TObject);
   private
     { private 宣言 }
-    _InitOK :Boolean;
+    _DoInit :Boolean;
+    _Wave   :IDoubleRandWalkC;
     ///// メソッド
     procedure MakeCharts;
     procedure DrawTimes;
     procedure DrawFreqs;
-    procedure RandomWalk;
+    procedure MakeWave;
   public
     { public 宣言 }
     _FFT :IDoubleFFT;
@@ -140,52 +142,30 @@ end;
 
 //------------------------------------------------------------------------------
 
-function CosBell( const X_:Double ) :Double; overload;
-begin
-     if Abs( X_ ) > 1 then Result := 0
-                      else Result := ( 1 + Cos( Pi * X_ ) ) / 2;
-end;
-
-function CosBell( const C_:TDoubleC ) :Double; overload;
-begin
-     Result := CosBell( C_.Size );
-end;
-
-function MetroWalk( const C0:TDoubleC ) :TDoubleC;
-var
-   C1 :TDoubleC;
-   A :Double;
-begin
-     C1 := C0 + 0.05 * TDoubleC.RandG;
-
-     A := CosBell( C1 ) / CosBell( C0 );
-
-     if Random < A then Result := C1
-                   else Result := C0;
-end;
-
-procedure TForm1.RandomWalk;
+procedure TForm1.MakeWave;
 var
    N, I :Integer;
 begin
+     if _DoInit then
+     begin
+          N := Round( ScrollBarN.Value );
+
+          _Wave.WalksN := N;
+
+          _FFT.TimesN := N;
+
+          LabelN.Text := N.ToString;
+
+          MakeCharts;
+
+          _DoInit := False;
+     end;
+
+     _Wave.AddStep;
+
      with _FFT do
      begin
-          for I := 0 to TimesN-2 do Times[ I ] := Times[ I+1 ];
-
-          N := TimesN;
-
-          if _InitOK then
-          begin
-               TimesN := Round( ScrollBarN.Value );;
-
-               LabelN.Text := TimesN.ToString;
-
-               MakeCharts;
-
-               _InitOK := False;
-          end;
-
-          for I := N-1 to TimesN-1 do Times[ I ] := MetroWalk( Times[ I-1 ] );
+          for I := 0 to TimesN-1 do Times[ I ] := _Wave[ I ];
      end;
 end;
 
@@ -197,6 +177,8 @@ procedure TForm1.FormCreate(Sender: TObject);
 begin
      ScrollBarN.SmallChange := 1;
 
+     _Wave := TDoubleRandWalkC.Create;
+
      _FFT := TDoubleFFT.Create;
 
      ScrollBarNChange( Sender );
@@ -206,7 +188,7 @@ end;
 
 procedure TForm1.Timer1Timer(Sender: TObject);
 begin
-     RandomWalk;
+     MakeWave;
 
      DrawTimes;
 
@@ -219,7 +201,7 @@ end;
 
 procedure TForm1.ScrollBarNChange(Sender: TObject);
 begin
-     _InitOK := True;
+     _DoInit := True;
 end;
 
 end. //######################################################################### ■
