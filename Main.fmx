@@ -1,6 +1,7 @@
 object Form1: TForm1
   Left = 0
   Top = 0
+  BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = Single
   Caption = 'FFTW'
   ClientHeight = 430
@@ -23,14 +24,15 @@ object Form1: TForm1
       Max = 2048.000000000000000000
       Min = 2.000000000000000000
       Value = 512.000000000000000000
+      SmallChange = 0.000000000000000000
       Orientation = Vertical
       Position.X = 20.000000000000000000
       Position.Y = 40.000000000000000000
+      RotationAngle = 180.000000000000000000
       Size.Width = 25.000000000000000000
       Size.Height = 380.000000000000000000
       Size.PlatformDefault = False
       TabOrder = 0
-      OnChange = ScrollBarNChange
     end
     object LabelN: TLabel
       Position.X = 10.000000000000000000
@@ -43,7 +45,7 @@ object Form1: TForm1
       TabOrder = 1
     end
   end
-  inline LineChartT: TLineChart
+  inline ChartViewerT: TChartViewer
     ClipChildren = True
     Position.X = 10.000000000000000000
     Position.Y = 10.000000000000000000
@@ -51,7 +53,7 @@ object Form1: TForm1
     Size.Height = 200.000000000000000000
     Size.PlatformDefault = False
   end
-  inline LineChartF: TLineChart
+  inline ChartViewerF: TChartViewer
     ClipChildren = True
     Position.X = 10.000000000000000000
     Position.Y = 220.000000000000000000
