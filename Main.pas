@@ -122,21 +122,21 @@ var
 begin
      with ChartViewerT do
      begin
-          with _FFT do
+          with _FFT.Times do
           begin
-               for J := 0 to TimesN-1 do
+               for J := 0 to PoinsX-1 do
                begin
-                    with Times[ J ] do
+                    with Poins[ J ] do
                     begin
-                         _CurvTR.Poins[ J ] := TSingle2D.Create( J / TimesN, R );
-                         _CurvTI.Poins[ J ] := TSingle2D.Create( J / TimesN, I );
+                         _CurvTR.Poins[ J ] := TSingle2D.Create( J / PoinsX, R );
+                         _CurvTI.Poins[ J ] := TSingle2D.Create( J / PoinsX, I );
                     end;
                end;
 
-               with Times[ 0 ] do
+               with Poins[ 0 ] do
                begin
-                    _CurvTR.Poins[ TimesN ] := TSingle2D.Create( 1, R );
-                    _CurvTI.Poins[ TimesN ] := TSingle2D.Create( 1, I );
+                    _CurvTR.Poins[ PoinsX ] := TSingle2D.Create( 1, R );
+                    _CurvTI.Poins[ PoinsX ] := TSingle2D.Create( 1, I );
                end;
           end;
 
@@ -150,21 +150,21 @@ var
 begin
      with ChartViewerF do
      begin
-          with _FFT do
+          with _FFT.Freqs do
           begin
-               for J := 0 to FreqsN-1 do
+               for J := 0 to PoinsX-1 do
                begin
-                    with Freqs[ J ] do
+                    with Poins[ J ] do
                     begin
-                         _CurvFR.Poins[ J ] := TSingle2D.Create( J / FreqsN, R );
-                         _CurvFI.Poins[ J ] := TSingle2D.Create( J / FreqsN, I );
+                         _CurvFR.Poins[ J ] := TSingle2D.Create( J / PoinsX, R );
+                         _CurvFI.Poins[ J ] := TSingle2D.Create( J / PoinsX, I );
                     end;
                end;
 
-               with Freqs[ 0 ] do
+               with Poins[ 0 ] do
                begin
-                    _CurvFR.Poins[ FreqsN ] := TSingle2D.Create( 1, R );
-                    _CurvFI.Poins[ FreqsN ] := TSingle2D.Create( 1, I );
+                    _CurvFR.Poins[ PoinsX ] := TSingle2D.Create( 1, R );
+                    _CurvFI.Poins[ PoinsX ] := TSingle2D.Create( 1, I );
                end;
           end;
 
@@ -182,11 +182,12 @@ var
 begin
      N := Round( ScrollBarN.Value );
 
-     if N <> _FFT.TimesN then
+     if N <> _FFT.Times.PoinsX then
      begin
           _Wave.WalksN := N;
 
-          _FFT.TimesN := N;
+          _FFT.Times.PoinsX := N;
+          _FFT.Freqs.PoinsX := N;
 
           LabelN.Text := N.ToString;
 
@@ -198,9 +199,9 @@ begin
 
      _Wave.AddStep;
 
-     with _FFT do
+     with _FFT.Times do
      begin
-          for I := 0 to TimesN-1 do Times[ I ] := _Wave[ I ];
+          for I := 0 to PoinsX-1 do Poins[ I ] := _Wave[ I ];
      end;
 end;
 
