@@ -106,9 +106,12 @@ end;
 
 procedure TCoreArray<_TElem_>.SetElemsN( const ElemsN_:Integer );
 begin
-     SetLength( _Elems, ElemsN_ );
+     if ElemsN_ <> Length( _Elems ) then
+     begin
+          SetLength( _Elems, ElemsN_ );
 
-     _OnChange;
+          _OnChange;
+     end;
 end;
 
 //------------------------------------------------------------------------------
