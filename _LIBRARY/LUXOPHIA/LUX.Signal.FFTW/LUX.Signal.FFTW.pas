@@ -3,6 +3,7 @@
 interface //#################################################################### ■
 
 uses LUX, LUX.Complex,
+     LUX.Data.Lattice.T1,
      fftw3;
 
 type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【型】
@@ -11,20 +12,12 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
      //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【クラス】
 
-     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TFFT
+     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TFFT<_TItem_,_TGrid_>
 
      IFFT = interface
      ['{379D220B-97B5-423B-9CD6-55E0AFE1D5DB}']
      {protected}
-       ///// アクセス
-       function GetTimesN :Integer;
-       procedure SetTimesN( const TimesN_:Integer );
-       function GetFreqsN :Integer;
-       procedure SetFreqsN( const FreqsN_:Integer );
      {public}
-       ///// プロパティ
-       property TimesN :Integer read GetTimesN write SetTimesN;
-       property FreqsN :Integer read GetFreqsN write SetFreqsN;
        ///// メソッド
        procedure TransTF;
        procedure TransFT;
@@ -32,32 +25,48 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
      //-------------------------------------------------------------------------
 
-     TFFT = class( TInterfacedObject )
+     TFFT<_TItem_:record;
+          _TGrid_:TPoinArray1D<_TItem_>,constructor> = class( TInterfacedObject, IFFT )
      private
      protected
-       _TimesN :Integer;
-       _FreqsN :Integer;
+       _Times  :_TGrid_;
+       _Freqs  :_TGrid_;
        _PlanTF :TC_PTR;
        _PlanFT :TC_PTR;
        ///// アクセス
-       function GetTimesN :Integer;
-       procedure SetTimesN( const TimesN_:Integer );
-       function GetFreqsN :Integer;
-       procedure SetFreqsN( const FreqsN_:Integer );
+       function GetTimes :_TGrid_;
+       function GetFreqs :_TGrid_;
+       procedure SetTimesN;
+       procedure SetFreqsN;
        ///// メソッド
        procedure CreatePlans; virtual; abstract;
        procedure DestroPlans; virtual; abstract;
-       procedure MakeBuffers; virtual; abstract;
        procedure RecreaPlans;
      public
        constructor Create;
        destructor Destroy; override;
        ///// プロパティ
-       property TimesN :Integer read GetTimesN write SetTimesN;
-       property FreqsN :Integer read GetFreqsN write SetFreqsN;
+       property TimesN :_TGrid_ read GetTimes;
+       property FreqsN :_TGrid_ read GetFreqs;
        ///// メソッド
        procedure TransTF; virtual; abstract;
        procedure TransFT; virtual; abstract;
+     end;
+
+     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TSingleFFT<_TGrid_>
+
+     TSingleFFT<_TGrid_:TPoinArray1D<TSingleC>,constructor> = class( TFFT<TSingleC,_TGrid_> )
+     private
+     protected
+       ///// メソッド
+       procedure CreatePlans; override;
+       procedure DestroPlans; override;
+     public
+       constructor Create;
+       destructor Destroy; override;
+       ///// メソッド
+       procedure TransTF; override;
+       procedure TransFT; override;
      end;
 
      //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TSingleFFT
@@ -66,38 +75,33 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
      ['{1CF097EA-F7BE-4DD4-82A4-E1522F3AE458}']
      {protected}
        ///// アクセス
-       function GetTimes( const I_:Integer ) :TSingleC;
-       procedure SetTimes( const I_:Integer; const Time_:TSingleC );
-       function GetFreqs( const I_:Integer ) :TSingleC;
-       procedure SetFreqs( const I_:Integer; const Freq_:TSingleC );
+       function GetTimes :TPoinArray1D<TSingleC>;
+       function GetFreqs :TPoinArray1D<TSingleC>;
      {public}
        ///// プロパティ
-       property Times[ const I_:Integer ] :TSingleC read GetTimes write SetTimes;
-       property Freqs[ const I_:Integer ] :TSingleC read GetFreqs write SetFreqs;
+       property Times :TPoinArray1D<TSingleC> read GetTimes;
+       property Freqs :TPoinArray1D<TSingleC> read GetFreqs;
      end;
 
      //-------------------------------------------------------------------------
 
-     TSingleFFT = class( TFFT, ISingleFFT )
+     TSingleFFT = class( TSingleFFT<TPoinArray1D<TSingleC>>, ISingleFFT )
      private
      protected
-       _Times :TArray<TSingleC>;
-       _Freqs :TArray<TSingleC>;
-       ///// アクセス
-       function GetTimes( const I_:Integer ) :TSingleC;
-       procedure SetTimes( const I_:Integer; const Time_:TSingleC );
-       function GetFreqs( const I_:Integer ) :TSingleC;
-       procedure SetFreqs( const I_:Integer; const Freq_:TSingleC );
+     public
+     end;
+
+     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TDoubleFFT<_TGrid_>
+
+     TDoubleFFT<_TGrid_:TPoinArray1D<TDoubleC>,constructor> = class( TFFT<TDoubleC,_TGrid_> )
+     private
+     protected
        ///// メソッド
        procedure CreatePlans; override;
        procedure DestroPlans; override;
-       procedure MakeBuffers; override;
      public
        constructor Create;
        destructor Destroy; override;
-       ///// プロパティ
-       property Times[ const I_:Integer ] :TSingleC read GetTimes write SetTimes;
-       property Freqs[ const I_:Integer ] :TSingleC read GetFreqs write SetFreqs;
        ///// メソッド
        procedure TransTF; override;
        procedure TransFT; override;
@@ -109,41 +113,20 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
      ['{CFBC7050-75C9-485D-BC99-8D925AB3A37B}']
      {protected}
        ///// アクセス
-       function GetTimes( const I_:Integer ) :TDoubleC;
-       procedure SetTimes( const I_:Integer; const Time_:TDoubleC );
-       function GetFreqs( const I_:Integer ) :TDoubleC;
-       procedure SetFreqs( const I_:Integer; const Freq_:TDoubleC );
+       function GetTimes :TPoinArray1D<TDoubleC>;
+       function GetFreqs :TPoinArray1D<TDoubleC>;
      {public}
        ///// プロパティ
-       property Times[ const I_:Integer ] :TDoubleC read GetTimes write SetTimes;
-       property Freqs[ const I_:Integer ] :TDoubleC read GetFreqs write SetFreqs;
+       property Times :TPoinArray1D<TDoubleC> read GetTimes;
+       property Freqs :TPoinArray1D<TDoubleC> read GetFreqs;
      end;
 
      //-------------------------------------------------------------------------
 
-     TDoubleFFT = class( TFFT, IDoubleFFT )
+     TDoubleFFT = class( TDoubleFFT<TPoinArray1D<TDoubleC>>, IDoubleFFT )
      private
      protected
-       _Times :TArray<TDoubleC>;
-       _Freqs :TArray<TDoubleC>;
-       ///// アクセス
-       function GetTimes( const I_:Integer ) :TDoubleC;
-       procedure SetTimes( const I_:Integer; const Time_:TDoubleC );
-       function GetFreqs( const I_:Integer ) :TDoubleC;
-       procedure SetFreqs( const I_:Integer; const Freq_:TDoubleC );
-       ///// メソッド
-       procedure CreatePlans; override;
-       procedure DestroPlans; override;
-       procedure MakeBuffers; override;
      public
-       constructor Create;
-       destructor Destroy; override;
-       ///// プロパティ
-       property Times[ const I_:Integer ] :TDoubleC read GetTimes write SetTimes;
-       property Freqs[ const I_:Integer ] :TDoubleC read GetFreqs write SetFreqs;
-       ///// メソッド
-       procedure TransTF; override;
-       procedure TransFT; override;
      end;
 
 //const //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【定数】
@@ -158,66 +141,76 @@ implementation //###############################################################
 
 //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【クラス】
 
-//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TFFT
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TFFT<_TItem_,_TGrid_>
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& private
-
-procedure TFFT.RecreaPlans;
-begin
-     DestroPlans;
-
-     MakeBuffers;
-
-     CreatePlans;
-end;
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& protected
 
 /////////////////////////////////////////////////////////////////////// アクセス
 
-function TFFT.GetTimesN :Integer;
+function TFFT<_TItem_,_TGrid_>.GetTimes :_TGrid_;
 begin
-     Result := _TimesN;
+     Result := _Times;
 end;
 
-procedure TFFT.SetTimesN( const TimesN_:Integer );
+function TFFT<_TItem_,_TGrid_>.GetFreqs :_TGrid_;
 begin
-     _TimesN := TimesN_;
-     _FreqsN := TimesN_;
+     Result := _Freqs;
+end;
+
+procedure TFFT<_TItem_,_TGrid_>.SetTimesN;
+begin
+     _Freqs.PoinsX := _Times.PoinsX;
 
      RecreaPlans;
 end;
 
-function TFFT.GetFreqsN :Integer;
+procedure TFFT<_TItem_,_TGrid_>.SetFreqsN;
 begin
-     Result := _FreqsN;
-end;
-
-procedure TFFT.SetFreqsN( const FreqsN_:Integer );
-begin
-     _FreqsN := FreqsN_;
-     _TimesN := FreqsN_;
+     _Times.PoinsX := _Freqs.PoinsX;
 
      RecreaPlans;
+end;
+
+/////////////////////////////////////////////////////////////////////// メソッド
+
+procedure TFFT<_TItem_,_TGrid_>.RecreaPlans;
+begin
+     DestroPlans;
+     CreatePlans;
 end;
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
 
-constructor TFFT.Create;
+constructor TFFT<_TItem_,_TGrid_>.Create;
 begin
      inherited;
 
-     _TimesN := 2;
-     _FreqsN := 2;
+     _Times := _TGrid_.Create;
+     _Freqs := _TGrid_.Create;
 
-     MakeBuffers;
+     with _Times as TPoinArray1D<_TItem_> do
+     begin
+          PoinsX   := 2;
+         _OnChange := SetTimesN;
+     end;
+
+     with _Freqs as TPoinArray1D<_TItem_> do
+     begin
+          PoinsX   := 2;
+         _OnChange := SetFreqsN;
+     end;
 
      CreatePlans;
 end;
 
-destructor TFFT.Destroy;
+destructor TFFT<_TItem_,_TGrid_>.Destroy;
 begin
      DestroPlans;
+
+     _Times.DisposeOf;
+     _Freqs.DisposeOf;
 
      inherited;
 end;
@@ -226,60 +219,32 @@ end;
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& private
 
-procedure TSingleFFT.CreatePlans;
+procedure TSingleFFT<_TGrid_>.CreatePlans;
 begin
-     _PlanTF := fftwf_plan_dft_1d( _TimesN, @_Times[0], @_Freqs[0], FFTW_FORWARD , FFTW_ESTIMATE );
-     _PlanFT := fftwf_plan_dft_1d( _FreqsN, @_Times[0], @_Freqs[0], FFTW_BACKWARD, FFTW_ESTIMATE );
+     _PlanTF := fftwf_plan_dft_1d( _Times.PoinsX, _Times.Elem0P, _Freqs.Elem0P, FFTW_FORWARD , FFTW_ESTIMATE );
+     _PlanFT := fftwf_plan_dft_1d( _Freqs.PoinsX, _Times.Elem0P, _Freqs.Elem0P, FFTW_BACKWARD, FFTW_ESTIMATE );
 
      Assert( Assigned( _PlanTF ) );
      Assert( Assigned( _PlanFT ) );
 end;
 
-procedure TSingleFFT.DestroPlans;
+procedure TSingleFFT<_TGrid_>.DestroPlans;
 begin
      fftwf_destroy_plan( _PlanTF );
      fftwf_destroy_plan( _PlanFT );
 end;
 
-procedure TSingleFFT.MakeBuffers;
-begin
-     SetLength( _Times, _TimesN );
-     SetLength( _Freqs, _FreqsN );
-end;
-
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& protected
-
-/////////////////////////////////////////////////////////////////////// アクセス
-
-function TSingleFFT.GetTimes( const I_:Integer ) :TSingleC;
-begin
-     Result := _Times[ I_ ];
-end;
-
-procedure TSingleFFT.SetTimes( const I_:Integer; const Time_:TSingleC );
-begin
-     _Times[ I_ ] := Time_;
-end;
-
-function TSingleFFT.GetFreqs( const I_:Integer ) :TSingleC;
-begin
-     Result := _Freqs[ I_ ];
-end;
-
-procedure TSingleFFT.SetFreqs( const I_:Integer; const Freq_:TSingleC );
-begin
-     _Freqs[ I_ ] := Freq_;
-end;
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
 
-constructor TSingleFFT.Create;
+constructor TSingleFFT<_TGrid_>.Create;
 begin
      inherited;
 
 end;
 
-destructor TSingleFFT.Destroy;
+destructor TSingleFFT<_TGrid_>.Destroy;
 begin
 
      inherited;
@@ -287,74 +252,46 @@ end;
 
 /////////////////////////////////////////////////////////////////////// メソッド
 
-procedure TSingleFFT.TransTF;
+procedure TSingleFFT<_TGrid_>.TransTF;
 begin
-     fftwf_execute_dft( _PlanTF, @_Times[0], @_Freqs[0] );
+     fftwf_execute_dft( _PlanTF, _Times.Elem0P, _Freqs.Elem0P );
 end;
 
-procedure TSingleFFT.TransFT;
+procedure TSingleFFT<_TGrid_>.TransFT;
 begin
-     fftwf_execute_dft( _PlanFT, @_Times[0], @_Freqs[0] );
+     fftwf_execute_dft( _PlanFT, _Times.Elem0P, _Freqs.Elem0P );
 end;
 
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TDoubleFFT
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& private
 
-procedure TDoubleFFT.CreatePlans;
+procedure TDoubleFFT<_TGrid_>.CreatePlans;
 begin
-     _PlanTF := fftw_plan_dft_1d( _TimesN, @_Times[0], @_Freqs[0], FFTW_FORWARD , FFTW_ESTIMATE );
-     _PlanFT := fftw_plan_dft_1d( _FreqsN, @_Times[0], @_Freqs[0], FFTW_BACKWARD, FFTW_ESTIMATE );
+     _PlanTF := fftw_plan_dft_1d( _Times.PoinsX, _Times.Elem0P, _Freqs.Elem0P, FFTW_FORWARD , FFTW_ESTIMATE or FFTW_PRESERVE_INPUT );
+     _PlanFT := fftw_plan_dft_1d( _Freqs.PoinsX, _Times.Elem0P, _Freqs.Elem0P, FFTW_BACKWARD, FFTW_ESTIMATE or FFTW_PRESERVE_INPUT );
 
      Assert( Assigned( _PlanTF ) );
      Assert( Assigned( _PlanFT ) );
 end;
 
-procedure TDoubleFFT.DestroPlans;
+procedure TDoubleFFT<_TGrid_>.DestroPlans;
 begin
      fftw_destroy_plan( _PlanTF );
      fftw_destroy_plan( _PlanFT );
 end;
 
-procedure TDoubleFFT.MakeBuffers;
-begin
-     SetLength( _Times, _TimesN );
-     SetLength( _Freqs, _FreqsN );
-end;
-
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& protected
-
-/////////////////////////////////////////////////////////////////////// アクセス
-
-function TDoubleFFT.GetTimes( const I_:Integer ) :TDoubleC;
-begin
-     Result := _Times[ I_ ];
-end;
-
-procedure TDoubleFFT.SetTimes( const I_:Integer; const Time_:TDoubleC );
-begin
-     _Times[ I_ ] := Time_;
-end;
-
-function TDoubleFFT.GetFreqs( const I_:Integer ) :TDoubleC;
-begin
-     Result := _Freqs[ I_ ];
-end;
-
-procedure TDoubleFFT.SetFreqs( const I_:Integer; const Freq_:TDoubleC );
-begin
-     _Freqs[ I_ ] := Freq_;
-end;
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
 
-constructor TDoubleFFT.Create;
+constructor TDoubleFFT<_TGrid_>.Create;
 begin
      inherited;
 
 end;
 
-destructor TDoubleFFT.Destroy;
+destructor TDoubleFFT<_TGrid_>.Destroy;
 begin
 
      inherited;
@@ -362,14 +299,14 @@ end;
 
 /////////////////////////////////////////////////////////////////////// メソッド
 
-procedure TDoubleFFT.TransTF;
+procedure TDoubleFFT<_TGrid_>.TransTF;
 begin
-     fftw_execute_dft( _PlanTF, @_Times[0], @_Freqs[0] );
+     fftw_execute_dft( _PlanTF, _Times.Elem0P, _Freqs.Elem0P );
 end;
 
-procedure TDoubleFFT.TransFT;
+procedure TDoubleFFT<_TGrid_>.TransFT;
 begin
-     fftw_execute_dft( _PlanFT, @_Times[0], @_Freqs[0] );
+     fftw_execute_dft( _PlanFT, _Times.Elem0P, _Freqs.Elem0P );
 end;
 
 //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【ルーチン】
