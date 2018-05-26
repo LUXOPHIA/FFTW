@@ -1,1254 +1,1137 @@
-! Generated automatically.  DO NOT EDIT!
+﻿unit fftw3;
 
-  integer, parameter :: C_FFTW_R2R_KIND = C_INT32_T
+interface //#################################################################### ■
 
-  integer(C_INT), parameter :: FFTW_R2HC = 0
-  integer(C_INT), parameter :: FFTW_HC2R = 1
-  integer(C_INT), parameter :: FFTW_DHT = 2
-  integer(C_INT), parameter :: FFTW_REDFT00 = 3
-  integer(C_INT), parameter :: FFTW_REDFT01 = 4
-  integer(C_INT), parameter :: FFTW_REDFT10 = 5
-  integer(C_INT), parameter :: FFTW_REDFT11 = 6
-  integer(C_INT), parameter :: FFTW_RODFT00 = 7
-  integer(C_INT), parameter :: FFTW_RODFT01 = 8
-  integer(C_INT), parameter :: FFTW_RODFT10 = 9
-  integer(C_INT), parameter :: FFTW_RODFT11 = 10
-  integer(C_INT), parameter :: FFTW_FORWARD = -1
-  integer(C_INT), parameter :: FFTW_BACKWARD = +1
-  integer(C_INT), parameter :: FFTW_MEASURE = 0
-  integer(C_INT), parameter :: FFTW_DESTROY_INPUT = 1
-  integer(C_INT), parameter :: FFTW_UNALIGNED = 2
-  integer(C_INT), parameter :: FFTW_CONSERVE_MEMORY = 4
-  integer(C_INT), parameter :: FFTW_EXHAUSTIVE = 8
-  integer(C_INT), parameter :: FFTW_PRESERVE_INPUT = 16
-  integer(C_INT), parameter :: FFTW_PATIENT = 32
-  integer(C_INT), parameter :: FFTW_ESTIMATE = 64
-  integer(C_INT), parameter :: FFTW_WISDOM_ONLY = 2097152
-  integer(C_INT), parameter :: FFTW_ESTIMATE_PATIENT = 128
-  integer(C_INT), parameter :: FFTW_BELIEVE_PCOST = 256
-  integer(C_INT), parameter :: FFTW_NO_DFT_R2HC = 512
-  integer(C_INT), parameter :: FFTW_NO_NONTHREADED = 1024
-  integer(C_INT), parameter :: FFTW_NO_BUFFERING = 2048
-  integer(C_INT), parameter :: FFTW_NO_INDIRECT_OP = 4096
-  integer(C_INT), parameter :: FFTW_ALLOW_LARGE_GENERIC = 8192
-  integer(C_INT), parameter :: FFTW_NO_RANK_SPLITS = 16384
-  integer(C_INT), parameter :: FFTW_NO_VRANK_SPLITS = 32768
-  integer(C_INT), parameter :: FFTW_NO_VRECURSE = 65536
-  integer(C_INT), parameter :: FFTW_NO_SIMD = 131072
-  integer(C_INT), parameter :: FFTW_NO_SLOW = 262144
-  integer(C_INT), parameter :: FFTW_NO_FIXED_RADIX_LARGE_N = 524288
-  integer(C_INT), parameter :: FFTW_ALLOW_PRUNING = 1048576
+uses Winapi.Windows, LUX.Complex;
 
-  type, bind(C) :: fftw_iodim
-     integer(C_INT) n, is, os
-  end type fftw_iodim
-  type, bind(C) :: fftw_iodim64
-     integer(C_INTPTR_T) n, is, os
-  end type fftw_iodim64
+type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【型】
 
-  interface
-    type(C_PTR) function fftw_plan_dft(rank,n,in,out,sign,flags) bind(C, name='fftw_plan_dft')
-      import
-      integer(C_INT), value :: rank
-      integer(C_INT), dimension(*), intent(in) :: n
-      complex(C_DOUBLE_COMPLEX), dimension(*), intent(out) :: in
-      complex(C_DOUBLE_COMPLEX), dimension(*), intent(out) :: out
-      integer(C_INT), value :: sign
-      integer(C_INT), value :: flags
-    end function fftw_plan_dft
-    
-    type(C_PTR) function fftw_plan_dft_1d(n,in,out,sign,flags) bind(C, name='fftw_plan_dft_1d')
-      import
-      integer(C_INT), value :: n
-      complex(C_DOUBLE_COMPLEX), dimension(*), intent(out) :: in
-      complex(C_DOUBLE_COMPLEX), dimension(*), intent(out) :: out
-      integer(C_INT), value :: sign
-      integer(C_INT), value :: flags
-    end function fftw_plan_dft_1d
-    
-    type(C_PTR) function fftw_plan_dft_2d(n0,n1,in,out,sign,flags) bind(C, name='fftw_plan_dft_2d')
-      import
-      integer(C_INT), value :: n0
-      integer(C_INT), value :: n1
-      complex(C_DOUBLE_COMPLEX), dimension(*), intent(out) :: in
-      complex(C_DOUBLE_COMPLEX), dimension(*), intent(out) :: out
-      integer(C_INT), value :: sign
-      integer(C_INT), value :: flags
-    end function fftw_plan_dft_2d
-    
-    type(C_PTR) function fftw_plan_dft_3d(n0,n1,n2,in,out,sign,flags) bind(C, name='fftw_plan_dft_3d')
-      import
-      integer(C_INT), value :: n0
-      integer(C_INT), value :: n1
-      integer(C_INT), value :: n2
-      complex(C_DOUBLE_COMPLEX), dimension(*), intent(out) :: in
-      complex(C_DOUBLE_COMPLEX), dimension(*), intent(out) :: out
-      integer(C_INT), value :: sign
-      integer(C_INT), value :: flags
-    end function fftw_plan_dft_3d
-    
-    type(C_PTR) function fftw_plan_many_dft(rank,n,howmany,in,inembed,istride,idist,out,onembed,ostride,odist,sign,flags) &
-                         bind(C, name='fftw_plan_many_dft')
-      import
-      integer(C_INT), value :: rank
-      integer(C_INT), dimension(*), intent(in) :: n
-      integer(C_INT), value :: howmany
-      complex(C_DOUBLE_COMPLEX), dimension(*), intent(out) :: in
-      integer(C_INT), dimension(*), intent(in) :: inembed
-      integer(C_INT), value :: istride
-      integer(C_INT), value :: idist
-      complex(C_DOUBLE_COMPLEX), dimension(*), intent(out) :: out
-      integer(C_INT), dimension(*), intent(in) :: onembed
-      integer(C_INT), value :: ostride
-      integer(C_INT), value :: odist
-      integer(C_INT), value :: sign
-      integer(C_INT), value :: flags
-    end function fftw_plan_many_dft
-    
-    type(C_PTR) function fftw_plan_guru_dft(rank,dims,howmany_rank,howmany_dims,in,out,sign,flags) &
-                         bind(C, name='fftw_plan_guru_dft')
-      import
-      integer(C_INT), value :: rank
-      type(fftw_iodim), dimension(*), intent(in) :: dims
-      integer(C_INT), value :: howmany_rank
-      type(fftw_iodim), dimension(*), intent(in) :: howmany_dims
-      complex(C_DOUBLE_COMPLEX), dimension(*), intent(out) :: in
-      complex(C_DOUBLE_COMPLEX), dimension(*), intent(out) :: out
-      integer(C_INT), value :: sign
-      integer(C_INT), value :: flags
-    end function fftw_plan_guru_dft
-    
-    type(C_PTR) function fftw_plan_guru_split_dft(rank,dims,howmany_rank,howmany_dims,ri,ii,ro,io,flags) &
-                         bind(C, name='fftw_plan_guru_split_dft')
-      import
-      integer(C_INT), value :: rank
-      type(fftw_iodim), dimension(*), intent(in) :: dims
-      integer(C_INT), value :: howmany_rank
-      type(fftw_iodim), dimension(*), intent(in) :: howmany_dims
-      real(C_DOUBLE), dimension(*), intent(out) :: ri
-      real(C_DOUBLE), dimension(*), intent(out) :: ii
-      real(C_DOUBLE), dimension(*), intent(out) :: ro
-      real(C_DOUBLE), dimension(*), intent(out) :: io
-      integer(C_INT), value :: flags
-    end function fftw_plan_guru_split_dft
-    
-    type(C_PTR) function fftw_plan_guru64_dft(rank,dims,howmany_rank,howmany_dims,in,out,sign,flags) &
-                         bind(C, name='fftw_plan_guru64_dft')
-      import
-      integer(C_INT), value :: rank
-      type(fftw_iodim64), dimension(*), intent(in) :: dims
-      integer(C_INT), value :: howmany_rank
-      type(fftw_iodim64), dimension(*), intent(in) :: howmany_dims
-      complex(C_DOUBLE_COMPLEX), dimension(*), intent(out) :: in
-      complex(C_DOUBLE_COMPLEX), dimension(*), intent(out) :: out
-      integer(C_INT), value :: sign
-      integer(C_INT), value :: flags
-    end function fftw_plan_guru64_dft
-    
-    type(C_PTR) function fftw_plan_guru64_split_dft(rank,dims,howmany_rank,howmany_dims,ri,ii,ro,io,flags) &
-                         bind(C, name='fftw_plan_guru64_split_dft')
-      import
-      integer(C_INT), value :: rank
-      type(fftw_iodim64), dimension(*), intent(in) :: dims
-      integer(C_INT), value :: howmany_rank
-      type(fftw_iodim64), dimension(*), intent(in) :: howmany_dims
-      real(C_DOUBLE), dimension(*), intent(out) :: ri
-      real(C_DOUBLE), dimension(*), intent(out) :: ii
-      real(C_DOUBLE), dimension(*), intent(out) :: ro
-      real(C_DOUBLE), dimension(*), intent(out) :: io
-      integer(C_INT), value :: flags
-    end function fftw_plan_guru64_split_dft
-    
-    subroutine fftw_execute_dft(p,in,out) bind(C, name='fftw_execute_dft')
-      import
-      type(C_PTR), value :: p
-      complex(C_DOUBLE_COMPLEX), dimension(*), intent(inout) :: in
-      complex(C_DOUBLE_COMPLEX), dimension(*), intent(out) :: out
-    end subroutine fftw_execute_dft
-    
-    subroutine fftw_execute_split_dft(p,ri,ii,ro,io) bind(C, name='fftw_execute_split_dft')
-      import
-      type(C_PTR), value :: p
-      real(C_DOUBLE), dimension(*), intent(inout) :: ri
-      real(C_DOUBLE), dimension(*), intent(inout) :: ii
-      real(C_DOUBLE), dimension(*), intent(out) :: ro
-      real(C_DOUBLE), dimension(*), intent(out) :: io
-    end subroutine fftw_execute_split_dft
-    
-    type(C_PTR) function fftw_plan_many_dft_r2c(rank,n,howmany,in,inembed,istride,idist,out,onembed,ostride,odist,flags) &
-                         bind(C, name='fftw_plan_many_dft_r2c')
-      import
-      integer(C_INT), value :: rank
-      integer(C_INT), dimension(*), intent(in) :: n
-      integer(C_INT), value :: howmany
-      real(C_DOUBLE), dimension(*), intent(out) :: in
-      integer(C_INT), dimension(*), intent(in) :: inembed
-      integer(C_INT), value :: istride
-      integer(C_INT), value :: idist
-      complex(C_DOUBLE_COMPLEX), dimension(*), intent(out) :: out
-      integer(C_INT), dimension(*), intent(in) :: onembed
-      integer(C_INT), value :: ostride
-      integer(C_INT), value :: odist
-      integer(C_INT), value :: flags
-    end function fftw_plan_many_dft_r2c
-    
-    type(C_PTR) function fftw_plan_dft_r2c(rank,n,in,out,flags) bind(C, name='fftw_plan_dft_r2c')
-      import
-      integer(C_INT), value :: rank
-      integer(C_INT), dimension(*), intent(in) :: n
-      real(C_DOUBLE), dimension(*), intent(out) :: in
-      complex(C_DOUBLE_COMPLEX), dimension(*), intent(out) :: out
-      integer(C_INT), value :: flags
-    end function fftw_plan_dft_r2c
-    
-    type(C_PTR) function fftw_plan_dft_r2c_1d(n,in,out,flags) bind(C, name='fftw_plan_dft_r2c_1d')
-      import
-      integer(C_INT), value :: n
-      real(C_DOUBLE), dimension(*), intent(out) :: in
-      complex(C_DOUBLE_COMPLEX), dimension(*), intent(out) :: out
-      integer(C_INT), value :: flags
-    end function fftw_plan_dft_r2c_1d
-    
-    type(C_PTR) function fftw_plan_dft_r2c_2d(n0,n1,in,out,flags) bind(C, name='fftw_plan_dft_r2c_2d')
-      import
-      integer(C_INT), value :: n0
-      integer(C_INT), value :: n1
-      real(C_DOUBLE), dimension(*), intent(out) :: in
-      complex(C_DOUBLE_COMPLEX), dimension(*), intent(out) :: out
-      integer(C_INT), value :: flags
-    end function fftw_plan_dft_r2c_2d
-    
-    type(C_PTR) function fftw_plan_dft_r2c_3d(n0,n1,n2,in,out,flags) bind(C, name='fftw_plan_dft_r2c_3d')
-      import
-      integer(C_INT), value :: n0
-      integer(C_INT), value :: n1
-      integer(C_INT), value :: n2
-      real(C_DOUBLE), dimension(*), intent(out) :: in
-      complex(C_DOUBLE_COMPLEX), dimension(*), intent(out) :: out
-      integer(C_INT), value :: flags
-    end function fftw_plan_dft_r2c_3d
-    
-    type(C_PTR) function fftw_plan_many_dft_c2r(rank,n,howmany,in,inembed,istride,idist,out,onembed,ostride,odist,flags) &
-                         bind(C, name='fftw_plan_many_dft_c2r')
-      import
-      integer(C_INT), value :: rank
-      integer(C_INT), dimension(*), intent(in) :: n
-      integer(C_INT), value :: howmany
-      complex(C_DOUBLE_COMPLEX), dimension(*), intent(out) :: in
-      integer(C_INT), dimension(*), intent(in) :: inembed
-      integer(C_INT), value :: istride
-      integer(C_INT), value :: idist
-      real(C_DOUBLE), dimension(*), intent(out) :: out
-      integer(C_INT), dimension(*), intent(in) :: onembed
-      integer(C_INT), value :: ostride
-      integer(C_INT), value :: odist
-      integer(C_INT), value :: flags
-    end function fftw_plan_many_dft_c2r
-    
-    type(C_PTR) function fftw_plan_dft_c2r(rank,n,in,out,flags) bind(C, name='fftw_plan_dft_c2r')
-      import
-      integer(C_INT), value :: rank
-      integer(C_INT), dimension(*), intent(in) :: n
-      complex(C_DOUBLE_COMPLEX), dimension(*), intent(out) :: in
-      real(C_DOUBLE), dimension(*), intent(out) :: out
-      integer(C_INT), value :: flags
-    end function fftw_plan_dft_c2r
-    
-    type(C_PTR) function fftw_plan_dft_c2r_1d(n,in,out,flags) bind(C, name='fftw_plan_dft_c2r_1d')
-      import
-      integer(C_INT), value :: n
-      complex(C_DOUBLE_COMPLEX), dimension(*), intent(out) :: in
-      real(C_DOUBLE), dimension(*), intent(out) :: out
-      integer(C_INT), value :: flags
-    end function fftw_plan_dft_c2r_1d
-    
-    type(C_PTR) function fftw_plan_dft_c2r_2d(n0,n1,in,out,flags) bind(C, name='fftw_plan_dft_c2r_2d')
-      import
-      integer(C_INT), value :: n0
-      integer(C_INT), value :: n1
-      complex(C_DOUBLE_COMPLEX), dimension(*), intent(out) :: in
-      real(C_DOUBLE), dimension(*), intent(out) :: out
-      integer(C_INT), value :: flags
-    end function fftw_plan_dft_c2r_2d
-    
-    type(C_PTR) function fftw_plan_dft_c2r_3d(n0,n1,n2,in,out,flags) bind(C, name='fftw_plan_dft_c2r_3d')
-      import
-      integer(C_INT), value :: n0
-      integer(C_INT), value :: n1
-      integer(C_INT), value :: n2
-      complex(C_DOUBLE_COMPLEX), dimension(*), intent(out) :: in
-      real(C_DOUBLE), dimension(*), intent(out) :: out
-      integer(C_INT), value :: flags
-    end function fftw_plan_dft_c2r_3d
-    
-    type(C_PTR) function fftw_plan_guru_dft_r2c(rank,dims,howmany_rank,howmany_dims,in,out,flags) &
-                         bind(C, name='fftw_plan_guru_dft_r2c')
-      import
-      integer(C_INT), value :: rank
-      type(fftw_iodim), dimension(*), intent(in) :: dims
-      integer(C_INT), value :: howmany_rank
-      type(fftw_iodim), dimension(*), intent(in) :: howmany_dims
-      real(C_DOUBLE), dimension(*), intent(out) :: in
-      complex(C_DOUBLE_COMPLEX), dimension(*), intent(out) :: out
-      integer(C_INT), value :: flags
-    end function fftw_plan_guru_dft_r2c
-    
-    type(C_PTR) function fftw_plan_guru_dft_c2r(rank,dims,howmany_rank,howmany_dims,in,out,flags) &
-                         bind(C, name='fftw_plan_guru_dft_c2r')
-      import
-      integer(C_INT), value :: rank
-      type(fftw_iodim), dimension(*), intent(in) :: dims
-      integer(C_INT), value :: howmany_rank
-      type(fftw_iodim), dimension(*), intent(in) :: howmany_dims
-      complex(C_DOUBLE_COMPLEX), dimension(*), intent(out) :: in
-      real(C_DOUBLE), dimension(*), intent(out) :: out
-      integer(C_INT), value :: flags
-    end function fftw_plan_guru_dft_c2r
-    
-    type(C_PTR) function fftw_plan_guru_split_dft_r2c(rank,dims,howmany_rank,howmany_dims,in,ro,io,flags) &
-                         bind(C, name='fftw_plan_guru_split_dft_r2c')
-      import
-      integer(C_INT), value :: rank
-      type(fftw_iodim), dimension(*), intent(in) :: dims
-      integer(C_INT), value :: howmany_rank
-      type(fftw_iodim), dimension(*), intent(in) :: howmany_dims
-      real(C_DOUBLE), dimension(*), intent(out) :: in
-      real(C_DOUBLE), dimension(*), intent(out) :: ro
-      real(C_DOUBLE), dimension(*), intent(out) :: io
-      integer(C_INT), value :: flags
-    end function fftw_plan_guru_split_dft_r2c
-    
-    type(C_PTR) function fftw_plan_guru_split_dft_c2r(rank,dims,howmany_rank,howmany_dims,ri,ii,out,flags) &
-                         bind(C, name='fftw_plan_guru_split_dft_c2r')
-      import
-      integer(C_INT), value :: rank
-      type(fftw_iodim), dimension(*), intent(in) :: dims
-      integer(C_INT), value :: howmany_rank
-      type(fftw_iodim), dimension(*), intent(in) :: howmany_dims
-      real(C_DOUBLE), dimension(*), intent(out) :: ri
-      real(C_DOUBLE), dimension(*), intent(out) :: ii
-      real(C_DOUBLE), dimension(*), intent(out) :: out
-      integer(C_INT), value :: flags
-    end function fftw_plan_guru_split_dft_c2r
-    
-    type(C_PTR) function fftw_plan_guru64_dft_r2c(rank,dims,howmany_rank,howmany_dims,in,out,flags) &
-                         bind(C, name='fftw_plan_guru64_dft_r2c')
-      import
-      integer(C_INT), value :: rank
-      type(fftw_iodim64), dimension(*), intent(in) :: dims
-      integer(C_INT), value :: howmany_rank
-      type(fftw_iodim64), dimension(*), intent(in) :: howmany_dims
-      real(C_DOUBLE), dimension(*), intent(out) :: in
-      complex(C_DOUBLE_COMPLEX), dimension(*), intent(out) :: out
-      integer(C_INT), value :: flags
-    end function fftw_plan_guru64_dft_r2c
-    
-    type(C_PTR) function fftw_plan_guru64_dft_c2r(rank,dims,howmany_rank,howmany_dims,in,out,flags) &
-                         bind(C, name='fftw_plan_guru64_dft_c2r')
-      import
-      integer(C_INT), value :: rank
-      type(fftw_iodim64), dimension(*), intent(in) :: dims
-      integer(C_INT), value :: howmany_rank
-      type(fftw_iodim64), dimension(*), intent(in) :: howmany_dims
-      complex(C_DOUBLE_COMPLEX), dimension(*), intent(out) :: in
-      real(C_DOUBLE), dimension(*), intent(out) :: out
-      integer(C_INT), value :: flags
-    end function fftw_plan_guru64_dft_c2r
-    
-    type(C_PTR) function fftw_plan_guru64_split_dft_r2c(rank,dims,howmany_rank,howmany_dims,in,ro,io,flags) &
-                         bind(C, name='fftw_plan_guru64_split_dft_r2c')
-      import
-      integer(C_INT), value :: rank
-      type(fftw_iodim64), dimension(*), intent(in) :: dims
-      integer(C_INT), value :: howmany_rank
-      type(fftw_iodim64), dimension(*), intent(in) :: howmany_dims
-      real(C_DOUBLE), dimension(*), intent(out) :: in
-      real(C_DOUBLE), dimension(*), intent(out) :: ro
-      real(C_DOUBLE), dimension(*), intent(out) :: io
-      integer(C_INT), value :: flags
-    end function fftw_plan_guru64_split_dft_r2c
-    
-    type(C_PTR) function fftw_plan_guru64_split_dft_c2r(rank,dims,howmany_rank,howmany_dims,ri,ii,out,flags) &
-                         bind(C, name='fftw_plan_guru64_split_dft_c2r')
-      import
-      integer(C_INT), value :: rank
-      type(fftw_iodim64), dimension(*), intent(in) :: dims
-      integer(C_INT), value :: howmany_rank
-      type(fftw_iodim64), dimension(*), intent(in) :: howmany_dims
-      real(C_DOUBLE), dimension(*), intent(out) :: ri
-      real(C_DOUBLE), dimension(*), intent(out) :: ii
-      real(C_DOUBLE), dimension(*), intent(out) :: out
-      integer(C_INT), value :: flags
-    end function fftw_plan_guru64_split_dft_c2r
-    
-    subroutine fftw_execute_dft_r2c(p,in,out) bind(C, name='fftw_execute_dft_r2c')
-      import
-      type(C_PTR), value :: p
-      real(C_DOUBLE), dimension(*), intent(inout) :: in
-      complex(C_DOUBLE_COMPLEX), dimension(*), intent(out) :: out
-    end subroutine fftw_execute_dft_r2c
-    
-    subroutine fftw_execute_dft_c2r(p,in,out) bind(C, name='fftw_execute_dft_c2r')
-      import
-      type(C_PTR), value :: p
-      complex(C_DOUBLE_COMPLEX), dimension(*), intent(inout) :: in
-      real(C_DOUBLE), dimension(*), intent(out) :: out
-    end subroutine fftw_execute_dft_c2r
-    
-    subroutine fftw_execute_split_dft_r2c(p,in,ro,io) bind(C, name='fftw_execute_split_dft_r2c')
-      import
-      type(C_PTR), value :: p
-      real(C_DOUBLE), dimension(*), intent(inout) :: in
-      real(C_DOUBLE), dimension(*), intent(out) :: ro
-      real(C_DOUBLE), dimension(*), intent(out) :: io
-    end subroutine fftw_execute_split_dft_r2c
-    
-    subroutine fftw_execute_split_dft_c2r(p,ri,ii,out) bind(C, name='fftw_execute_split_dft_c2r')
-      import
-      type(C_PTR), value :: p
-      real(C_DOUBLE), dimension(*), intent(inout) :: ri
-      real(C_DOUBLE), dimension(*), intent(inout) :: ii
-      real(C_DOUBLE), dimension(*), intent(out) :: out
-    end subroutine fftw_execute_split_dft_c2r
-    
-    type(C_PTR) function fftw_plan_many_r2r(rank,n,howmany,in,inembed,istride,idist,out,onembed,ostride,odist,kind,flags) &
-                         bind(C, name='fftw_plan_many_r2r')
-      import
-      integer(C_INT), value :: rank
-      integer(C_INT), dimension(*), intent(in) :: n
-      integer(C_INT), value :: howmany
-      real(C_DOUBLE), dimension(*), intent(out) :: in
-      integer(C_INT), dimension(*), intent(in) :: inembed
-      integer(C_INT), value :: istride
-      integer(C_INT), value :: idist
-      real(C_DOUBLE), dimension(*), intent(out) :: out
-      integer(C_INT), dimension(*), intent(in) :: onembed
-      integer(C_INT), value :: ostride
-      integer(C_INT), value :: odist
-      integer(C_FFTW_R2R_KIND), dimension(*), intent(in) :: kind
-      integer(C_INT), value :: flags
-    end function fftw_plan_many_r2r
-    
-    type(C_PTR) function fftw_plan_r2r(rank,n,in,out,kind,flags) bind(C, name='fftw_plan_r2r')
-      import
-      integer(C_INT), value :: rank
-      integer(C_INT), dimension(*), intent(in) :: n
-      real(C_DOUBLE), dimension(*), intent(out) :: in
-      real(C_DOUBLE), dimension(*), intent(out) :: out
-      integer(C_FFTW_R2R_KIND), dimension(*), intent(in) :: kind
-      integer(C_INT), value :: flags
-    end function fftw_plan_r2r
-    
-    type(C_PTR) function fftw_plan_r2r_1d(n,in,out,kind,flags) bind(C, name='fftw_plan_r2r_1d')
-      import
-      integer(C_INT), value :: n
-      real(C_DOUBLE), dimension(*), intent(out) :: in
-      real(C_DOUBLE), dimension(*), intent(out) :: out
-      integer(C_FFTW_R2R_KIND), value :: kind
-      integer(C_INT), value :: flags
-    end function fftw_plan_r2r_1d
-    
-    type(C_PTR) function fftw_plan_r2r_2d(n0,n1,in,out,kind0,kind1,flags) bind(C, name='fftw_plan_r2r_2d')
-      import
-      integer(C_INT), value :: n0
-      integer(C_INT), value :: n1
-      real(C_DOUBLE), dimension(*), intent(out) :: in
-      real(C_DOUBLE), dimension(*), intent(out) :: out
-      integer(C_FFTW_R2R_KIND), value :: kind0
-      integer(C_FFTW_R2R_KIND), value :: kind1
-      integer(C_INT), value :: flags
-    end function fftw_plan_r2r_2d
-    
-    type(C_PTR) function fftw_plan_r2r_3d(n0,n1,n2,in,out,kind0,kind1,kind2,flags) bind(C, name='fftw_plan_r2r_3d')
-      import
-      integer(C_INT), value :: n0
-      integer(C_INT), value :: n1
-      integer(C_INT), value :: n2
-      real(C_DOUBLE), dimension(*), intent(out) :: in
-      real(C_DOUBLE), dimension(*), intent(out) :: out
-      integer(C_FFTW_R2R_KIND), value :: kind0
-      integer(C_FFTW_R2R_KIND), value :: kind1
-      integer(C_FFTW_R2R_KIND), value :: kind2
-      integer(C_INT), value :: flags
-    end function fftw_plan_r2r_3d
-    
-    type(C_PTR) function fftw_plan_guru_r2r(rank,dims,howmany_rank,howmany_dims,in,out,kind,flags) &
-                         bind(C, name='fftw_plan_guru_r2r')
-      import
-      integer(C_INT), value :: rank
-      type(fftw_iodim), dimension(*), intent(in) :: dims
-      integer(C_INT), value :: howmany_rank
-      type(fftw_iodim), dimension(*), intent(in) :: howmany_dims
-      real(C_DOUBLE), dimension(*), intent(out) :: in
-      real(C_DOUBLE), dimension(*), intent(out) :: out
-      integer(C_FFTW_R2R_KIND), dimension(*), intent(in) :: kind
-      integer(C_INT), value :: flags
-    end function fftw_plan_guru_r2r
-    
-    type(C_PTR) function fftw_plan_guru64_r2r(rank,dims,howmany_rank,howmany_dims,in,out,kind,flags) &
-                         bind(C, name='fftw_plan_guru64_r2r')
-      import
-      integer(C_INT), value :: rank
-      type(fftw_iodim64), dimension(*), intent(in) :: dims
-      integer(C_INT), value :: howmany_rank
-      type(fftw_iodim64), dimension(*), intent(in) :: howmany_dims
-      real(C_DOUBLE), dimension(*), intent(out) :: in
-      real(C_DOUBLE), dimension(*), intent(out) :: out
-      integer(C_FFTW_R2R_KIND), dimension(*), intent(in) :: kind
-      integer(C_INT), value :: flags
-    end function fftw_plan_guru64_r2r
-    
-    subroutine fftw_execute_r2r(p,in,out) bind(C, name='fftw_execute_r2r')
-      import
-      type(C_PTR), value :: p
-      real(C_DOUBLE), dimension(*), intent(inout) :: in
-      real(C_DOUBLE), dimension(*), intent(out) :: out
-    end subroutine fftw_execute_r2r
-    
-    subroutine fftw_destroy_plan(p) bind(C, name='fftw_destroy_plan')
-      import
-      type(C_PTR), value :: p
-    end subroutine fftw_destroy_plan
-    
-    subroutine fftw_forget_wisdom() bind(C, name='fftw_forget_wisdom')
-      import
-    end subroutine fftw_forget_wisdom
-    
-    subroutine fftw_cleanup() bind(C, name='fftw_cleanup')
-      import
-    end subroutine fftw_cleanup
-    
-    subroutine fftw_set_timelimit(t) bind(C, name='fftw_set_timelimit')
-      import
-      real(C_DOUBLE), value :: t
-    end subroutine fftw_set_timelimit
-    
-    subroutine fftw_plan_with_nthreads(nthreads) bind(C, name='fftw_plan_with_nthreads')
-      import
-      integer(C_INT), value :: nthreads
-    end subroutine fftw_plan_with_nthreads
-    
-    integer(C_INT) function fftw_init_threads() bind(C, name='fftw_init_threads')
-      import
-    end function fftw_init_threads
-    
-    subroutine fftw_cleanup_threads() bind(C, name='fftw_cleanup_threads')
-      import
-    end subroutine fftw_cleanup_threads
-    
-    subroutine fftw_make_planner_thread_safe() bind(C, name='fftw_make_planner_thread_safe')
-      import
-    end subroutine fftw_make_planner_thread_safe
-    
-    integer(C_INT) function fftw_export_wisdom_to_filename(filename) bind(C, name='fftw_export_wisdom_to_filename')
-      import
-      character(C_CHAR), dimension(*), intent(in) :: filename
-    end function fftw_export_wisdom_to_filename
-    
-    subroutine fftw_export_wisdom_to_file(output_file) bind(C, name='fftw_export_wisdom_to_file')
-      import
-      type(C_PTR), value :: output_file
-    end subroutine fftw_export_wisdom_to_file
-    
-    type(C_PTR) function fftw_export_wisdom_to_string() bind(C, name='fftw_export_wisdom_to_string')
-      import
-    end function fftw_export_wisdom_to_string
-    
-    subroutine fftw_export_wisdom(write_char,data) bind(C, name='fftw_export_wisdom')
-      import
-      type(C_FUNPTR), value :: write_char
-      type(C_PTR), value :: data
-    end subroutine fftw_export_wisdom
-    
-    integer(C_INT) function fftw_import_system_wisdom() bind(C, name='fftw_import_system_wisdom')
-      import
-    end function fftw_import_system_wisdom
-    
-    integer(C_INT) function fftw_import_wisdom_from_filename(filename) bind(C, name='fftw_import_wisdom_from_filename')
-      import
-      character(C_CHAR), dimension(*), intent(in) :: filename
-    end function fftw_import_wisdom_from_filename
-    
-    integer(C_INT) function fftw_import_wisdom_from_file(input_file) bind(C, name='fftw_import_wisdom_from_file')
-      import
-      type(C_PTR), value :: input_file
-    end function fftw_import_wisdom_from_file
-    
-    integer(C_INT) function fftw_import_wisdom_from_string(input_string) bind(C, name='fftw_import_wisdom_from_string')
-      import
-      character(C_CHAR), dimension(*), intent(in) :: input_string
-    end function fftw_import_wisdom_from_string
-    
-    integer(C_INT) function fftw_import_wisdom(read_char,data) bind(C, name='fftw_import_wisdom')
-      import
-      type(C_FUNPTR), value :: read_char
-      type(C_PTR), value :: data
-    end function fftw_import_wisdom
-    
-    subroutine fftw_fprint_plan(p,output_file) bind(C, name='fftw_fprint_plan')
-      import
-      type(C_PTR), value :: p
-      type(C_PTR), value :: output_file
-    end subroutine fftw_fprint_plan
-    
-    subroutine fftw_print_plan(p) bind(C, name='fftw_print_plan')
-      import
-      type(C_PTR), value :: p
-    end subroutine fftw_print_plan
-    
-    type(C_PTR) function fftw_sprint_plan(p) bind(C, name='fftw_sprint_plan')
-      import
-      type(C_PTR), value :: p
-    end function fftw_sprint_plan
-    
-    type(C_PTR) function fftw_malloc(n) bind(C, name='fftw_malloc')
-      import
-      integer(C_SIZE_T), value :: n
-    end function fftw_malloc
-    
-    type(C_PTR) function fftw_alloc_real(n) bind(C, name='fftw_alloc_real')
-      import
-      integer(C_SIZE_T), value :: n
-    end function fftw_alloc_real
-    
-    type(C_PTR) function fftw_alloc_complex(n) bind(C, name='fftw_alloc_complex')
-      import
-      integer(C_SIZE_T), value :: n
-    end function fftw_alloc_complex
-    
-    subroutine fftw_free(p) bind(C, name='fftw_free')
-      import
-      type(C_PTR), value :: p
-    end subroutine fftw_free
-    
-    subroutine fftw_flops(p,add,mul,fmas) bind(C, name='fftw_flops')
-      import
-      type(C_PTR), value :: p
-      real(C_DOUBLE), intent(out) :: add
-      real(C_DOUBLE), intent(out) :: mul
-      real(C_DOUBLE), intent(out) :: fmas
-    end subroutine fftw_flops
-    
-    real(C_DOUBLE) function fftw_estimate_cost(p) bind(C, name='fftw_estimate_cost')
-      import
-      type(C_PTR), value :: p
-    end function fftw_estimate_cost
-    
-    real(C_DOUBLE) function fftw_cost(p) bind(C, name='fftw_cost')
-      import
-      type(C_PTR), value :: p
-    end function fftw_cost
-    
-    integer(C_INT) function fftw_alignment_of(p) bind(C, name='fftw_alignment_of')
-      import
-      real(C_DOUBLE), dimension(*), intent(out) :: p
-    end function fftw_alignment_of
-    
-  end interface
+     TC_INT = Integer;  PC_INT = PInteger;
 
-  type, bind(C) :: fftwf_iodim
-     integer(C_INT) n, is, os
-  end type fftwf_iodim
-  type, bind(C) :: fftwf_iodim64
-     integer(C_INTPTR_T) n, is, os
-  end type fftwf_iodim64
+     TC_INT32_T = Int32;
 
-  interface
-    type(C_PTR) function fftwf_plan_dft(rank,n,in,out,sign,flags) bind(C, name='fftwf_plan_dft')
-      import
-      integer(C_INT), value :: rank
-      integer(C_INT), dimension(*), intent(in) :: n
-      complex(C_FLOAT_COMPLEX), dimension(*), intent(out) :: in
-      complex(C_FLOAT_COMPLEX), dimension(*), intent(out) :: out
-      integer(C_INT), value :: sign
-      integer(C_INT), value :: flags
-    end function fftwf_plan_dft
-    
-    type(C_PTR) function fftwf_plan_dft_1d(n,in,out,sign,flags) bind(C, name='fftwf_plan_dft_1d')
-      import
-      integer(C_INT), value :: n
-      complex(C_FLOAT_COMPLEX), dimension(*), intent(out) :: in
-      complex(C_FLOAT_COMPLEX), dimension(*), intent(out) :: out
-      integer(C_INT), value :: sign
-      integer(C_INT), value :: flags
-    end function fftwf_plan_dft_1d
-    
-    type(C_PTR) function fftwf_plan_dft_2d(n0,n1,in,out,sign,flags) bind(C, name='fftwf_plan_dft_2d')
-      import
-      integer(C_INT), value :: n0
-      integer(C_INT), value :: n1
-      complex(C_FLOAT_COMPLEX), dimension(*), intent(out) :: in
-      complex(C_FLOAT_COMPLEX), dimension(*), intent(out) :: out
-      integer(C_INT), value :: sign
-      integer(C_INT), value :: flags
-    end function fftwf_plan_dft_2d
-    
-    type(C_PTR) function fftwf_plan_dft_3d(n0,n1,n2,in,out,sign,flags) bind(C, name='fftwf_plan_dft_3d')
-      import
-      integer(C_INT), value :: n0
-      integer(C_INT), value :: n1
-      integer(C_INT), value :: n2
-      complex(C_FLOAT_COMPLEX), dimension(*), intent(out) :: in
-      complex(C_FLOAT_COMPLEX), dimension(*), intent(out) :: out
-      integer(C_INT), value :: sign
-      integer(C_INT), value :: flags
-    end function fftwf_plan_dft_3d
-    
-    type(C_PTR) function fftwf_plan_many_dft(rank,n,howmany,in,inembed,istride,idist,out,onembed,ostride,odist,sign,flags) &
-                         bind(C, name='fftwf_plan_many_dft')
-      import
-      integer(C_INT), value :: rank
-      integer(C_INT), dimension(*), intent(in) :: n
-      integer(C_INT), value :: howmany
-      complex(C_FLOAT_COMPLEX), dimension(*), intent(out) :: in
-      integer(C_INT), dimension(*), intent(in) :: inembed
-      integer(C_INT), value :: istride
-      integer(C_INT), value :: idist
-      complex(C_FLOAT_COMPLEX), dimension(*), intent(out) :: out
-      integer(C_INT), dimension(*), intent(in) :: onembed
-      integer(C_INT), value :: ostride
-      integer(C_INT), value :: odist
-      integer(C_INT), value :: sign
-      integer(C_INT), value :: flags
-    end function fftwf_plan_many_dft
-    
-    type(C_PTR) function fftwf_plan_guru_dft(rank,dims,howmany_rank,howmany_dims,in,out,sign,flags) &
-                         bind(C, name='fftwf_plan_guru_dft')
-      import
-      integer(C_INT), value :: rank
-      type(fftwf_iodim), dimension(*), intent(in) :: dims
-      integer(C_INT), value :: howmany_rank
-      type(fftwf_iodim), dimension(*), intent(in) :: howmany_dims
-      complex(C_FLOAT_COMPLEX), dimension(*), intent(out) :: in
-      complex(C_FLOAT_COMPLEX), dimension(*), intent(out) :: out
-      integer(C_INT), value :: sign
-      integer(C_INT), value :: flags
-    end function fftwf_plan_guru_dft
-    
-    type(C_PTR) function fftwf_plan_guru_split_dft(rank,dims,howmany_rank,howmany_dims,ri,ii,ro,io,flags) &
-                         bind(C, name='fftwf_plan_guru_split_dft')
-      import
-      integer(C_INT), value :: rank
-      type(fftwf_iodim), dimension(*), intent(in) :: dims
-      integer(C_INT), value :: howmany_rank
-      type(fftwf_iodim), dimension(*), intent(in) :: howmany_dims
-      real(C_FLOAT), dimension(*), intent(out) :: ri
-      real(C_FLOAT), dimension(*), intent(out) :: ii
-      real(C_FLOAT), dimension(*), intent(out) :: ro
-      real(C_FLOAT), dimension(*), intent(out) :: io
-      integer(C_INT), value :: flags
-    end function fftwf_plan_guru_split_dft
-    
-    type(C_PTR) function fftwf_plan_guru64_dft(rank,dims,howmany_rank,howmany_dims,in,out,sign,flags) &
-                         bind(C, name='fftwf_plan_guru64_dft')
-      import
-      integer(C_INT), value :: rank
-      type(fftwf_iodim64), dimension(*), intent(in) :: dims
-      integer(C_INT), value :: howmany_rank
-      type(fftwf_iodim64), dimension(*), intent(in) :: howmany_dims
-      complex(C_FLOAT_COMPLEX), dimension(*), intent(out) :: in
-      complex(C_FLOAT_COMPLEX), dimension(*), intent(out) :: out
-      integer(C_INT), value :: sign
-      integer(C_INT), value :: flags
-    end function fftwf_plan_guru64_dft
-    
-    type(C_PTR) function fftwf_plan_guru64_split_dft(rank,dims,howmany_rank,howmany_dims,ri,ii,ro,io,flags) &
-                         bind(C, name='fftwf_plan_guru64_split_dft')
-      import
-      integer(C_INT), value :: rank
-      type(fftwf_iodim64), dimension(*), intent(in) :: dims
-      integer(C_INT), value :: howmany_rank
-      type(fftwf_iodim64), dimension(*), intent(in) :: howmany_dims
-      real(C_FLOAT), dimension(*), intent(out) :: ri
-      real(C_FLOAT), dimension(*), intent(out) :: ii
-      real(C_FLOAT), dimension(*), intent(out) :: ro
-      real(C_FLOAT), dimension(*), intent(out) :: io
-      integer(C_INT), value :: flags
-    end function fftwf_plan_guru64_split_dft
-    
-    subroutine fftwf_execute_dft(p,in,out) bind(C, name='fftwf_execute_dft')
-      import
-      type(C_PTR), value :: p
-      complex(C_FLOAT_COMPLEX), dimension(*), intent(inout) :: in
-      complex(C_FLOAT_COMPLEX), dimension(*), intent(out) :: out
-    end subroutine fftwf_execute_dft
-    
-    subroutine fftwf_execute_split_dft(p,ri,ii,ro,io) bind(C, name='fftwf_execute_split_dft')
-      import
-      type(C_PTR), value :: p
-      real(C_FLOAT), dimension(*), intent(inout) :: ri
-      real(C_FLOAT), dimension(*), intent(inout) :: ii
-      real(C_FLOAT), dimension(*), intent(out) :: ro
-      real(C_FLOAT), dimension(*), intent(out) :: io
-    end subroutine fftwf_execute_split_dft
-    
-    type(C_PTR) function fftwf_plan_many_dft_r2c(rank,n,howmany,in,inembed,istride,idist,out,onembed,ostride,odist,flags) &
-                         bind(C, name='fftwf_plan_many_dft_r2c')
-      import
-      integer(C_INT), value :: rank
-      integer(C_INT), dimension(*), intent(in) :: n
-      integer(C_INT), value :: howmany
-      real(C_FLOAT), dimension(*), intent(out) :: in
-      integer(C_INT), dimension(*), intent(in) :: inembed
-      integer(C_INT), value :: istride
-      integer(C_INT), value :: idist
-      complex(C_FLOAT_COMPLEX), dimension(*), intent(out) :: out
-      integer(C_INT), dimension(*), intent(in) :: onembed
-      integer(C_INT), value :: ostride
-      integer(C_INT), value :: odist
-      integer(C_INT), value :: flags
-    end function fftwf_plan_many_dft_r2c
-    
-    type(C_PTR) function fftwf_plan_dft_r2c(rank,n,in,out,flags) bind(C, name='fftwf_plan_dft_r2c')
-      import
-      integer(C_INT), value :: rank
-      integer(C_INT), dimension(*), intent(in) :: n
-      real(C_FLOAT), dimension(*), intent(out) :: in
-      complex(C_FLOAT_COMPLEX), dimension(*), intent(out) :: out
-      integer(C_INT), value :: flags
-    end function fftwf_plan_dft_r2c
-    
-    type(C_PTR) function fftwf_plan_dft_r2c_1d(n,in,out,flags) bind(C, name='fftwf_plan_dft_r2c_1d')
-      import
-      integer(C_INT), value :: n
-      real(C_FLOAT), dimension(*), intent(out) :: in
-      complex(C_FLOAT_COMPLEX), dimension(*), intent(out) :: out
-      integer(C_INT), value :: flags
-    end function fftwf_plan_dft_r2c_1d
-    
-    type(C_PTR) function fftwf_plan_dft_r2c_2d(n0,n1,in,out,flags) bind(C, name='fftwf_plan_dft_r2c_2d')
-      import
-      integer(C_INT), value :: n0
-      integer(C_INT), value :: n1
-      real(C_FLOAT), dimension(*), intent(out) :: in
-      complex(C_FLOAT_COMPLEX), dimension(*), intent(out) :: out
-      integer(C_INT), value :: flags
-    end function fftwf_plan_dft_r2c_2d
-    
-    type(C_PTR) function fftwf_plan_dft_r2c_3d(n0,n1,n2,in,out,flags) bind(C, name='fftwf_plan_dft_r2c_3d')
-      import
-      integer(C_INT), value :: n0
-      integer(C_INT), value :: n1
-      integer(C_INT), value :: n2
-      real(C_FLOAT), dimension(*), intent(out) :: in
-      complex(C_FLOAT_COMPLEX), dimension(*), intent(out) :: out
-      integer(C_INT), value :: flags
-    end function fftwf_plan_dft_r2c_3d
-    
-    type(C_PTR) function fftwf_plan_many_dft_c2r(rank,n,howmany,in,inembed,istride,idist,out,onembed,ostride,odist,flags) &
-                         bind(C, name='fftwf_plan_many_dft_c2r')
-      import
-      integer(C_INT), value :: rank
-      integer(C_INT), dimension(*), intent(in) :: n
-      integer(C_INT), value :: howmany
-      complex(C_FLOAT_COMPLEX), dimension(*), intent(out) :: in
-      integer(C_INT), dimension(*), intent(in) :: inembed
-      integer(C_INT), value :: istride
-      integer(C_INT), value :: idist
-      real(C_FLOAT), dimension(*), intent(out) :: out
-      integer(C_INT), dimension(*), intent(in) :: onembed
-      integer(C_INT), value :: ostride
-      integer(C_INT), value :: odist
-      integer(C_INT), value :: flags
-    end function fftwf_plan_many_dft_c2r
-    
-    type(C_PTR) function fftwf_plan_dft_c2r(rank,n,in,out,flags) bind(C, name='fftwf_plan_dft_c2r')
-      import
-      integer(C_INT), value :: rank
-      integer(C_INT), dimension(*), intent(in) :: n
-      complex(C_FLOAT_COMPLEX), dimension(*), intent(out) :: in
-      real(C_FLOAT), dimension(*), intent(out) :: out
-      integer(C_INT), value :: flags
-    end function fftwf_plan_dft_c2r
-    
-    type(C_PTR) function fftwf_plan_dft_c2r_1d(n,in,out,flags) bind(C, name='fftwf_plan_dft_c2r_1d')
-      import
-      integer(C_INT), value :: n
-      complex(C_FLOAT_COMPLEX), dimension(*), intent(out) :: in
-      real(C_FLOAT), dimension(*), intent(out) :: out
-      integer(C_INT), value :: flags
-    end function fftwf_plan_dft_c2r_1d
-    
-    type(C_PTR) function fftwf_plan_dft_c2r_2d(n0,n1,in,out,flags) bind(C, name='fftwf_plan_dft_c2r_2d')
-      import
-      integer(C_INT), value :: n0
-      integer(C_INT), value :: n1
-      complex(C_FLOAT_COMPLEX), dimension(*), intent(out) :: in
-      real(C_FLOAT), dimension(*), intent(out) :: out
-      integer(C_INT), value :: flags
-    end function fftwf_plan_dft_c2r_2d
-    
-    type(C_PTR) function fftwf_plan_dft_c2r_3d(n0,n1,n2,in,out,flags) bind(C, name='fftwf_plan_dft_c2r_3d')
-      import
-      integer(C_INT), value :: n0
-      integer(C_INT), value :: n1
-      integer(C_INT), value :: n2
-      complex(C_FLOAT_COMPLEX), dimension(*), intent(out) :: in
-      real(C_FLOAT), dimension(*), intent(out) :: out
-      integer(C_INT), value :: flags
-    end function fftwf_plan_dft_c2r_3d
-    
-    type(C_PTR) function fftwf_plan_guru_dft_r2c(rank,dims,howmany_rank,howmany_dims,in,out,flags) &
-                         bind(C, name='fftwf_plan_guru_dft_r2c')
-      import
-      integer(C_INT), value :: rank
-      type(fftwf_iodim), dimension(*), intent(in) :: dims
-      integer(C_INT), value :: howmany_rank
-      type(fftwf_iodim), dimension(*), intent(in) :: howmany_dims
-      real(C_FLOAT), dimension(*), intent(out) :: in
-      complex(C_FLOAT_COMPLEX), dimension(*), intent(out) :: out
-      integer(C_INT), value :: flags
-    end function fftwf_plan_guru_dft_r2c
-    
-    type(C_PTR) function fftwf_plan_guru_dft_c2r(rank,dims,howmany_rank,howmany_dims,in,out,flags) &
-                         bind(C, name='fftwf_plan_guru_dft_c2r')
-      import
-      integer(C_INT), value :: rank
-      type(fftwf_iodim), dimension(*), intent(in) :: dims
-      integer(C_INT), value :: howmany_rank
-      type(fftwf_iodim), dimension(*), intent(in) :: howmany_dims
-      complex(C_FLOAT_COMPLEX), dimension(*), intent(out) :: in
-      real(C_FLOAT), dimension(*), intent(out) :: out
-      integer(C_INT), value :: flags
-    end function fftwf_plan_guru_dft_c2r
-    
-    type(C_PTR) function fftwf_plan_guru_split_dft_r2c(rank,dims,howmany_rank,howmany_dims,in,ro,io,flags) &
-                         bind(C, name='fftwf_plan_guru_split_dft_r2c')
-      import
-      integer(C_INT), value :: rank
-      type(fftwf_iodim), dimension(*), intent(in) :: dims
-      integer(C_INT), value :: howmany_rank
-      type(fftwf_iodim), dimension(*), intent(in) :: howmany_dims
-      real(C_FLOAT), dimension(*), intent(out) :: in
-      real(C_FLOAT), dimension(*), intent(out) :: ro
-      real(C_FLOAT), dimension(*), intent(out) :: io
-      integer(C_INT), value :: flags
-    end function fftwf_plan_guru_split_dft_r2c
-    
-    type(C_PTR) function fftwf_plan_guru_split_dft_c2r(rank,dims,howmany_rank,howmany_dims,ri,ii,out,flags) &
-                         bind(C, name='fftwf_plan_guru_split_dft_c2r')
-      import
-      integer(C_INT), value :: rank
-      type(fftwf_iodim), dimension(*), intent(in) :: dims
-      integer(C_INT), value :: howmany_rank
-      type(fftwf_iodim), dimension(*), intent(in) :: howmany_dims
-      real(C_FLOAT), dimension(*), intent(out) :: ri
-      real(C_FLOAT), dimension(*), intent(out) :: ii
-      real(C_FLOAT), dimension(*), intent(out) :: out
-      integer(C_INT), value :: flags
-    end function fftwf_plan_guru_split_dft_c2r
-    
-    type(C_PTR) function fftwf_plan_guru64_dft_r2c(rank,dims,howmany_rank,howmany_dims,in,out,flags) &
-                         bind(C, name='fftwf_plan_guru64_dft_r2c')
-      import
-      integer(C_INT), value :: rank
-      type(fftwf_iodim64), dimension(*), intent(in) :: dims
-      integer(C_INT), value :: howmany_rank
-      type(fftwf_iodim64), dimension(*), intent(in) :: howmany_dims
-      real(C_FLOAT), dimension(*), intent(out) :: in
-      complex(C_FLOAT_COMPLEX), dimension(*), intent(out) :: out
-      integer(C_INT), value :: flags
-    end function fftwf_plan_guru64_dft_r2c
-    
-    type(C_PTR) function fftwf_plan_guru64_dft_c2r(rank,dims,howmany_rank,howmany_dims,in,out,flags) &
-                         bind(C, name='fftwf_plan_guru64_dft_c2r')
-      import
-      integer(C_INT), value :: rank
-      type(fftwf_iodim64), dimension(*), intent(in) :: dims
-      integer(C_INT), value :: howmany_rank
-      type(fftwf_iodim64), dimension(*), intent(in) :: howmany_dims
-      complex(C_FLOAT_COMPLEX), dimension(*), intent(out) :: in
-      real(C_FLOAT), dimension(*), intent(out) :: out
-      integer(C_INT), value :: flags
-    end function fftwf_plan_guru64_dft_c2r
-    
-    type(C_PTR) function fftwf_plan_guru64_split_dft_r2c(rank,dims,howmany_rank,howmany_dims,in,ro,io,flags) &
-                         bind(C, name='fftwf_plan_guru64_split_dft_r2c')
-      import
-      integer(C_INT), value :: rank
-      type(fftwf_iodim64), dimension(*), intent(in) :: dims
-      integer(C_INT), value :: howmany_rank
-      type(fftwf_iodim64), dimension(*), intent(in) :: howmany_dims
-      real(C_FLOAT), dimension(*), intent(out) :: in
-      real(C_FLOAT), dimension(*), intent(out) :: ro
-      real(C_FLOAT), dimension(*), intent(out) :: io
-      integer(C_INT), value :: flags
-    end function fftwf_plan_guru64_split_dft_r2c
-    
-    type(C_PTR) function fftwf_plan_guru64_split_dft_c2r(rank,dims,howmany_rank,howmany_dims,ri,ii,out,flags) &
-                         bind(C, name='fftwf_plan_guru64_split_dft_c2r')
-      import
-      integer(C_INT), value :: rank
-      type(fftwf_iodim64), dimension(*), intent(in) :: dims
-      integer(C_INT), value :: howmany_rank
-      type(fftwf_iodim64), dimension(*), intent(in) :: howmany_dims
-      real(C_FLOAT), dimension(*), intent(out) :: ri
-      real(C_FLOAT), dimension(*), intent(out) :: ii
-      real(C_FLOAT), dimension(*), intent(out) :: out
-      integer(C_INT), value :: flags
-    end function fftwf_plan_guru64_split_dft_c2r
-    
-    subroutine fftwf_execute_dft_r2c(p,in,out) bind(C, name='fftwf_execute_dft_r2c')
-      import
-      type(C_PTR), value :: p
-      real(C_FLOAT), dimension(*), intent(inout) :: in
-      complex(C_FLOAT_COMPLEX), dimension(*), intent(out) :: out
-    end subroutine fftwf_execute_dft_r2c
-    
-    subroutine fftwf_execute_dft_c2r(p,in,out) bind(C, name='fftwf_execute_dft_c2r')
-      import
-      type(C_PTR), value :: p
-      complex(C_FLOAT_COMPLEX), dimension(*), intent(inout) :: in
-      real(C_FLOAT), dimension(*), intent(out) :: out
-    end subroutine fftwf_execute_dft_c2r
-    
-    subroutine fftwf_execute_split_dft_r2c(p,in,ro,io) bind(C, name='fftwf_execute_split_dft_r2c')
-      import
-      type(C_PTR), value :: p
-      real(C_FLOAT), dimension(*), intent(inout) :: in
-      real(C_FLOAT), dimension(*), intent(out) :: ro
-      real(C_FLOAT), dimension(*), intent(out) :: io
-    end subroutine fftwf_execute_split_dft_r2c
-    
-    subroutine fftwf_execute_split_dft_c2r(p,ri,ii,out) bind(C, name='fftwf_execute_split_dft_c2r')
-      import
-      type(C_PTR), value :: p
-      real(C_FLOAT), dimension(*), intent(inout) :: ri
-      real(C_FLOAT), dimension(*), intent(inout) :: ii
-      real(C_FLOAT), dimension(*), intent(out) :: out
-    end subroutine fftwf_execute_split_dft_c2r
-    
-    type(C_PTR) function fftwf_plan_many_r2r(rank,n,howmany,in,inembed,istride,idist,out,onembed,ostride,odist,kind,flags) &
-                         bind(C, name='fftwf_plan_many_r2r')
-      import
-      integer(C_INT), value :: rank
-      integer(C_INT), dimension(*), intent(in) :: n
-      integer(C_INT), value :: howmany
-      real(C_FLOAT), dimension(*), intent(out) :: in
-      integer(C_INT), dimension(*), intent(in) :: inembed
-      integer(C_INT), value :: istride
-      integer(C_INT), value :: idist
-      real(C_FLOAT), dimension(*), intent(out) :: out
-      integer(C_INT), dimension(*), intent(in) :: onembed
-      integer(C_INT), value :: ostride
-      integer(C_INT), value :: odist
-      integer(C_FFTW_R2R_KIND), dimension(*), intent(in) :: kind
-      integer(C_INT), value :: flags
-    end function fftwf_plan_many_r2r
-    
-    type(C_PTR) function fftwf_plan_r2r(rank,n,in,out,kind,flags) bind(C, name='fftwf_plan_r2r')
-      import
-      integer(C_INT), value :: rank
-      integer(C_INT), dimension(*), intent(in) :: n
-      real(C_FLOAT), dimension(*), intent(out) :: in
-      real(C_FLOAT), dimension(*), intent(out) :: out
-      integer(C_FFTW_R2R_KIND), dimension(*), intent(in) :: kind
-      integer(C_INT), value :: flags
-    end function fftwf_plan_r2r
-    
-    type(C_PTR) function fftwf_plan_r2r_1d(n,in,out,kind,flags) bind(C, name='fftwf_plan_r2r_1d')
-      import
-      integer(C_INT), value :: n
-      real(C_FLOAT), dimension(*), intent(out) :: in
-      real(C_FLOAT), dimension(*), intent(out) :: out
-      integer(C_FFTW_R2R_KIND), value :: kind
-      integer(C_INT), value :: flags
-    end function fftwf_plan_r2r_1d
-    
-    type(C_PTR) function fftwf_plan_r2r_2d(n0,n1,in,out,kind0,kind1,flags) bind(C, name='fftwf_plan_r2r_2d')
-      import
-      integer(C_INT), value :: n0
-      integer(C_INT), value :: n1
-      real(C_FLOAT), dimension(*), intent(out) :: in
-      real(C_FLOAT), dimension(*), intent(out) :: out
-      integer(C_FFTW_R2R_KIND), value :: kind0
-      integer(C_FFTW_R2R_KIND), value :: kind1
-      integer(C_INT), value :: flags
-    end function fftwf_plan_r2r_2d
-    
-    type(C_PTR) function fftwf_plan_r2r_3d(n0,n1,n2,in,out,kind0,kind1,kind2,flags) bind(C, name='fftwf_plan_r2r_3d')
-      import
-      integer(C_INT), value :: n0
-      integer(C_INT), value :: n1
-      integer(C_INT), value :: n2
-      real(C_FLOAT), dimension(*), intent(out) :: in
-      real(C_FLOAT), dimension(*), intent(out) :: out
-      integer(C_FFTW_R2R_KIND), value :: kind0
-      integer(C_FFTW_R2R_KIND), value :: kind1
-      integer(C_FFTW_R2R_KIND), value :: kind2
-      integer(C_INT), value :: flags
-    end function fftwf_plan_r2r_3d
-    
-    type(C_PTR) function fftwf_plan_guru_r2r(rank,dims,howmany_rank,howmany_dims,in,out,kind,flags) &
-                         bind(C, name='fftwf_plan_guru_r2r')
-      import
-      integer(C_INT), value :: rank
-      type(fftwf_iodim), dimension(*), intent(in) :: dims
-      integer(C_INT), value :: howmany_rank
-      type(fftwf_iodim), dimension(*), intent(in) :: howmany_dims
-      real(C_FLOAT), dimension(*), intent(out) :: in
-      real(C_FLOAT), dimension(*), intent(out) :: out
-      integer(C_FFTW_R2R_KIND), dimension(*), intent(in) :: kind
-      integer(C_INT), value :: flags
-    end function fftwf_plan_guru_r2r
-    
-    type(C_PTR) function fftwf_plan_guru64_r2r(rank,dims,howmany_rank,howmany_dims,in,out,kind,flags) &
-                         bind(C, name='fftwf_plan_guru64_r2r')
-      import
-      integer(C_INT), value :: rank
-      type(fftwf_iodim64), dimension(*), intent(in) :: dims
-      integer(C_INT), value :: howmany_rank
-      type(fftwf_iodim64), dimension(*), intent(in) :: howmany_dims
-      real(C_FLOAT), dimension(*), intent(out) :: in
-      real(C_FLOAT), dimension(*), intent(out) :: out
-      integer(C_FFTW_R2R_KIND), dimension(*), intent(in) :: kind
-      integer(C_INT), value :: flags
-    end function fftwf_plan_guru64_r2r
-    
-    subroutine fftwf_execute_r2r(p,in,out) bind(C, name='fftwf_execute_r2r')
-      import
-      type(C_PTR), value :: p
-      real(C_FLOAT), dimension(*), intent(inout) :: in
-      real(C_FLOAT), dimension(*), intent(out) :: out
-    end subroutine fftwf_execute_r2r
-    
-    subroutine fftwf_destroy_plan(p) bind(C, name='fftwf_destroy_plan')
-      import
-      type(C_PTR), value :: p
-    end subroutine fftwf_destroy_plan
-    
-    subroutine fftwf_forget_wisdom() bind(C, name='fftwf_forget_wisdom')
-      import
-    end subroutine fftwf_forget_wisdom
-    
-    subroutine fftwf_cleanup() bind(C, name='fftwf_cleanup')
-      import
-    end subroutine fftwf_cleanup
-    
-    subroutine fftwf_set_timelimit(t) bind(C, name='fftwf_set_timelimit')
-      import
-      real(C_DOUBLE), value :: t
-    end subroutine fftwf_set_timelimit
-    
-    subroutine fftwf_plan_with_nthreads(nthreads) bind(C, name='fftwf_plan_with_nthreads')
-      import
-      integer(C_INT), value :: nthreads
-    end subroutine fftwf_plan_with_nthreads
-    
-    integer(C_INT) function fftwf_init_threads() bind(C, name='fftwf_init_threads')
-      import
-    end function fftwf_init_threads
-    
-    subroutine fftwf_cleanup_threads() bind(C, name='fftwf_cleanup_threads')
-      import
-    end subroutine fftwf_cleanup_threads
-    
-    subroutine fftwf_make_planner_thread_safe() bind(C, name='fftwf_make_planner_thread_safe')
-      import
-    end subroutine fftwf_make_planner_thread_safe
-    
-    integer(C_INT) function fftwf_export_wisdom_to_filename(filename) bind(C, name='fftwf_export_wisdom_to_filename')
-      import
-      character(C_CHAR), dimension(*), intent(in) :: filename
-    end function fftwf_export_wisdom_to_filename
-    
-    subroutine fftwf_export_wisdom_to_file(output_file) bind(C, name='fftwf_export_wisdom_to_file')
-      import
-      type(C_PTR), value :: output_file
-    end subroutine fftwf_export_wisdom_to_file
-    
-    type(C_PTR) function fftwf_export_wisdom_to_string() bind(C, name='fftwf_export_wisdom_to_string')
-      import
-    end function fftwf_export_wisdom_to_string
-    
-    subroutine fftwf_export_wisdom(write_char,data) bind(C, name='fftwf_export_wisdom')
-      import
-      type(C_FUNPTR), value :: write_char
-      type(C_PTR), value :: data
-    end subroutine fftwf_export_wisdom
-    
-    integer(C_INT) function fftwf_import_system_wisdom() bind(C, name='fftwf_import_system_wisdom')
-      import
-    end function fftwf_import_system_wisdom
-    
-    integer(C_INT) function fftwf_import_wisdom_from_filename(filename) bind(C, name='fftwf_import_wisdom_from_filename')
-      import
-      character(C_CHAR), dimension(*), intent(in) :: filename
-    end function fftwf_import_wisdom_from_filename
-    
-    integer(C_INT) function fftwf_import_wisdom_from_file(input_file) bind(C, name='fftwf_import_wisdom_from_file')
-      import
-      type(C_PTR), value :: input_file
-    end function fftwf_import_wisdom_from_file
-    
-    integer(C_INT) function fftwf_import_wisdom_from_string(input_string) bind(C, name='fftwf_import_wisdom_from_string')
-      import
-      character(C_CHAR), dimension(*), intent(in) :: input_string
-    end function fftwf_import_wisdom_from_string
-    
-    integer(C_INT) function fftwf_import_wisdom(read_char,data) bind(C, name='fftwf_import_wisdom')
-      import
-      type(C_FUNPTR), value :: read_char
-      type(C_PTR), value :: data
-    end function fftwf_import_wisdom
-    
-    subroutine fftwf_fprint_plan(p,output_file) bind(C, name='fftwf_fprint_plan')
-      import
-      type(C_PTR), value :: p
-      type(C_PTR), value :: output_file
-    end subroutine fftwf_fprint_plan
-    
-    subroutine fftwf_print_plan(p) bind(C, name='fftwf_print_plan')
-      import
-      type(C_PTR), value :: p
-    end subroutine fftwf_print_plan
-    
-    type(C_PTR) function fftwf_sprint_plan(p) bind(C, name='fftwf_sprint_plan')
-      import
-      type(C_PTR), value :: p
-    end function fftwf_sprint_plan
-    
-    type(C_PTR) function fftwf_malloc(n) bind(C, name='fftwf_malloc')
-      import
-      integer(C_SIZE_T), value :: n
-    end function fftwf_malloc
-    
-    type(C_PTR) function fftwf_alloc_real(n) bind(C, name='fftwf_alloc_real')
-      import
-      integer(C_SIZE_T), value :: n
-    end function fftwf_alloc_real
-    
-    type(C_PTR) function fftwf_alloc_complex(n) bind(C, name='fftwf_alloc_complex')
-      import
-      integer(C_SIZE_T), value :: n
-    end function fftwf_alloc_complex
-    
-    subroutine fftwf_free(p) bind(C, name='fftwf_free')
-      import
-      type(C_PTR), value :: p
-    end subroutine fftwf_free
-    
-    subroutine fftwf_flops(p,add,mul,fmas) bind(C, name='fftwf_flops')
-      import
-      type(C_PTR), value :: p
-      real(C_DOUBLE), intent(out) :: add
-      real(C_DOUBLE), intent(out) :: mul
-      real(C_DOUBLE), intent(out) :: fmas
-    end subroutine fftwf_flops
-    
-    real(C_DOUBLE) function fftwf_estimate_cost(p) bind(C, name='fftwf_estimate_cost')
-      import
-      type(C_PTR), value :: p
-    end function fftwf_estimate_cost
-    
-    real(C_DOUBLE) function fftwf_cost(p) bind(C, name='fftwf_cost')
-      import
-      type(C_PTR), value :: p
-    end function fftwf_cost
-    
-    integer(C_INT) function fftwf_alignment_of(p) bind(C, name='fftwf_alignment_of')
-      import
-      real(C_FLOAT), dimension(*), intent(out) :: p
-    end function fftwf_alignment_of
-    
-  end interface
+     TC_INTPTR_T = IntPtr;
+
+     TC_DOUBLE = Double;  PC_DOUBLE = PDouble;
+
+     TC_DOUBLE_COMPLEX = TDoubleC;  PC_DOUBLE_COMPLEX = ^TDoubleC;
+     TC_FLOAT_COMPLEX  = TSingleC;  PC_FLOAT_COMPLEX  = ^TSingleC;
+
+     TC_PTR = Pointer;
+
+     TC_FUNPTR = Pointer;
+
+     TC_CHAR = AnsiChar;  PC_CHAR = PAnsiChar;
+
+     TC_SIZE_T = size_t;
+
+     TC_FLOAT = Single;  PC_FLOAT = PSingle;
+
+const //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【定数】
+
+      _DLLNAMED_ = 'libfftw3-3.dll';
+      _DLLNAMEF_ = 'libfftw3f-3.dll';
+
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  type TC_FFTW_R2R_KIND = TC_INT32_T;
+       PC_FFTW_R2R_KIND = ^TC_FFTW_R2R_KIND;
+
+  const FFTW_R2HC                   :TC_INT = 0;
+  const FFTW_HC2R                   :TC_INT = 1;
+  const FFTW_DHT                    :TC_INT = 2;
+  const FFTW_REDFT00                :TC_INT = 3;
+  const FFTW_REDFT01                :TC_INT = 4;
+  const FFTW_REDFT10                :TC_INT = 5;
+  const FFTW_REDFT11                :TC_INT = 6;
+  const FFTW_RODFT00                :TC_INT = 7;
+  const FFTW_RODFT01                :TC_INT = 8;
+  const FFTW_RODFT10                :TC_INT = 9;
+  const FFTW_RODFT11                :TC_INT = 10;
+  const FFTW_FORWARD                :TC_INT = -1;
+  const FFTW_BACKWARD               :TC_INT = +1;
+  const FFTW_MEASURE                :TC_INT = 0;
+  const FFTW_DESTROY_INPUT          :TC_INT = 1;
+  const FFTW_UNALIGNED              :TC_INT = 2;
+  const FFTW_CONSERVE_MEMORY        :TC_INT = 4;
+  const FFTW_EXHAUSTIVE             :TC_INT = 8;
+  const FFTW_PRESERVE_INPUT         :TC_INT = 16;
+  const FFTW_PATIENT                :TC_INT = 32;
+  const FFTW_ESTIMATE               :TC_INT = 64;
+  const FFTW_WISDOM_ONLY            :TC_INT = 2097152;
+  const FFTW_ESTIMATE_PATIENT       :TC_INT = 128;
+  const FFTW_BELIEVE_PCOST          :TC_INT = 256;
+  const FFTW_NO_DFT_R2HC            :TC_INT = 512;
+  const FFTW_NO_NONTHREADED         :TC_INT = 1024;
+  const FFTW_NO_BUFFERING           :TC_INT = 2048;
+  const FFTW_NO_INDIRECT_OP         :TC_INT = 4096;
+  const FFTW_ALLOW_LARGE_GENERIC    :TC_INT = 8192;
+  const FFTW_NO_RANK_SPLITS         :TC_INT = 16384;
+  const FFTW_NO_VRANK_SPLITS        :TC_INT = 32768;
+  const FFTW_NO_VRECURSE            :TC_INT = 65536;
+  const FFTW_NO_SIMD                :TC_INT = 131072;
+  const FFTW_NO_SLOW                :TC_INT = 262144;
+  const FFTW_NO_FIXED_RADIX_LARGE_N :TC_INT = 524288;
+  const FFTW_ALLOW_PRUNING          :TC_INT = 1048576;
+
+//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& Double
+
+  type Tfftw_iodim = record
+         _n  :TC_INT;
+         _is :TC_INT;
+         _os :TC_INT;
+       end;
+       Pfftw_iodim = ^Tfftw_iodim;
+
+  type Tfftw_iodim64 = record
+         _n  :TC_INTPTR_T;
+         _is :TC_INTPTR_T;
+         _os :TC_INTPTR_T;
+       end;
+       Pfftw_iodim64 = ^Tfftw_iodim64;
+
+    function fftw_plan_dft(
+      rank_  :TC_INT;
+const n_     :PC_INT;
+{out} in_    :PC_DOUBLE_COMPLEX;
+{out} out_   :PC_DOUBLE_COMPLEX;
+      sign_  :TC_INT;
+      flags_ :TC_INT
+    ) :TC_PTR; cdecl; external _DLLNAMED_;
+
+    function fftw_plan_dft_1d(
+      n_     :TC_INT;
+{out} in_    :PC_DOUBLE_COMPLEX;
+{out} out_   :PC_DOUBLE_COMPLEX;
+      sign_  :TC_INT;
+      flags_ :TC_INT
+    ) :TC_PTR; cdecl; external _DLLNAMED_;
+
+    function fftw_plan_dft_2d(
+      n0_    :TC_INT;
+      n1_    :TC_INT;
+{out} in_    :PC_DOUBLE_COMPLEX;
+{out} out_   :PC_DOUBLE_COMPLEX;
+      sign_  :TC_INT;
+      flags_ :TC_INT
+    ) :TC_PTR; cdecl; external _DLLNAMED_;
+
+    function fftw_plan_dft_3d(
+      n0_    :TC_INT;
+      n1_    :TC_INT;
+      n2_    :TC_INT;
+{out} in_    :PC_DOUBLE_COMPLEX;
+{out} out_   :PC_DOUBLE_COMPLEX;
+      sign_  :TC_INT;
+      flags_ :TC_INT
+    ) :TC_PTR; cdecl; external _DLLNAMED_;
+
+    function fftw_plan_many_dft(
+      rank_    :TC_INT;
+const n_       :PC_INT;
+      howmany_ :TC_INT;
+{out} in_      :PC_DOUBLE_COMPLEX;
+const inembed_ :PC_INT;
+      istride_ :TC_INT;
+      idist_   :TC_INT;
+{out} out_     :PC_DOUBLE_COMPLEX;
+const onembed_ :PC_INT;
+      ostride_ :TC_INT;
+      odist_   :TC_INT;
+      sign_    :TC_INT;
+      flags_   :TC_INT
+    ) :TC_PTR; cdecl; external _DLLNAMED_;
+
+    function fftw_plan_guru_dft(
+      rank_         :TC_INT;
+const dims_         :Pfftw_iodim;
+      howmany_rank_ :TC_INT;
+const howmany_dims_ :Pfftw_iodim;
+{out} in_           :PC_DOUBLE_COMPLEX;
+{out} out_          :PC_DOUBLE_COMPLEX;
+      sign_         :TC_INT;
+      flags_        :TC_INT
+    ) :TC_PTR; cdecl; external _DLLNAMED_;
+
+    function fftw_plan_guru_split_dft(
+      rank_         :TC_INT;
+const dims_         :Pfftw_iodim;
+      howmany_rank_ :TC_INT;
+const howmany_dims_ :Pfftw_iodim;
+{out} ri_           :PC_DOUBLE;
+{out} ii_           :PC_DOUBLE;
+{out} ro_           :PC_DOUBLE;
+{out} io_           :PC_DOUBLE;
+      flags_        :TC_INT
+    ) :TC_PTR; cdecl; external _DLLNAMED_;
+
+    function fftw_plan_guru64_dft(
+      rank_         :TC_INT;
+const dims_         :Pfftw_iodim64;
+      howmany_rank_ :TC_INT;
+const howmany_dims_ :Pfftw_iodim64;
+{out} in_           :PC_DOUBLE_COMPLEX;
+{out} out_          :PC_DOUBLE_COMPLEX;
+      sign_         :TC_INT;
+      flags_        :TC_INT
+    ) :TC_PTR; cdecl; external _DLLNAMED_;
+
+    function fftw_plan_guru64_split_dft(
+      rank_         :TC_INT;
+const dims_         :Pfftw_iodim64;
+      howmany_rank_ :TC_INT;
+const howmany_dims_ :Pfftw_iodim64;
+{out} ri_           :PC_DOUBLE;
+{out} ii_           :PC_DOUBLE;
+{out} ro_           :PC_DOUBLE;
+{out} io_           :PC_DOUBLE;
+      flags_        :TC_INT
+    ) :TC_PTR; cdecl; external _DLLNAMED_;
+
+    procedure fftw_execute_dft(
+      p_   :TC_PTR;
+{var} in_  :PC_DOUBLE_COMPLEX;
+{out} out_ :PC_DOUBLE_COMPLEX
+    ); cdecl; external _DLLNAMED_;
+
+    procedure fftw_execute_split_dft(
+      p_  :TC_PTR;
+{var} ri_ :PC_DOUBLE;
+{var} ii_ :PC_DOUBLE;
+{out} ro_ :PC_DOUBLE;
+{out} io_ :PC_DOUBLE
+    ); cdecl; external _DLLNAMED_;
+
+    function fftw_plan_many_dft_r2c(
+      rank_    :TC_INT;
+const n_       :PC_INT;
+      howmany_ :TC_INT;
+{out} in_      :PC_DOUBLE;
+const inembed_ :PC_INT;
+      istride_ :TC_INT;
+      idist_   :TC_INT;
+{out} out_     :PC_DOUBLE_COMPLEX;
+const onembed_ :PC_INT;
+      ostride_ :TC_INT;
+      odist_   :TC_INT;
+      flags_   :TC_INT
+    ) :TC_PTR; cdecl; external _DLLNAMED_;
+
+    function fftw_plan_dft_r2c(
+      rank_  :TC_INT;
+const n_     :PC_INT;
+{out} in_    :PC_DOUBLE;
+{out} out_   :PC_DOUBLE_COMPLEX;
+      flags_ :TC_INT
+    ) :TC_PTR; cdecl; external _DLLNAMED_;
+
+    function fftw_plan_dft_r2c_1d(
+      n_     :TC_INT;
+{out} in_    :PC_DOUBLE;
+{out} out_   :PC_DOUBLE_COMPLEX;
+      flags_ :TC_INT
+    ) :TC_PTR; cdecl; external _DLLNAMED_;
+
+    function fftw_plan_dft_r2c_2d(
+      n0_    :TC_INT;
+      n1_    :TC_INT;
+{out} in_    :PC_DOUBLE;
+{out} out_   :PC_DOUBLE_COMPLEX;
+      flags_ :TC_INT
+    ) :TC_PTR; cdecl; external _DLLNAMED_;
+
+    function fftw_plan_dft_r2c_3d(
+      n0_    :TC_INT;
+      n1_    :TC_INT;
+      n2_    :TC_INT;
+{out} in_    :PC_DOUBLE;
+{out} out_   :PC_DOUBLE_COMPLEX;
+      flags_ :TC_INT
+    ) :TC_PTR; cdecl; external _DLLNAMED_;
+
+    function fftw_plan_many_dft_c2r(
+      rank_    :TC_INT;
+const n_       :PC_INT;
+      howmany_ :TC_INT;
+{out} in_      :PC_DOUBLE_COMPLEX;
+const inembed_ :PC_INT;
+      istride_ :TC_INT;
+      idist_   :TC_INT;
+{out} out_     :PC_DOUBLE;
+const onembed_ :PC_INT;
+      ostride_ :TC_INT;
+      odist_   :TC_INT;
+      flags_   :TC_INT
+    ) :TC_PTR; cdecl; external _DLLNAMED_;
+
+    function fftw_plan_dft_c2r(
+      rank_  :TC_INT;
+const n_     :PC_INT;
+{out} in_    :PC_DOUBLE_COMPLEX;
+{out} out_   :PC_DOUBLE;
+      flags_ :TC_INT
+    ) :TC_PTR; cdecl; external _DLLNAMED_;
+
+    function fftw_plan_dft_c2r_1d(
+      n_     :TC_INT;
+{out} in_    :PC_DOUBLE_COMPLEX;
+{out} out_   :PC_DOUBLE;
+      flags_ :TC_INT
+    ) :TC_PTR; cdecl; external _DLLNAMED_;
+
+    function fftw_plan_dft_c2r_2d(
+      n0_    :TC_INT;
+      n1_    :TC_INT;
+{out} in_    :PC_DOUBLE_COMPLEX;
+{out} out_   :PC_DOUBLE;
+      flags_ :TC_INT
+    ) :TC_PTR; cdecl; external _DLLNAMED_;
+
+    function fftw_plan_dft_c2r_3d(
+      n0_    :TC_INT;
+      n1_    :TC_INT;
+      n2_    :TC_INT;
+{out} in_    :PC_DOUBLE_COMPLEX;
+{out} out_   :PC_DOUBLE;
+      flags_ :TC_INT
+    ) :TC_PTR; cdecl; external _DLLNAMED_;
+
+    function fftw_plan_guru_dft_r2c(
+      rank_         :TC_INT;
+const dims_         :Pfftw_iodim;
+      howmany_rank_ :TC_INT;
+const howmany_dims_ :Pfftw_iodim;
+{out} in_           :PC_DOUBLE;
+{out} out_          :PC_DOUBLE_COMPLEX;
+      flags_        :TC_INT
+    ) :TC_PTR; cdecl; external _DLLNAMED_;
+
+    function fftw_plan_guru_dft_c2r(
+      rank_         :TC_INT;
+const dims_         :Pfftw_iodim;
+      howmany_rank_ :TC_INT;
+const howmany_dims_ :Pfftw_iodim;
+{out} in_           :PC_DOUBLE_COMPLEX;
+{out} out_          :PC_DOUBLE;
+      flags_        :TC_INT
+    ) :TC_PTR; cdecl; external _DLLNAMED_;
+
+    function fftw_plan_guru_split_dft_r2c(
+      rank_         :TC_INT;
+const dims_         :Pfftw_iodim;
+      howmany_rank_ :TC_INT;
+const howmany_dims_ :Pfftw_iodim;
+{out} in_           :PC_DOUBLE;
+{out} ro_           :PC_DOUBLE;
+{out} io_           :PC_DOUBLE;
+      flags_        :TC_INT
+    ) :TC_PTR; cdecl; external _DLLNAMED_;
+
+    function fftw_plan_guru_split_dft_c2r(
+      rank_         :TC_INT;
+const dims_         :Pfftw_iodim;
+      howmany_rank_ :TC_INT;
+const howmany_dims_ :Pfftw_iodim;
+{out} ri_           :PC_DOUBLE;
+{out} ii_           :PC_DOUBLE;
+{out} out_          :PC_DOUBLE;
+      flags_        :TC_INT
+    ) :TC_PTR; cdecl; external _DLLNAMED_;
+
+    function fftw_plan_guru64_dft_r2c(
+      rank_         :TC_INT;
+const dims_         :Pfftw_iodim64;
+      howmany_rank_ :TC_INT;
+const howmany_dims_ :Pfftw_iodim64;
+{out} in_           :PC_DOUBLE;
+{out} out_          :PC_DOUBLE_COMPLEX;
+      flags_        :TC_INT
+    ) :TC_PTR; cdecl; external _DLLNAMED_;
+
+    function fftw_plan_guru64_dft_c2r(
+      rank_         :TC_INT;
+const dims_         :Pfftw_iodim64;
+      howmany_rank_ :TC_INT;
+const howmany_dims_ :Pfftw_iodim64;
+{out} in_           :PC_DOUBLE_COMPLEX;
+{out} out_          :PC_DOUBLE;
+      flags_        :TC_INT
+    ) :TC_PTR; cdecl; external _DLLNAMED_;
+
+    function fftw_plan_guru64_split_dft_r2c(
+      rank_         :TC_INT;
+const dims_         :Pfftw_iodim64;
+      howmany_rank_ :TC_INT;
+const howmany_dims_ :Pfftw_iodim64;
+{out} in_           :PC_DOUBLE;
+{out} ro_           :PC_DOUBLE;
+{out} io_           :PC_DOUBLE;
+      flags_        :TC_INT
+    ) :TC_PTR; cdecl; external _DLLNAMED_;
+
+    function fftw_plan_guru64_split_dft_c2r(
+      rank_         :TC_INT;
+const dims_         :Pfftw_iodim64;
+      howmany_rank_ :TC_INT;
+const howmany_dims_ :Pfftw_iodim64;
+{out} ri_           :PC_DOUBLE;
+{out} ii_           :PC_DOUBLE;
+{out} out_          :PC_DOUBLE;
+      flags_        :TC_INT
+    ) :TC_PTR; cdecl; external _DLLNAMED_;
+
+    procedure fftw_execute_dft_r2c(
+      p_   :TC_PTR;
+{var} in_  :PC_DOUBLE;
+{out} out_ :PC_DOUBLE_COMPLEX
+    ); cdecl; external _DLLNAMED_;
+
+    procedure fftw_execute_dft_c2r(
+      p_   :TC_PTR;
+{var} in_  :PC_DOUBLE_COMPLEX;
+{out} out_ :PC_DOUBLE
+    ); cdecl; external _DLLNAMED_;
+
+    procedure fftw_execute_split_dft_r2c(
+      p_  :TC_PTR;
+{var} in_ :PC_DOUBLE;
+{out} ro_ :PC_DOUBLE;
+{out} io_ :PC_DOUBLE
+    ); cdecl; external _DLLNAMED_;
+
+    procedure fftw_execute_split_dft_c2r(
+      p_   :TC_PTR;
+{var} ri_  :PC_DOUBLE;
+{var} ii_  :PC_DOUBLE;
+{out} out_ :PC_DOUBLE
+    ); cdecl; external _DLLNAMED_;
+
+    function fftw_plan_many_r2r(
+      rank_    :TC_INT;
+const n_       :PC_INT;
+      howmany_ :TC_INT;
+{out} in_      :PC_DOUBLE;
+const inembed_ :PC_INT;
+      istride_ :TC_INT;
+      idist_   :TC_INT;
+{out} out_     :PC_DOUBLE;
+const onembed_ :PC_INT;
+      ostride_ :TC_INT;
+      odist_   :TC_INT;
+const kind_    :PC_FFTW_R2R_KIND;
+      flags_   :TC_INT
+    ) :TC_PTR; cdecl; external _DLLNAMED_;
+
+    function fftw_plan_r2r(
+      rank_  :TC_INT;
+const n_     :PC_INT;
+{out} in_    :PC_DOUBLE;
+{out} out_   :PC_DOUBLE;
+const kind_  :PC_FFTW_R2R_KIND;
+      flags_ :TC_INT
+    ) :TC_PTR; cdecl; external _DLLNAMED_;
+
+    function fftw_plan_r2r_1d(
+      n_     :TC_INT;
+{out} in_    :PC_DOUBLE;
+{out} out_   :PC_DOUBLE;
+      kind_  :TC_FFTW_R2R_KIND;
+      flags_ :TC_INT
+    ) :TC_PTR; cdecl; external _DLLNAMED_;
+
+    function fftw_plan_r2r_2d(
+      n0_    :TC_INT;
+      n1_    :TC_INT;
+{out} in_    :PC_DOUBLE;
+{out} out_   :PC_DOUBLE;
+      kind0_ :TC_FFTW_R2R_KIND;
+      kind1_ :TC_FFTW_R2R_KIND;
+      flags_ :TC_INT
+    ) :TC_PTR; cdecl; external _DLLNAMED_;
+
+    function fftw_plan_r2r_3d(
+      n0_    :TC_INT;
+      n1_    :TC_INT;
+      n2_    :TC_INT;
+{out} in_    :PC_DOUBLE;
+{out} out_   :PC_DOUBLE;
+      kind0_ :TC_FFTW_R2R_KIND;
+      kind1_ :TC_FFTW_R2R_KIND;
+      kind2_ :TC_FFTW_R2R_KIND;
+      flags_ :TC_INT
+    ) :TC_PTR; cdecl; external _DLLNAMED_;
+
+    function fftw_plan_guru_r2r(
+      rank_         :TC_INT;
+const dims_         :Pfftw_iodim;
+      howmany_rank_ :TC_INT;
+const howmany_dims_ :Pfftw_iodim;
+{out} in_           :PC_DOUBLE;
+{out} out_          :PC_DOUBLE;
+const kind_         :PC_FFTW_R2R_KIND;
+      flags_        :TC_INT
+    ) :TC_PTR; cdecl; external _DLLNAMED_;
+
+    function fftw_plan_guru64_r2r(
+      rank_         :TC_INT;
+const dims_         :Pfftw_iodim64;
+      howmany_rank_ :TC_INT;
+const howmany_dims_ :Pfftw_iodim64;
+{out} in_           :PC_DOUBLE;
+{out} out_          :PC_DOUBLE;
+const kind_         :PC_FFTW_R2R_KIND;
+      flags_        :TC_INT
+    ) :TC_PTR; cdecl; external _DLLNAMED_;
+
+    procedure fftw_execute_r2r(
+      p_   :TC_PTR;
+{var} in_  :PC_DOUBLE;
+{out} out_ :PC_DOUBLE
+    ); cdecl; external _DLLNAMED_;
+
+    procedure fftw_destroy_plan(
+      p_ :TC_PTR
+    ); cdecl; external _DLLNAMED_;
+
+    procedure fftw_forget_wisdom(
+    ); cdecl; external _DLLNAMED_;
+
+    procedure fftw_cleanup(
+    ); cdecl; external _DLLNAMED_;
+
+    procedure fftw_set_timelimit(
+      t_ :TC_DOUBLE
+    ); cdecl; external _DLLNAMED_;
+
+    procedure fftw_plan_with_nthreads(
+      nthreads_ :TC_INT
+    ); cdecl; external _DLLNAMED_;
+
+    function fftw_init_threads(
+    ) :TC_INT; cdecl; external _DLLNAMED_;
+
+    procedure fftw_cleanup_threads(
+    ); cdecl; external _DLLNAMED_;
+
+    procedure fftw_make_planner_thread_safe(
+    ); cdecl; external _DLLNAMED_;
+
+    function fftw_export_wisdom_to_filename(
+const filename_ :PC_CHAR
+    ) :TC_INT; cdecl; external _DLLNAMED_;
+
+    procedure fftw_export_wisdom_to_file(
+      output_file_ :TC_PTR
+    ); cdecl; external _DLLNAMED_;
+
+    function fftw_export_wisdom_to_string(
+    ) :TC_PTR; cdecl; external _DLLNAMED_;
+
+    procedure fftw_export_wisdom(
+      write_char_ :TC_FUNPTR;
+      data_       :TC_PTR
+    ); cdecl; external _DLLNAMED_;
+
+    function fftw_import_system_wisdom(
+    ) :TC_INT; cdecl; external _DLLNAMED_;
+
+    function fftw_import_wisdom_from_filename(
+const filename_ :PC_CHAR
+    ) :TC_INT; cdecl; external _DLLNAMED_;
+
+    function fftw_import_wisdom_from_file(
+      input_file_ :TC_PTR
+    ) :TC_INT; cdecl; external _DLLNAMED_;
+
+    function fftw_import_wisdom_from_string(
+const input_string_ :PC_CHAR
+    ) :TC_INT; cdecl; external _DLLNAMED_;
+
+    function fftw_import_wisdom(
+      read_char_ :TC_FUNPTR;
+      data_      :TC_PTR
+    ) :TC_INT; cdecl; external _DLLNAMED_;
+
+    procedure fftw_fprint_plan(
+      p_           :TC_PTR;
+      output_file_ :TC_PTR
+    ); cdecl; external _DLLNAMED_;
+
+    procedure fftw_print_plan(
+      p_ :TC_PTR
+    ); cdecl; external _DLLNAMED_;
+
+    function fftw_sprint_plan(
+      p_ :TC_PTR
+    ) :TC_PTR; cdecl; external _DLLNAMED_;
+
+    function fftw_malloc(
+      n_ :TC_SIZE_T
+    ) :TC_PTR; cdecl; external _DLLNAMED_;
+
+    function fftw_alloc_real(
+      n_ :TC_SIZE_T
+    ) :TC_PTR; cdecl; external _DLLNAMED_;
+
+    function fftw_alloc_complex(
+      n_ :TC_SIZE_T
+    ) :TC_PTR; cdecl; external _DLLNAMED_;
+
+    procedure fftw_free(
+      p_ :TC_PTR
+    ); cdecl; external _DLLNAMED_;
+
+    procedure fftw_flops(
+      p_    :TC_PTR;
+{out} add_  :TC_DOUBLE;
+{out} mul_  :TC_DOUBLE;
+{out} fmas_ :TC_DOUBLE
+    ); cdecl; external _DLLNAMED_;
+
+    function fftw_estimate_cost(
+      p_ :TC_PTR
+    ) :TC_DOUBLE; cdecl; external _DLLNAMED_;
+
+    function fftw_cost(
+      p_ :TC_PTR
+    ) :TC_DOUBLE; cdecl; external _DLLNAMED_;
+
+    function fftw_alignment_of(
+{out} p_ :PC_DOUBLE
+    ) :TC_INT; cdecl; external _DLLNAMED_;
+
+//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& Single
+
+  type Tfftwf_iodim = record
+         _n  :TC_INT;
+         _is :TC_INT;
+         _os :TC_INT;
+       end;
+       Pfftwf_iodim = ^Tfftwf_iodim;
+
+  type Tfftwf_iodim64 = record
+         _n  :TC_INTPTR_T;
+         _is :TC_INTPTR_T;
+         _os :TC_INTPTR_T;
+       end;
+       Pfftwf_iodim64 = ^Tfftwf_iodim64;
+
+    function fftwf_plan_dft(
+      rank_  :TC_INT;
+const n_     :PC_INT;
+{out} in_    :PC_FLOAT_COMPLEX;
+{out} out_   :PC_FLOAT_COMPLEX;
+      sign_  :TC_INT;
+      flags_ :TC_INT
+    ) :TC_PTR; cdecl; external _DLLNAMEF_;
+
+    function fftwf_plan_dft_1d(
+      n_     :TC_INT;
+{out} in_    :PC_FLOAT_COMPLEX;
+{out} out_   :PC_FLOAT_COMPLEX;
+      sign_  :TC_INT;
+      flags_ :TC_INT
+    ) :TC_PTR; cdecl; external _DLLNAMEF_;
+
+    function fftwf_plan_dft_2d(
+      n0_    :TC_INT;
+      n1_    :TC_INT;
+{out} in_    :PC_FLOAT_COMPLEX;
+{out} out_   :PC_FLOAT_COMPLEX;
+      sign_  :TC_INT;
+      flags_ :TC_INT
+    ) :TC_PTR; cdecl; external _DLLNAMEF_;
+
+    function fftwf_plan_dft_3d(
+      n0_    :TC_INT;
+      n1_    :TC_INT;
+      n2_    :TC_INT;
+{out} in_    :PC_FLOAT_COMPLEX;
+{out} out_   :PC_FLOAT_COMPLEX;
+      sign_  :TC_INT;
+      flags_ :TC_INT
+    ) :TC_PTR; cdecl; external _DLLNAMEF_;
+
+    function fftwf_plan_many_dft(
+      rank_    :TC_INT;
+const n_       :PC_INT;
+      howmany_ :TC_INT;
+{out} in_      :PC_FLOAT_COMPLEX;
+const inembed_ :PC_INT;
+      istride_ :TC_INT;
+      idist_   :TC_INT;
+{out} out_     :PC_FLOAT_COMPLEX;
+const onembed_ :PC_INT;
+      ostride_ :TC_INT;
+      odist_   :TC_INT;
+      sign_    :TC_INT;
+      flags_   :TC_INT
+    ) :TC_PTR; cdecl; external _DLLNAMEF_;
+
+    function fftwf_plan_guru_dft(
+      rank_         :TC_INT;
+const dims_         :Pfftwf_iodim;
+      howmany_rank_ :TC_INT;
+const howmany_dims_ :Pfftwf_iodim;
+{out} in_           :PC_FLOAT_COMPLEX;
+{out} out_          :PC_FLOAT_COMPLEX;
+      sign_         :TC_INT;
+      flags_        :TC_INT
+    ) :TC_PTR; cdecl; external _DLLNAMEF_;
+
+    function fftwf_plan_guru_split_dft(
+      rank_         :TC_INT;
+const dims_         :Pfftwf_iodim;
+      howmany_rank_ :TC_INT;
+const howmany_dims_ :Pfftwf_iodim;
+{out} ri_           :PC_FLOAT;
+{out} ii_           :PC_FLOAT;
+{out} ro_           :PC_FLOAT;
+{out} io_           :PC_FLOAT;
+      flags_        :TC_INT
+    ) :TC_PTR; cdecl; external _DLLNAMEF_;
+
+    function fftwf_plan_guru64_dft(
+      rank_         :TC_INT;
+const dims_         :Pfftwf_iodim64;
+      howmany_rank_ :TC_INT;
+const howmany_dims_ :Pfftwf_iodim64;
+{out} in_           :PC_FLOAT_COMPLEX;
+{out} out_          :PC_FLOAT_COMPLEX;
+      sign_         :TC_INT;
+      flags_        :TC_INT
+    ) :TC_PTR; cdecl; external _DLLNAMEF_;
+
+    function fftwf_plan_guru64_split_dft(
+      rank_         :TC_INT;
+const dims_         :Pfftwf_iodim64;
+      howmany_rank_ :TC_INT;
+const howmany_dims_ :Pfftwf_iodim64;
+{out} ri_           :PC_FLOAT;
+{out} ii_           :PC_FLOAT;
+{out} ro_           :PC_FLOAT;
+{out} io_           :PC_FLOAT;
+      flags_        :TC_INT
+    ) :TC_PTR; cdecl; external _DLLNAMEF_;
+
+    procedure fftwf_execute_dft(
+      p_   :TC_PTR;
+{var} in_  :PC_FLOAT_COMPLEX;
+{out} out_ :PC_FLOAT_COMPLEX
+    ); cdecl; external _DLLNAMEF_;
+
+    procedure fftwf_execute_split_dft(
+      p_  :TC_PTR;
+{var} ri_ :PC_FLOAT;
+{var} ii_ :PC_FLOAT;
+{out} ro_ :PC_FLOAT;
+{out} io_ :PC_FLOAT
+    ); cdecl; external _DLLNAMEF_;
+
+    function fftwf_plan_many_dft_r2c(
+      rank_    :TC_INT;
+const n_       :PC_INT;
+      howmany_ :TC_INT;
+{out} in_      :PC_FLOAT;
+const inembed_ :PC_INT;
+      istride_ :TC_INT;
+      idist_   :TC_INT;
+{out} out_     :PC_FLOAT_COMPLEX;
+const onembed_ :PC_INT;
+      ostride_ :TC_INT;
+      odist_   :TC_INT;
+      flags_   :TC_INT
+    ) :TC_PTR; cdecl; external _DLLNAMEF_;
+
+    function fftwf_plan_dft_r2c(
+      rank_  :TC_INT;
+const n_     :PC_INT;
+{out} in_    :PC_FLOAT;
+{out} out_   :PC_FLOAT_COMPLEX;
+      flags_ :TC_INT
+    ) :TC_PTR; cdecl; external _DLLNAMEF_;
+
+    function fftwf_plan_dft_r2c_1d(
+      n_     :TC_INT;
+{out} in_    :PC_FLOAT;
+{out} out_   :PC_FLOAT_COMPLEX;
+      flags_ :TC_INT
+    ) :TC_PTR; cdecl; external _DLLNAMEF_;
+
+    function fftwf_plan_dft_r2c_2d(
+      n0_    :TC_INT;
+      n1_    :TC_INT;
+{out} in_    :PC_FLOAT;
+{out} out_   :PC_FLOAT_COMPLEX;
+      flags_ :TC_INT
+    ) :TC_PTR; cdecl; external _DLLNAMEF_;
+
+    function fftwf_plan_dft_r2c_3d(
+      n0_    :TC_INT;
+      n1_    :TC_INT;
+      n2_    :TC_INT;
+{out} in_    :PC_FLOAT;
+{out} out_   :PC_FLOAT_COMPLEX;
+      flags_ :TC_INT
+    ) :TC_PTR; cdecl; external _DLLNAMEF_;
+
+    function fftwf_plan_many_dft_c2r(
+      rank_    :TC_INT;
+const n_       :PC_INT;
+      howmany_ :TC_INT;
+{out} in_      :PC_FLOAT_COMPLEX;
+const inembed_ :PC_INT;
+      istride_ :TC_INT;
+      idist_   :TC_INT;
+{out} out_     :PC_FLOAT;
+const onembed_ :PC_INT;
+      ostride_ :TC_INT;
+      odist_   :TC_INT;
+      flags_   :TC_INT
+    ) :TC_PTR; cdecl; external _DLLNAMEF_;
+
+    function fftwf_plan_dft_c2r(
+      rank_  :TC_INT;
+const n_     :PC_INT;
+{out} in_    :PC_FLOAT_COMPLEX;
+{out} out_   :PC_FLOAT;
+      flags_ :TC_INT
+    ) :TC_PTR; cdecl; external _DLLNAMEF_;
+
+    function fftwf_plan_dft_c2r_1d(
+      n_     :TC_INT;
+{out} in_    :PC_FLOAT_COMPLEX;
+{out} out_   :PC_FLOAT;
+      flags_ :TC_INT
+    ) :TC_PTR; cdecl; external _DLLNAMEF_;
+
+    function fftwf_plan_dft_c2r_2d(
+      n0_    :TC_INT;
+      n1_    :TC_INT;
+{out} in_    :PC_FLOAT_COMPLEX;
+{out} out_   :PC_FLOAT;
+      flags_ :TC_INT
+    ) :TC_PTR; cdecl; external _DLLNAMEF_;
+
+    function fftwf_plan_dft_c2r_3d(
+      n0_    :TC_INT;
+      n1_    :TC_INT;
+      n2_    :TC_INT;
+{out} in_    :PC_FLOAT_COMPLEX;
+{out} out_   :PC_FLOAT;
+      flags_ :TC_INT
+    ) :TC_PTR; cdecl; external _DLLNAMEF_;
+
+    function fftwf_plan_guru_dft_r2c(
+      rank_         :TC_INT;
+const dims_         :Pfftwf_iodim;
+      howmany_rank_ :TC_INT;
+const howmany_dims_ :Pfftwf_iodim;
+{out} in_           :PC_FLOAT;
+{out} out_          :PC_FLOAT_COMPLEX;
+      flags_        :TC_INT
+    ) :TC_PTR; cdecl; external _DLLNAMEF_;
+
+    function fftwf_plan_guru_dft_c2r(
+      rank_         :TC_INT;
+const dims_         :Pfftwf_iodim;
+      howmany_rank_ :TC_INT;
+const howmany_dims_ :Pfftwf_iodim;
+{out} in_           :PC_FLOAT_COMPLEX;
+{out} out_          :PC_FLOAT;
+      flags_        :TC_INT
+    ) :TC_PTR; cdecl; external _DLLNAMEF_;
+
+    function fftwf_plan_guru_split_dft_r2c(
+      rank_         :TC_INT;
+const dims_         :Pfftwf_iodim;
+      howmany_rank_ :TC_INT;
+const howmany_dims_ :Pfftwf_iodim;
+{out} in_           :PC_FLOAT;
+{out} ro_           :PC_FLOAT;
+{out} io_           :PC_FLOAT;
+      flags_        :TC_INT
+    ) :TC_PTR; cdecl; external _DLLNAMEF_;
+
+    function fftwf_plan_guru_split_dft_c2r(
+      rank_         :TC_INT;
+const dims_         :Pfftwf_iodim;
+      howmany_rank_ :TC_INT;
+const howmany_dims_ :Pfftwf_iodim;
+{out} ri_           :PC_FLOAT;
+{out} ii_           :PC_FLOAT;
+{out} out_          :PC_FLOAT;
+      flags_        :TC_INT
+    ) :TC_PTR; cdecl; external _DLLNAMEF_;
+
+    function fftwf_plan_guru64_dft_r2c(
+      rank_         :TC_INT;
+const dims_         :Pfftwf_iodim64;
+      howmany_rank_ :TC_INT;
+const howmany_dims_ :Pfftwf_iodim64;
+{out} in_           :PC_FLOAT;
+{out} out_          :PC_FLOAT_COMPLEX;
+      flags_        :TC_INT
+    ) :TC_PTR; cdecl; external _DLLNAMEF_;
+
+    function fftwf_plan_guru64_dft_c2r(
+      rank_         :TC_INT;
+const dims_         :Pfftwf_iodim64;
+      howmany_rank_ :TC_INT;
+const howmany_dims_ :Pfftwf_iodim64;
+{out} in_           :PC_FLOAT_COMPLEX;
+{out} out_          :PC_FLOAT;
+      flags_        :TC_INT
+    ) :TC_PTR; cdecl; external _DLLNAMEF_;
+
+    function fftwf_plan_guru64_split_dft_r2c(
+      rank_         :TC_INT;
+const dims_         :Pfftwf_iodim64;
+      howmany_rank_ :TC_INT;
+const howmany_dims_ :Pfftwf_iodim64;
+{out} in_           :PC_FLOAT;
+{out} ro_           :PC_FLOAT;
+{out} io_           :PC_FLOAT;
+      flags_        :TC_INT
+    ) :TC_PTR; cdecl; external _DLLNAMEF_;
+
+    function fftwf_plan_guru64_split_dft_c2r(
+      rank_         :TC_INT;
+const dims_         :Pfftwf_iodim64;
+      howmany_rank_ :TC_INT;
+const howmany_dims_ :Pfftwf_iodim64;
+{out} ri_           :PC_FLOAT;
+{out} ii_           :PC_FLOAT;
+{out} out_          :PC_FLOAT;
+      flags_        :TC_INT
+    ) :TC_PTR; cdecl; external _DLLNAMEF_;
+
+    procedure fftwf_execute_dft_r2c(
+      p_   :TC_PTR;
+{var} in_  :PC_FLOAT;
+{out} out_ :PC_FLOAT_COMPLEX
+    ); cdecl; external _DLLNAMEF_;
+
+    procedure fftwf_execute_dft_c2r(
+      p_   :TC_PTR;
+{var} in_  :PC_FLOAT_COMPLEX;
+{out} out_ :PC_FLOAT
+    ); cdecl; external _DLLNAMEF_;
+
+    procedure fftwf_execute_split_dft_r2c(
+      p_  :TC_PTR;
+{var} in_ :PC_FLOAT;
+{out} ro_ :PC_FLOAT;
+{out} io_ :PC_FLOAT
+    ); cdecl; external _DLLNAMEF_;
+
+    procedure fftwf_execute_split_dft_c2r(
+      p_   :TC_PTR;
+{var} ri_  :PC_FLOAT;
+{var} ii_  :PC_FLOAT;
+{out} out_ :PC_FLOAT
+    ); cdecl; external _DLLNAMEF_;
+
+    function fftwf_plan_many_r2r(
+      rank_    :TC_INT;
+const n_       :PC_INT;
+      howmany_ :TC_INT;
+{out} in_      :PC_FLOAT;
+const inembed_ :PC_INT;
+      istride_ :TC_INT;
+      idist_   :TC_INT;
+{out} out_     :PC_FLOAT;
+const onembed_ :PC_INT;
+      ostride_ :TC_INT;
+      odist_   :TC_INT;
+const kind_    :PC_FFTW_R2R_KIND;
+      flags_   :TC_INT
+    ) :TC_PTR; cdecl; external _DLLNAMEF_;
+
+    function fftwf_plan_r2r(
+      rank_  :TC_INT;
+const n_     :PC_INT;
+{out} in_    :PC_FLOAT;
+{out} out_   :PC_FLOAT;
+const kind_  :PC_FFTW_R2R_KIND;
+      flags_ :TC_INT
+    ) :TC_PTR; cdecl; external _DLLNAMEF_;
+
+    function fftwf_plan_r2r_1d(
+      n_     :TC_INT;
+{out} in_    :PC_FLOAT;
+{out} out_   :PC_FLOAT;
+      kind_  :TC_FFTW_R2R_KIND;
+      flags_ :TC_INT
+    ) :TC_PTR; cdecl; external _DLLNAMEF_;
+
+    function fftwf_plan_r2r_2d(
+      n0_    :TC_INT;
+      n1_    :TC_INT;
+{out} in_    :PC_FLOAT;
+{out} out_   :PC_FLOAT;
+      kind0_ :TC_FFTW_R2R_KIND;
+      kind1_ :TC_FFTW_R2R_KIND;
+      flags_ :TC_INT
+    ) :TC_PTR; cdecl; external _DLLNAMEF_;
+
+    function fftwf_plan_r2r_3d(
+      n0_    :TC_INT;
+      n1_    :TC_INT;
+      n2_    :TC_INT;
+{out} in_    :PC_FLOAT;
+{out} out_   :PC_FLOAT;
+      kind0_ :TC_FFTW_R2R_KIND;
+      kind1_ :TC_FFTW_R2R_KIND;
+      kind2_ :TC_FFTW_R2R_KIND;
+      flags_ :TC_INT
+    ) :TC_PTR; cdecl; external _DLLNAMEF_;
+
+    function fftwf_plan_guru_r2r(
+      rank_         :TC_INT;
+const dims_         :Pfftwf_iodim;
+      howmany_rank_ :TC_INT;
+const howmany_dims_ :Pfftwf_iodim;
+{out} in_           :PC_FLOAT;
+{out} out_          :PC_FLOAT;
+const kind_         :PC_FFTW_R2R_KIND;
+      flags_        :TC_INT
+    ) :TC_PTR; cdecl; external _DLLNAMEF_;
+
+    function fftwf_plan_guru64_r2r(
+      rank_         :TC_INT;
+const dims_         :Pfftwf_iodim64;
+      howmany_rank_ :TC_INT;
+const howmany_dims_ :Pfftwf_iodim64;
+{out} in_           :PC_FLOAT;
+{out} out_          :PC_FLOAT;
+const kind_         :PC_FFTW_R2R_KIND;
+      flags_        :TC_INT
+    ) :TC_PTR; cdecl; external _DLLNAMEF_;
+
+    procedure fftwf_execute_r2r(
+      p_   :TC_PTR;
+{var} in_  :PC_FLOAT;
+{out} out_ :PC_FLOAT
+    ); cdecl; external _DLLNAMEF_;
+
+    procedure fftwf_destroy_plan(
+      p_ :TC_PTR
+    ); cdecl; external _DLLNAMEF_;
+
+    procedure fftwf_forget_wisdom(
+    ); cdecl; external _DLLNAMEF_;
+
+    procedure fftwf_cleanup(
+    ); cdecl; external _DLLNAMEF_;
+
+    procedure fftwf_set_timelimit(
+      t_ :TC_DOUBLE
+    ); cdecl; external _DLLNAMEF_;
+
+    procedure fftwf_plan_with_nthreads(
+      nthreads_ :TC_INT
+    ); cdecl; external _DLLNAMEF_;
+
+    function fftwf_init_threads(
+    ) :TC_INT; cdecl; external _DLLNAMEF_;
+
+    procedure fftwf_cleanup_threads(
+    ); cdecl; external _DLLNAMEF_;
+
+    procedure fftwf_make_planner_thread_safe(
+    ); cdecl; external _DLLNAMEF_;
+
+    function fftwf_export_wisdom_to_filename(
+const filename_ :PC_CHAR
+    ) :TC_INT; cdecl; external _DLLNAMEF_;
+
+    procedure fftwf_export_wisdom_to_file(
+      output_file_ :TC_PTR
+    ); cdecl; external _DLLNAMEF_;
+
+    function fftwf_export_wisdom_to_string(
+    ) :TC_PTR; cdecl; external _DLLNAMEF_;
+
+    procedure fftwf_export_wisdom(
+      write_char_ :TC_FUNPTR;
+      data_       :TC_PTR
+    ); cdecl; external _DLLNAMEF_;
+
+    function fftwf_import_system_wisdom(
+    ) :TC_INT; cdecl; external _DLLNAMEF_;
+
+    function fftwf_import_wisdom_from_filename(
+const filename_ :PC_CHAR
+    ) :TC_INT; cdecl; external _DLLNAMEF_;
+
+    function fftwf_import_wisdom_from_file(
+      input_file_ :TC_PTR
+    ) :TC_INT; cdecl; external _DLLNAMEF_;
+
+    function fftwf_import_wisdom_from_string(
+const input_string_ :PC_CHAR
+    ) :TC_INT; cdecl; external _DLLNAMEF_;
+
+    function fftwf_import_wisdom(
+      read_char_ :TC_FUNPTR;
+      data_      :TC_PTR
+    ) :TC_INT; cdecl; external _DLLNAMEF_;
+
+    procedure fftwf_fprint_plan(
+      p_           :TC_PTR;
+      output_file_ :TC_PTR
+    ); cdecl; external _DLLNAMEF_;
+
+    procedure fftwf_print_plan(
+      p_ :TC_PTR
+    ); cdecl; external _DLLNAMEF_;
+
+    function fftwf_sprint_plan(
+      p_ :TC_PTR
+    ) :TC_PTR; cdecl; external _DLLNAMEF_;
+
+    function fftwf_malloc(
+      n_ :TC_SIZE_T
+    ) :TC_PTR; cdecl; external _DLLNAMEF_;
+
+    function fftwf_alloc_real(
+      n_ :TC_SIZE_T
+    ) :TC_PTR; cdecl; external _DLLNAMEF_;
+
+    function fftwf_alloc_complex(
+      n_ :TC_SIZE_T
+    ) :TC_PTR; cdecl; external _DLLNAMEF_;
+
+    procedure fftwf_free(
+      p_ :TC_PTR
+    ); cdecl; external _DLLNAMEF_;
+
+    procedure fftwf_flops(
+      p_    :TC_PTR;
+{out} add_  :TC_DOUBLE;
+{out} mul_  :TC_DOUBLE;
+{out} fmas_ :TC_DOUBLE
+    ); cdecl; external _DLLNAMEF_;
+
+    function fftwf_estimate_cost(
+      p_ :TC_PTR
+    ) :TC_DOUBLE; cdecl; external _DLLNAMEF_;
+
+    function fftwf_cost(
+      p_ :TC_PTR
+    ) :TC_DOUBLE; cdecl; external _DLLNAMEF_;
+
+    function fftwf_alignment_of(
+{out} p_ :PC_FLOAT
+    ) :TC_INT; cdecl; external _DLLNAMEF_;
+
+implementation //############################################################### ■
+
+//############################################################################## □
+
+initialization //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ 初期化
+
+finalization //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ 最終化
+
+end. //######################################################################### ■
