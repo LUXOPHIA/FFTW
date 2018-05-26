@@ -5,7 +5,7 @@ object Form1: TForm1
   BorderStyle = Single
   Caption = 'FFTW'
   ClientHeight = 430
-  ClientWidth = 685
+  ClientWidth = 680
   Position = ScreenCenter
   FormFactor.Width = 320
   FormFactor.Height = 480
@@ -15,7 +15,7 @@ object Form1: TForm1
   object Panel1: TPanel
     Align = Right
     Position.X = 620.000000000000000000
-    Size.Width = 65.000000000000000000
+    Size.Width = 60.000000000000000000
     Size.Height = 430.000000000000000000
     Size.PlatformDefault = False
     StyleLookup = 'pushpanel'
@@ -29,7 +29,7 @@ object Form1: TForm1
       Position.X = 20.000000000000000000
       Position.Y = 40.000000000000000000
       RotationAngle = 180.000000000000000000
-      Size.Width = 25.000000000000000000
+      Size.Width = 20.000000000000000000
       Size.Height = 380.000000000000000000
       Size.PlatformDefault = False
       TabOrder = 0
@@ -37,7 +37,7 @@ object Form1: TForm1
     object LabelN: TLabel
       Position.X = 10.000000000000000000
       Position.Y = 10.000000000000000000
-      Size.Width = 45.000000000000000000
+      Size.Width = 40.000000000000000000
       Size.Height = 20.000000000000000000
       Size.PlatformDefault = False
       TextSettings.HorzAlign = Center
