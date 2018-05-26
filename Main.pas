@@ -8,34 +8,39 @@ uses
   FMX.StdCtrls, FMX.Controls.Presentation,
   LUX,
   LUX.D1,
+  LUX.D2,
   LUX.Complex,
   LUX.Complex.D1,
-  LUX.Signal.FFTW,
-  LUX.Chart.LineChart;
+  LUX.Chart.Viewer,
+  LUX.Signal.FFTW;
 
 type
   TForm1 = class(TForm)
-    LineChartT: TLineChart;
-    LineChartF: TLineChart;
+    ChartViewerT: TChartViewer;
+    ChartViewerF: TChartViewer;
     Timer1: TTimer;
     Panel1: TPanel;
       LabelN: TLabel;
       ScrollBarN: TScrollBar;
     procedure FormCreate(Sender: TObject);
     procedure Timer1Timer(Sender: TObject);
-    procedure ScrollBarNChange(Sender: TObject);
   private
     { private 宣言 }
-    _DoInit :Boolean;
     _Wave   :IDoubleRandWalkC;
+    _CurvTR :TChartCurv;
+    _CurvTI :TChartCurv;
+    _CurvFR :TChartCurv;
+    _CurvFI :TChartCurv;
     ///// メソッド
-    procedure MakeCharts;
+    procedure InitChartsT;
+    procedure InitChartsF;
     procedure DrawTimes;
     procedure DrawFreqs;
-    procedure MakeWave;
   public
     { public 宣言 }
     _FFT :IDoubleFFT;
+    ///// メソッド
+    procedure MakeWave;
   end;
 
 var
@@ -49,48 +54,63 @@ uses System.Math;
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& private
 
-procedure TForm1.MakeCharts;
+/////////////////////////////////////////////////////////////////////// メソッド
+
+procedure TForm1.InitChartsT;
 begin
-     with LineChartT do
+     _CurvTI := TChartCurv.Create( ChartViewerT );
+     _CurvTR := TChartCurv.Create( ChartViewerT );
+
+     with ChartViewerT do
      begin
+          MinX :=  0;
+          MaxX :=  1;
           MinY := -1;
           MaxY := +1;
 
-          LinesN := 2;
-
-          with Lines[ 0 ] do
-          begin
-               ValuesN          := _FFT.TimesN;
-               Stroke.Color     := TAlphaColors.Blue;
-               Stroke.Thickness := 2;
-          end;
-          with Lines[ 1 ] do
-          begin
-               ValuesN          := _FFT.TimesN;
-               Stroke.Color     := TAlphaColors.Red;
-               Stroke.Thickness := 2;
-          end;
+          ( Elems[ 1 ] as TChartScaY ).Interv := 0.125;
+          ( Elems[ 3 ] as TChartScaY ).Interv := 0.50;
      end;
 
-     with LineChartF do
+     with _CurvTR do
      begin
+          Stroke.Color     := TAlphaColors.Blue;
+          Stroke.Thickness := 2;
+     end;
+
+     with _CurvTI do
+     begin
+          Stroke.Color     := TAlphaColors.Red;
+          Stroke.Thickness := 2;
+     end;
+end;
+
+procedure TForm1.InitChartsF;
+begin
+     _CurvFI := TChartCurv.Create( ChartViewerF );
+     _CurvFR := TChartCurv.Create( ChartViewerF );
+
+     with ChartViewerF do
+     begin
+          MinX :=  0;
+          MaxX :=  1;
           MinY := -Pi4;
           MaxY := +Pi4;
 
-          LinesN := 2;
+          ( Elems[ 1 ] as TChartScaY ).Interv := P2i;
+          ( Elems[ 3 ] as TChartScaY ).Interv := Pi2;
+     end;
 
-          with Lines[ 0 ] do
-          begin
-               ValuesN          := _FFT.FreqsN;
-               Stroke.Color     := TAlphaColors.Blue;
-               Stroke.Thickness := 1;
-          end;
-          with Lines[ 1 ] do
-          begin
-               ValuesN          := _FFT.FreqsN;
-               Stroke.Color     := TAlphaColors.Red;
-               Stroke.Thickness := 1;
-          end;
+     with _CurvFR do
+     begin
+          Stroke.Color     := TAlphaColors.Blue;
+          Stroke.Thickness := 1;
+     end;
+
+     with _CurvFI do
+     begin
+          Stroke.Color     := TAlphaColors.Red;
+          Stroke.Thickness := 1;
      end;
 end;
 
@@ -100,7 +120,7 @@ procedure TForm1.DrawTimes;
 var
    J :Integer;
 begin
-     with LineChartT do
+     with ChartViewerT do
      begin
           with _FFT do
           begin
@@ -108,9 +128,15 @@ begin
                begin
                     with Times[ J ] do
                     begin
-                         Lines[ 0 ].Values[ J ] := I;
-                         Lines[ 1 ].Values[ J ] := R;
+                         _CurvTR.Poins[ J ] := TSingle2D.Create( J / TimesN, R );
+                         _CurvTI.Poins[ J ] := TSingle2D.Create( J / TimesN, I );
                     end;
+               end;
+
+               with Times[ 0 ] do
+               begin
+                    _CurvTR.Poins[ TimesN ] := TSingle2D.Create( 1, R );
+                    _CurvTI.Poins[ TimesN ] := TSingle2D.Create( 1, I );
                end;
           end;
 
@@ -122,7 +148,7 @@ procedure TForm1.DrawFreqs;
 var
    J :Integer;
 begin
-     with LineChartF do
+     with ChartViewerF do
      begin
           with _FFT do
           begin
@@ -130,9 +156,15 @@ begin
                begin
                     with Freqs[ J ] do
                     begin
-                         Lines[ 0 ].Values[ J ] := I;
-                         Lines[ 1 ].Values[ J ] := R;
+                         _CurvFR.Poins[ J ] := TSingle2D.Create( J / FreqsN, R );
+                         _CurvFI.Poins[ J ] := TSingle2D.Create( J / FreqsN, I );
                     end;
+               end;
+
+               with Freqs[ 0 ] do
+               begin
+                    _CurvFR.Poins[ FreqsN ] := TSingle2D.Create( 1, R );
+                    _CurvFI.Poins[ FreqsN ] := TSingle2D.Create( 1, I );
                end;
           end;
 
@@ -140,25 +172,28 @@ begin
      end;
 end;
 
-//------------------------------------------------------------------------------
+//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
+
+/////////////////////////////////////////////////////////////////////// メソッド
 
 procedure TForm1.MakeWave;
 var
    N, I :Integer;
 begin
-     if _DoInit then
-     begin
-          N := Round( ScrollBarN.Value );
+     N := Round( ScrollBarN.Value );
 
+     if N <> _FFT.TimesN then
+     begin
           _Wave.WalksN := N;
 
           _FFT.TimesN := N;
 
           LabelN.Text := N.ToString;
 
-          MakeCharts;
-
-          _DoInit := False;
+          _CurvTR.PoinsN := N+1;
+          _CurvTI.PoinsN := N+1;
+          _CurvFR.PoinsN := N+1;
+          _CurvFI.PoinsN := N+1;
      end;
 
      _Wave.AddStep;
@@ -169,19 +204,18 @@ begin
      end;
 end;
 
-//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
-
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
 
 procedure TForm1.FormCreate(Sender: TObject);
 begin
      ScrollBarN.SmallChange := 1;
 
+     InitChartsT;
+     InitChartsF;
+
      _Wave := TDoubleRandWalkC.Create;
 
      _FFT := TDoubleFFT.Create;
-
-     ScrollBarNChange( Sender );
 end;
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -195,13 +229,6 @@ begin
      _FFT.TransTF;
 
      DrawFreqs;
-end;
-
-//------------------------------------------------------------------------------
-
-procedure TForm1.ScrollBarNChange(Sender: TObject);
-begin
-     _DoInit := True;
 end;
 
 end. //######################################################################### ■
