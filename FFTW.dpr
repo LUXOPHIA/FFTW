@@ -42,7 +42,13 @@ uses
   LUX.Curve.T2.D2 in '_LIBRARY\LUXOPHIA\LUX\Curve\LUX.Curve.T2.D2.pas',
   LUX.Curve.T2.D3 in '_LIBRARY\LUXOPHIA\LUX\Curve\LUX.Curve.T2.D3.pas',
   LUX.Curve.T1.D1 in '_LIBRARY\LUXOPHIA\LUX\Curve\LUX.Curve.T1.D1.pas',
-  LUX.Curve.T1.D2 in '_LIBRARY\LUXOPHIA\LUX\Curve\LUX.Curve.T1.D2.pas';
+  LUX.Curve.T1.D2 in '_LIBRARY\LUXOPHIA\LUX\Curve\LUX.Curve.T1.D2.pas',
+  LUX.Signal.FFTW.D1 in '_LIBRARY\LUXOPHIA\LUX.Signal.FFTW\D1\LUX.Signal.FFTW.D1.pas',
+  LUX.Signal.FFTW.D1.Preset in '_LIBRARY\LUXOPHIA\LUX.Signal.FFTW\D1\LUX.Signal.FFTW.D1.Preset.pas',
+  LUX.Signal.FFTW.D3 in '_LIBRARY\LUXOPHIA\LUX.Signal.FFTW\D3\LUX.Signal.FFTW.D3.pas',
+  LUX.Signal.FFTW.D2 in '_LIBRARY\LUXOPHIA\LUX.Signal.FFTW\D2\LUX.Signal.FFTW.D2.pas',
+  LUX.Signal.FFTW.D2.Preset in '_LIBRARY\LUXOPHIA\LUX.Signal.FFTW\D2\LUX.Signal.FFTW.D2.Preset.pas',
+  LUX.Signal.FFTW.D3.Preset in '_LIBRARY\LUXOPHIA\LUX.Signal.FFTW\D3\LUX.Signal.FFTW.D3.Preset.pas';
 
 {$R *.res}
 

@@ -12,7 +12,7 @@ uses
   LUX.Complex,
   LUX.Complex.D1,
   LUX.Chart.Viewer,
-  LUX.Signal.FFTW;
+  LUX.Signal.FFTW.D1.Preset;
 
 type
   TForm1 = class(TForm)
@@ -38,7 +38,7 @@ type
     procedure DrawFreqs;
   public
     { public 宣言 }
-    _FFT :IDoubleFFT;
+    _FFT :IDoubleDFTcc1D;
     ///// メソッド
     procedure MakeWave;
   end;
@@ -182,7 +182,7 @@ var
 begin
      N := Round( ScrollBarN.Value );
 
-     if N <> _FFT.Times.PoinsX then
+     if N <> _Wave.WalksN then
      begin
           _Wave.WalksN := N;
 
@@ -216,7 +216,7 @@ begin
 
      _Wave := TDoubleRandWalkC.Create;
 
-     _FFT := TDoubleFFT.Create;
+     _FFT := TDoubleDFTcc1D.Create;
 end;
 
 ////////////////////////////////////////////////////////////////////////////////
