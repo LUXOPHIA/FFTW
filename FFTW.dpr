@@ -48,7 +48,9 @@ uses
   LUX.Signal.FFTW.D3 in '_LIBRARY\LUXOPHIA\LUX.Signal.FFTW\D3\LUX.Signal.FFTW.D3.pas',
   LUX.Signal.FFTW.D2 in '_LIBRARY\LUXOPHIA\LUX.Signal.FFTW\D2\LUX.Signal.FFTW.D2.pas',
   LUX.Signal.FFTW.D2.Preset in '_LIBRARY\LUXOPHIA\LUX.Signal.FFTW\D2\LUX.Signal.FFTW.D2.Preset.pas',
-  LUX.Signal.FFTW.D3.Preset in '_LIBRARY\LUXOPHIA\LUX.Signal.FFTW\D3\LUX.Signal.FFTW.D3.Preset.pas';
+  LUX.Signal.FFTW.D3.Preset in '_LIBRARY\LUXOPHIA\LUX.Signal.FFTW\D3\LUX.Signal.FFTW.D3.Preset.pas',
+  LUX.FMX in '_LIBRARY\LUXOPHIA\LUX\FMX\LUX.FMX.pas',
+  LUX.FMX.Controls in '_LIBRARY\LUXOPHIA\LUX\FMX\LUX.FMX.Controls.pas';
 
 {$R *.res}
 

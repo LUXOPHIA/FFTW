@@ -367,6 +367,8 @@
         <DCCReference Include="_LIBRARY\LUXOPHIA\LUX.Signal.FFTW\D2\LUX.Signal.FFTW.D2.pas"/>
         <DCCReference Include="_LIBRARY\LUXOPHIA\LUX.Signal.FFTW\D2\LUX.Signal.FFTW.D2.Preset.pas"/>
         <DCCReference Include="_LIBRARY\LUXOPHIA\LUX.Signal.FFTW\D3\LUX.Signal.FFTW.D3.Preset.pas"/>
+        <DCCReference Include="_LIBRARY\LUXOPHIA\LUX\FMX\LUX.FMX.pas"/>
+        <DCCReference Include="_LIBRARY\LUXOPHIA\LUX\FMX\LUX.FMX.Controls.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
