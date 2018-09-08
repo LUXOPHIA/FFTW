@@ -11,9 +11,9 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
      //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【クラス】
 
-     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TRandomLCG
+     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TRandomLCG<_TSeed_>
 
-     IRandomLCG = interface( IRandom )
+     IRandomLCG<_TSeed_:record> = interface( IRandom<_TSeed_> )
      ['{CB661983-1A3A-4FC1-82AF-988943DF8256}']
      {protected}
      {public}
@@ -21,58 +21,52 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
      //-------------------------------------------------------------------------
 
-     TRandomLCG = class( TRandom, IRandomLCG )
+     TRandomLCG<_TSeed_:record> = class( TRandom<_TSeed_>, IRandomLCG<_TSeed_> )
      private
      protected
      public
      end;
 
-     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TRandomLCG32
+     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TRandom32LCG32
 
-     TRandomLCG32 = class( TRandomLCG )
+     TRandom32LCG32 = class( TRandomLCG<Int32u> )
      private
      protected
-       _Seed :UInt32;
-     public
-       constructor Create; overload; override;
-       constructor Create( const Random_:IRandom ); overload; override;
-       constructor Create( const Seed_:UInt32 ); overload;
        ///// メソッド
-       function GetRand32 :UInt32; override;
-       function Value :Double; override;
+       procedure CalcNextSeed; override;
+       function CalcRandInt32u :Int32u; override;
+     public
+       constructor CreateFromRand( const Random_:IRandom ); overload; override;
      end;
 
-     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TRandomLCG48
+     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TRandom48LCG48
 
-     TRandomLCG48 = class( TRandomLCG )
+     TRandom48LCG48 = class( TRandomLCG<Int64u> )
      private
      protected
-       _Seed :UInt64;
-     public
-       constructor Create; overload; override;
-       constructor Create( const Random_:IRandom ); overload; override;
-       constructor Create( const Seed_:UInt64 ); overload;
        ///// メソッド
-       function GetRand32 :UInt32; override;
-       function GetRand48 :UInt64;
-       function GetRand64 :UInt64; override;
-       function Value :Double; override;
+       procedure CalcNextSeed; override;
+       function CalcRandInt32u :Int32u; override;
+       function CalcRandInt48u :Int64u;
+       function CalcRandInt64u :Int64u; override;
+     public
+       constructor CreateFromRand( const Random_:IRandom ); overload; override;
+       constructor Create( const Seed_:Int64u ); overload; override;
+       ///// メソッド
+       function DrawRandInt48u :Int64u;
      end;
 
-     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TRandomLCG64
+     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TRandom64LCG64
 
-     TRandomLCG64 = class( TRandomLCG )
+     TRandom64LCG64 = class( TRandomLCG<Int64u> )
      private
      protected
-       _Seed :UInt64;
-     public
-       constructor Create; overload; override;
-       constructor Create( const Random_:IRandom ); overload; override;
-       constructor Create( const Seed_:UInt64 ); overload;
        ///// メソッド
-       function GetRand32 :UInt32; override;
-       function GetRand64 :UInt64; override;
-       function Value :Double; override;
+       procedure CalcNextSeed; override;
+       function CalcRandInt32u :Int32u; override;
+       function CalcRandInt64u :Int64u; override;
+     public
+       constructor CreateFromRand( const Random_:IRandom ); overload; override;
      end;
 
 //const //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【定数】
@@ -83,13 +77,13 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
 implementation //############################################################### ■
 
-uses System.SysUtils;
+uses System.SysUtils, System.SyncObjs;
 
 //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【レコード】
 
 //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【クラス】
 
-//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TRandomLCG
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TRandomLCG<_TSeed_>
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& private
 
@@ -97,54 +91,35 @@ uses System.SysUtils;
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
 
-//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TRandomLCG32
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TRandom32LCG32
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& private
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& protected
-
-//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
-
-constructor TRandomLCG32.Create;
-begin
-     Create( GetGlobalSeed32 );
-end;
-
-constructor TRandomLCG32.Create( const Random_:IRandom );
-begin
-     Create( Random_.GetRand32 );
-end;
-
-constructor TRandomLCG32.Create( const Seed_:UInt32 );
-begin
-     inherited Create;
-
-     _Seed := Seed_;
-end;
 
 /////////////////////////////////////////////////////////////////////// メソッド
 
-function TRandomLCG32.GetRand32 :UInt32;
+procedure TRandom32LCG32.CalcNextSeed;
 const
      ///// Numerical Recipes
-     A :UInt32 = 1664525;
-     C :UInt32 = 1013904223;
+     A :Int32u = 1664525;
+     C :Int32u = 1013904223;
      {
      ///// Borland C/C++
-     A :UInt64 = 22695477;
-     C :UInt64 = 1;
+     A :Int32u = 22695477;
+     C :Int32u = 1;
      ///// Borland Delphi, Virtual Pascal, Turbo Pascal
-     A :UInt64 = 134775813;
-     C :UInt64 = 	1;
+     A :Int32u = 134775813;
+     C :Int32u = 	1;
      ///// Microsoft Visual/Quick C/C++
-     A :UInt64 = 214013;
-     C :UInt64 = 2531011;
+     A :Int32u = 214013;
+     C :Int32u = 2531011;
      ///// VMS's MTH$RANDOM, old versions of glibc
-     A :UInt64 = 69069;
-     C :UInt64 = 1;
+     A :Int32u = 69069;
+     C :Int32u = 1;
      ///// cc65
-     A :UInt64 = 16843009;
-     C :UInt64 = 826366247;
+     A :Int32u = 16843009;
+     C :Int32u = 826366247;
      }
 begin
      //          48              32              16               0
@@ -173,54 +148,33 @@ begin
      //           |               |               |               |
 
      _Seed := A * _Seed + C;
+end;
 
+function TRandom32LCG32.CalcRandInt32u :Int32u;
+begin
      Result := _Seed;
 end;
 
-//------------------------------------------------------------------------------
+//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
 
-function TRandomLCG32.Value :Double;
+constructor TRandom32LCG32.CreateFromRand( const Random_:IRandom );
 begin
-     Result := GetRand32 / 4294967296.0{= 2^32 };
+     Create( Random_.DrawRandInt32u );
 end;
 
-//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TRandomLCG48
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TRandom48LCG48
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& private
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& protected
 
-//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
-
-constructor TRandomLCG48.Create;
-begin
-     Create( GetGlobalSeed64 );
-end;
-
-constructor TRandomLCG48.Create( const Random_:IRandom );
-begin
-     Create( Random_.GetRand64 );
-end;
-
-constructor TRandomLCG48.Create( const Seed_:UInt64 );
-begin
-     inherited Create;
-
-     _Seed := Seed_ and 281474976710655{= 2^48-1 };
-end;
-
 /////////////////////////////////////////////////////////////////////// メソッド
 
-function TRandomLCG48.GetRand32 :UInt32;
-begin
-     Result := GetRand48 shr 16;
-end;
-
-function TRandomLCG48.GetRand48 :UInt64;
+procedure TRandom48LCG48.CalcNextSeed;
 const
-     A  :UInt64 = 25214903917;
-     C  :UInt64 = 11;
-     M1 :UInt64 = 281474976710655{= 2^48-1 };
+     A  :Int64u = 25214903917;
+     C  :Int64u = 11;
+     M1 :Int64u = 281474976710655{= 2^48-1 };
 begin
      //        96              64              48              32              16               0
      //         |               |               |               |               |               |
@@ -248,58 +202,60 @@ begin
      //         |               |               |               |               |               |
 
      _Seed := ( A * _Seed + C ) and M1;
+end;
 
+function TRandom48LCG48.CalcRandInt32u :Int32u;
+begin
+     Result := CalcRandInt48u shr 16;
+end;
+
+function TRandom48LCG48.CalcRandInt48u :Int64u;
+begin
      Result := _Seed;
 end;
 
-function TRandomLCG48.GetRand64 :UInt64;
+function TRandom48LCG48.CalcRandInt64u :Int64u;
 begin
-     Result := ( GetRand48 shr 16 shl 32 ) or ( GetRand48 shr 16 );
+     Result := CalcRandInt48u shr 16;  CalcNextSeed;
+
+     Result := ( Result shl 32 ) or ( CalcRandInt48u shr 16 );
 end;
 
-//------------------------------------------------------------------------------
+//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
 
-function TRandomLCG48.Value :Double;
+constructor TRandom48LCG48.CreateFromRand( const Random_:IRandom );
 begin
-     Result := GetRand48 / 281474976710656.0{= 2^48 };
+     Create( Random_.DrawRandInt64u );
 end;
 
-//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TRandomLCG64
+constructor TRandom48LCG48.Create( const Seed_:Int64u );
+begin
+     inherited Create( Seed_ and $FFFFFFFFFFFF{= 2^48-1 } );
+end;
+
+/////////////////////////////////////////////////////////////////////// メソッド
+
+function TRandom48LCG48.DrawRandInt48u :Int64u;
+begin
+     _SeedCS.Enter;
+
+       Result := CalcRandInt48u;  CalcNextSeed;
+
+     _SeedCS.Leave;
+end;
+
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TRandom64LCG64
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& private
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& protected
 
-//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
-
-constructor TRandomLCG64.Create;
-begin
-     Create( GetGlobalSeed64 );
-end;
-
-constructor TRandomLCG64.Create( const Random_:IRandom );
-begin
-     Create( Random_.GetRand64 );
-end;
-
-constructor TRandomLCG64.Create( const Seed_:UInt64 );
-begin
-     inherited Create;
-
-     _Seed := Seed_;
-end;
-
 /////////////////////////////////////////////////////////////////////// メソッド
 
-function TRandomLCG64.GetRand32 :UInt32;
-begin
-     Result := GetRand64 shr 32;
-end;
-
-function TRandomLCG64.GetRand64 :UInt64;
+procedure TRandom64LCG64.CalcNextSeed;
 const
-     A :UInt64 = 6364136223846793005;
-     C :UInt64 = 1442695040888963407;
+     A :Int64u = 6364136223846793005;
+     C :Int64u = 1442695040888963407;
 begin
      //                   128             112              96              64              48              32              16               0
      //                     |               |               |               |               |               |               |               |
@@ -327,15 +283,23 @@ begin
      //                     |               |               |               |               |               |               |               |
 
      _Seed := A * _Seed + C;
+end;
 
+function TRandom64LCG64.CalcRandInt32u :Int32u;
+begin
+     Result := DrawRandInt64u shr 32;
+end;
+
+function TRandom64LCG64.CalcRandInt64u :Int64u;
+begin
      Result := _Seed;
 end;
 
-//------------------------------------------------------------------------------
+//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
 
-function TRandomLCG64.Value :Double;
+constructor TRandom64LCG64.CreateFromRand( const Random_:IRandom );
 begin
-     Result := GetRand64 / 18446744073709551616.0{= 2^64 };
+     Create( Random_.DrawRandInt64u );
 end;
 
 //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【ルーチン】
