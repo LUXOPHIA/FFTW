@@ -4,9 +4,8 @@ interface //####################################################################
 
 uses LUX,
      LUX.D1,
-     LUX.D2, LUX.D2.V4, LUX.D2.M4,
-     LUX.D4,
-     LUX.M4,
+     LUX.D2, LUX.D2x4, LUX.D2x4x4,
+     LUX.D4, LUX.D4x4,
      LUX.Curve.T1.D1;
 
 //type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【型】
@@ -53,8 +52,8 @@ procedure BSplin4( const T_:TSingle2D; out Ws_:TSingleM4 );
 var
    WX, WY :TSingle4D;
 begin
-     BSplin4( T_.X, WX );
-     BSplin4( T_.Y, WY );
+     BSpline4( T_.X, WX );
+     BSpline4( T_.Y, WY );
 
      with Ws_ do
      begin
@@ -69,8 +68,8 @@ procedure BSplin4( const T_:TDouble2D; out Ws_:TDoubleM4 );
 var
    WX, WY :TDouble4D;
 begin
-     BSplin4( T_.X, WX );
-     BSplin4( T_.Y, WY );
+     BSpline4( T_.X, WX );
+     BSpline4( T_.Y, WY );
 
      with Ws_ do
      begin
@@ -85,8 +84,8 @@ procedure BSplin4( const T_:TdSingle2D; out Ws_:TdSingleM4 );
 var
    WX, WY :TdSingle4D;
 begin
-     BSplin4( T_.X, WX );
-     BSplin4( T_.Y, WY );
+     BSpline4( T_.X, WX );
+     BSpline4( T_.Y, WY );
 
      with Ws_ do
      begin
@@ -101,8 +100,8 @@ procedure BSplin4( const T_:TdDouble2D; out Ws_:TdDoubleM4 );
 var
    WX, WY :TdDouble4D;
 begin
-     BSplin4( T_.X, WX );
-     BSplin4( T_.Y, WY );
+     BSpline4( T_.X, WX );
+     BSpline4( T_.Y, WY );
 
      with Ws_ do
      begin
@@ -120,8 +119,8 @@ var
    WX, WY :TSingle4D;
    P1, P2, P3, P4 :Single;
 begin
-     BSplin4( T_.X, WX );
-     BSplin4( T_.Y, WY );
+     BSpline4( T_.X, WX );
+     BSpline4( T_.Y, WY );
 
      with WX do
      begin
@@ -142,8 +141,8 @@ var
    WX, WY :TDouble4D;
    P1, P2, P3, P4 :Double;
 begin
-     BSplin4( T_.X, WX );
-     BSplin4( T_.Y, WY );
+     BSpline4( T_.X, WX );
+     BSpline4( T_.Y, WY );
 
      with WX do
      begin
@@ -164,8 +163,8 @@ var
    WX, WY :TdSingle4D;
    P1, P2, P3, P4 :TdSingle;
 begin
-     BSplin4( T_.X, WX );
-     BSplin4( T_.Y, WY );
+     BSpline4( T_.X, WX );
+     BSpline4( T_.Y, WY );
 
      with WX do
      begin
@@ -186,8 +185,8 @@ var
    WX, WY :TdDouble4D;
    P1, P2, P3, P4 :TdDouble;
 begin
-     BSplin4( T_.X, WX );
-     BSplin4( T_.Y, WY );
+     BSpline4( T_.X, WX );
+     BSpline4( T_.Y, WY );
 
      with WX do
      begin
