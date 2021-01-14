@@ -3,7 +3,7 @@
 interface //#################################################################### ■
 
 uses LUX, LUX.Complex,
-     LUX.Data.Lattice.T2,
+     LUX.Data.Grid.T2,
      LUX.Signal.FFTW,
      LUX.Signal.FFTW.D2,
      fftw3;
