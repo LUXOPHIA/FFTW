@@ -4,9 +4,9 @@ interface //####################################################################
 
 uses LUX,
      LUX.D1,
-     LUX.D2, LUX.M2,
-     LUX.D3, LUX.M3,
-     LUX.D4, LUX.M4,
+     LUX.D2, LUX.D2x2,
+     LUX.D3, LUX.D3x3,
+     LUX.D4, LUX.D4x4,
      LUX.D5,
      LUX.DN;
 
@@ -21,6 +21,9 @@ uses LUX,
 //var //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【変数】
 
 //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【ルーチン】
+
+function Sinc( const X_:Single ) :Single; overload;
+function Sinc( const X_:Double ) :Double; overload;
 
 function Lerp( const P0_,P1_,T0_,T1_,T_:Single ) :Single; overload;
 function Lerp( const P0_,P1_,T0_,T1_,T_:Double ) :Double; overload;
@@ -49,20 +52,23 @@ function BSpline( const T_:Double; const I0,N1:Integer; const Ts_:array of Doubl
 function BSpline( const T_:TdSingle; const I0,N1:Integer; const Ts_:array of TdSingle ) :TdSingle; overload;
 function BSpline( const T_:TdDouble; const I0,N1:Integer; const Ts_:array of TdDouble ) :TdDouble; overload;
 
-function BSplin4( const X_:Single ) :Single; overload;
-function BSplin4( const X_:Double ) :Double; overload;
-function BSplin4( const X_:TdSingle ) :TdSingle; overload;
-function BSplin4( const X_:TdDouble ) :TdDouble; overload;
+function Delta( const X_:Single ) :Single; overload;
+function Delta( const X_:Double ) :Double; overload;
 
-procedure BSplin4( const T_:Single; out Ws_:TSingle4D ); overload;
-procedure BSplin4( const T_:Double; out Ws_:TDouble4D ); overload;
-procedure BSplin4( const T_:TdSingle; out Ws_:TdSingle4D ); overload;
-procedure BSplin4( const T_:TdDouble; out Ws_:TdDouble4D ); overload;
+function BSpline4( const X_:Single ) :Single; overload;
+function BSpline4( const X_:Double ) :Double; overload;
+function BSpline4( const X_:TdSingle ) :TdSingle; overload;
+function BSpline4( const X_:TdDouble ) :TdDouble; overload;
 
-function BSplin4( const Ps_:TSingle4D; const T_:Single ) :Single; overload;
-function BSplin4( const Ps_:TDouble4D; const T_:Double ) :Double; overload;
-function BSplin4( const Ps_:TdSingle4D; const T_:TdSingle ) :TdSingle; overload;
-function BSplin4( const Ps_:TdDouble4D; const T_:TdDouble ) :TdDouble; overload;
+procedure BSpline4( const T_:Single; out Ws_:TSingle4D ); overload;
+procedure BSpline4( const T_:Double; out Ws_:TDouble4D ); overload;
+procedure BSpline4( const T_:TdSingle; out Ws_:TdSingle4D ); overload;
+procedure BSpline4( const T_:TdDouble; out Ws_:TdDouble4D ); overload;
+
+function BSpline4( const Ps_:TSingle4D; const T_:Single ) :Single; overload;
+function BSpline4( const Ps_:TDouble4D; const T_:Double ) :Double; overload;
+function BSpline4( const Ps_:TdSingle4D; const T_:TdSingle ) :TdSingle; overload;
+function BSpline4( const Ps_:TdDouble4D; const T_:TdDouble ) :TdDouble; overload;
 
 procedure Bezier4( const T_:Single; out Ws_:TSingle4D ); overload;
 procedure Bezier4( const T_:Double; out Ws_:TDouble4D ); overload;
@@ -132,6 +138,20 @@ implementation //###############################################################
 //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【クラス】
 
 //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【ルーチン】
+
+function Sinc( const X_:Single ) :Single;
+begin
+     if Abs( X_ ) < SINGLE_EPS1 then Result := 1
+                                else Result := Sin( Pi * X_ ) / ( Pi * X_ );
+end;
+
+function Sinc( const X_:Double ) :Double;
+begin
+     if Abs( X_ ) < DOUBLE_EPS1 then Result := 1
+                                else Result := Sin( Pi * X_ ) / ( Pi * X_ );
+end;
+
+//------------------------------------------------------------------------------
 
 function Lerp( const P0_,P1_,T0_,T1_,T_:Single ) :Single;
 begin
@@ -481,7 +501,21 @@ end;
 
 //------------------------------------------------------------------------------
 
-function BSplin4( const X_:Single ) :Single;
+function Delta( const X_:Single ) :Single;
+begin
+     if Abs( X_ ) < SINGLE_EPS1 then Result := 1
+                                else Result := 0;
+end;
+
+function Delta( const X_:Double ) :Double;
+begin
+     if Abs( X_ ) < DOUBLE_EPS1 then Result := 1
+                                else Result := 0;
+end;
+
+//------------------------------------------------------------------------------
+
+function BSpline4( const X_:Single ) :Single;
 const
      A :Single = 1/6;
      B :Single = 4/3;
@@ -497,7 +531,7 @@ begin
               else Result := 0;
 end;
 
-function BSplin4( const X_:Double ) :Double;
+function BSpline4( const X_:Double ) :Double;
 const
      A :Double = 1/6;
      B :Double = 4/3;
@@ -513,7 +547,7 @@ begin
               else Result := 0;
 end;
 
-function BSplin4( const X_:TdSingle ) :TdSingle;
+function BSpline4( const X_:TdSingle ) :TdSingle;
 const
      A :TdSingle = ( o:1/6; d:0 );
      B :TdSingle = ( o:4/3; d:0 );
@@ -529,7 +563,7 @@ begin
               else Result := 0;
 end;
 
-function BSplin4( const X_:TdDouble ) :TdDouble;
+function BSpline4( const X_:TdDouble ) :TdDouble;
 const
      A :TdDouble = ( o:1/6; d:0 );
      B :TdDouble = ( o:4/3; d:0 );
@@ -547,57 +581,57 @@ end;
 
 //------------------------------------------------------------------------------
 
-procedure BSplin4( const T_:Single; out Ws_:TSingle4D );
+procedure BSpline4( const T_:Single; out Ws_:TSingle4D );
 begin
      with Ws_ do
      begin
-          _1 := BSplin4( T_ + 1 );
-          _2 := BSplin4( T_     );
-          _3 := BSplin4( T_ - 1 );
-          _4 := BSplin4( T_ - 2 );
+          _1 := BSpline4( T_ + 1 );
+          _2 := BSpline4( T_     );
+          _3 := BSpline4( T_ - 1 );
+          _4 := BSpline4( T_ - 2 );
      end;
 end;
 
-procedure BSplin4( const T_:Double; out Ws_:TDouble4D );
+procedure BSpline4( const T_:Double; out Ws_:TDouble4D );
 begin
      with Ws_ do
      begin
-          _1 := BSplin4( T_ + 1 );
-          _2 := BSplin4( T_     );
-          _3 := BSplin4( T_ - 1 );
-          _4 := BSplin4( T_ - 2 );
+          _1 := BSpline4( T_ + 1 );
+          _2 := BSpline4( T_     );
+          _3 := BSpline4( T_ - 1 );
+          _4 := BSpline4( T_ - 2 );
      end;
 end;
 
-procedure BSplin4( const T_:TdSingle; out Ws_:TdSingle4D );
+procedure BSpline4( const T_:TdSingle; out Ws_:TdSingle4D );
 begin
      with Ws_ do
      begin
-          _1 := BSplin4( T_ + 1 );
-          _2 := BSplin4( T_     );
-          _3 := BSplin4( T_ - 1 );
-          _4 := BSplin4( T_ - 2 );
+          _1 := BSpline4( T_ + 1 );
+          _2 := BSpline4( T_     );
+          _3 := BSpline4( T_ - 1 );
+          _4 := BSpline4( T_ - 2 );
      end;
 end;
 
-procedure BSplin4( const T_:TdDouble; out Ws_:TdDouble4D );
+procedure BSpline4( const T_:TdDouble; out Ws_:TdDouble4D );
 begin
      with Ws_ do
      begin
-          _1 := BSplin4( T_ + 1 );
-          _2 := BSplin4( T_     );
-          _3 := BSplin4( T_ - 1 );
-          _4 := BSplin4( T_ - 2 );
+          _1 := BSpline4( T_ + 1 );
+          _2 := BSpline4( T_     );
+          _3 := BSpline4( T_ - 1 );
+          _4 := BSpline4( T_ - 2 );
      end;
 end;
 
 //------------------------------------------------------------------------------
 
-function BSplin4( const Ps_:TSingle4D; const T_:Single ) :Single;
+function BSpline4( const Ps_:TSingle4D; const T_:Single ) :Single;
 var
    Ws :TSingle4D;
 begin
-     BSplin4( T_, Ws );
+     BSpline4( T_, Ws );
 
      Result := Ws._1 * Ps_._1
              + Ws._2 * Ps_._2
@@ -605,11 +639,11 @@ begin
              + Ws._4 * Ps_._4;
 end;
 
-function BSplin4( const Ps_:TDouble4D; const T_:Double ) :Double;
+function BSpline4( const Ps_:TDouble4D; const T_:Double ) :Double;
 var
    Ws :TDouble4D;
 begin
-     BSplin4( T_, Ws );
+     BSpline4( T_, Ws );
 
      Result := Ws._1 * Ps_._1
              + Ws._2 * Ps_._2
@@ -617,11 +651,11 @@ begin
              + Ws._4 * Ps_._4;
 end;
 
-function BSplin4( const Ps_:TdSingle4D; const T_:TdSingle ) :TdSingle;
+function BSpline4( const Ps_:TdSingle4D; const T_:TdSingle ) :TdSingle;
 var
    Ws :TdSingle4D;
 begin
-     BSplin4( T_, Ws );
+     BSpline4( T_, Ws );
 
      Result := Ws._1 * Ps_._1
              + Ws._2 * Ps_._2
@@ -629,11 +663,11 @@ begin
              + Ws._4 * Ps_._4;
 end;
 
-function BSplin4( const Ps_:TdDouble4D; const T_:TdDouble ) :TdDouble;
+function BSpline4( const Ps_:TdDouble4D; const T_:TdDouble ) :TdDouble;
 var
    Ws :TdDouble4D;
 begin
-     BSplin4( T_, Ws );
+     BSpline4( T_, Ws );
 
      Result := Ws._1 * Ps_._1
              + Ws._2 * Ps_._2
@@ -772,7 +806,7 @@ var
    Cs :TArray<Single>;
    N, I :Integer;
 begin
-     Cs := Copy( Cs_._s );
+     Cs := Copy( Cs_._Xs );
 
      for N := High( Cs ) downto 1 do
      begin
@@ -787,7 +821,7 @@ var
    Cs :TArray<Double>;
    N, I :Integer;
 begin
-     Cs := Copy( Cs_._s );
+     Cs := Copy( Cs_._Xs );
 
      for N := High( Cs ) downto 1 do
      begin
@@ -1327,11 +1361,11 @@ begin
      begin
           DimN := P_.DimN;
 
-          for X := 0 to DimN-1 do _s[ X ] := P_[ X ] / Comb( DimN-1, X );
+          for X := 0 to DimN-1 do _Xs[ X ] := P_[ X ] / Comb( DimN-1, X );
 
           for Y := 1 to DimN-1 do
           begin
-               for X := DimN-1 downto Y do _s[ X ] := _s[ X ] + _s[ X-1 ];
+               for X := DimN-1 downto Y do _Xs[ X ] := _Xs[ X ] + _Xs[ X-1 ];
           end;
      end;
 end;
@@ -1344,11 +1378,11 @@ begin
      begin
           DimN := P_.DimN;
 
-          for X := 0 to DimN-1 do _s[ X ] := P_[ X ] / Comb( DimN-1, X );
+          for X := 0 to DimN-1 do _Xs[ X ] := P_[ X ] / Comb( DimN-1, X );
 
           for Y := 1 to DimN-1 do
           begin
-               for X := DimN-1 downto Y do _s[ X ] := _s[ X ] + _s[ X-1 ];
+               for X := DimN-1 downto Y do _Xs[ X ] := _Xs[ X ] + _Xs[ X-1 ];
           end;
      end;
 end;
@@ -1361,14 +1395,14 @@ var
 begin
      with Result do
      begin
-          _s := Copy( P_._s );
+          _Xs := Copy( P_._Xs );
 
           for Y := 1 to DimN-1 do
           begin
-               for X := DimN-1 downto Y do _s[ X ] := _s[ X ] - _s[ X-1 ];
+               for X := DimN-1 downto Y do _Xs[ X ] := _Xs[ X ] - _Xs[ X-1 ];
           end;
 
-          for X := 0 to DimN-1 do _s[ X ] := _s[ X ] * Comb( DimN-1, X );
+          for X := 0 to DimN-1 do _Xs[ X ] := _Xs[ X ] * Comb( DimN-1, X );
      end;
 end;
 
@@ -1378,14 +1412,14 @@ var
 begin
      with Result do
      begin
-          _s := Copy( P_._s );
+          _Xs := Copy( P_._Xs );
 
           for Y := 1 to DimN-1 do
           begin
-               for X := DimN-1 downto Y do _s[ X ] := _s[ X ] - _s[ X-1 ];
+               for X := DimN-1 downto Y do _Xs[ X ] := _Xs[ X ] - _Xs[ X-1 ];
           end;
 
-          for X := 0 to DimN-1 do _s[ X ] := _s[ X ] * Comb( DimN-1, X );
+          for X := 0 to DimN-1 do _Xs[ X ] := _Xs[ X ] * Comb( DimN-1, X );
      end;
 end;
 
