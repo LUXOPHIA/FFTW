@@ -192,8 +192,8 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
        class operator Multiply( const A_:Single; const B_:TSingle2D ) :TSingle2D; inline;
        class operator Divide( const A_:TSingle2D; const B_:Single ) :TSingle2D; inline;
        ///// 型変換
-       class operator Implicit( const V_:TPointF ) :TSingle2D; inline;
-       class operator Implicit( const V_:TSingle2D ) :TPointF; inline;
+       class operator Implicit( const V_:TPointF ) :TSingle2D;
+       class operator Implicit( const V_:TSingle2D ) :TPointF;
        ///// 定数
        class function IdentityX :TSingle2D; inline; static;
        class function IdentityY :TSingle2D; inline; static;
@@ -254,10 +254,10 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
        class operator Multiply( const A_:Double; const B_:TDouble2D ) :TDouble2D; inline;
        class operator Divide( const A_:TDouble2D; const B_:Double ) :TDouble2D; inline;
        ///// 型変換
-       class operator Implicit( const V_:TPointF ) :TDouble2D; inline;
-       class operator Explicit( const V_:TDouble2D ) :TPointF; inline;
-       class operator Implicit( const V_:TSingle2D ) :TDouble2D; inline;
-       class operator Explicit( const V_:TDouble2D ) :TSingle2D; inline;
+       class operator Implicit( const V_:TPointF ) :TDouble2D;
+       class operator Explicit( const V_:TDouble2D ) :TPointF;
+       class operator Implicit( const V_:TSingle2D ) :TDouble2D;
+       class operator Explicit( const V_:TDouble2D ) :TSingle2D;
        ///// 定数
        class function IdentityX :TDouble2D; inline; static;
        class function IdentityY :TDouble2D; inline; static;
@@ -322,10 +322,10 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
        class operator Multiply( const A_:TdSingle; const B_:TdSingle2D ) :TdSingle2D; inline;
        class operator Divide( const A_:TdSingle2D; const B_:TdSingle ) :TdSingle2D; inline;
        ///// 型変換
-       class operator Implicit( const P_:TPointF ) :TdSingle2D; inline;
-       class operator Explicit( const P_:TdSingle2D ) :TPointF; inline;
-       class operator Implicit( const P_:TSingle2D ) :TdSingle2D; inline;
-       class operator Explicit( const P_:TdSingle2D ) :TSingle2D; inline;
+       class operator Implicit( const P_:TPointF ) :TdSingle2D;
+       class operator Explicit( const P_:TdSingle2D ) :TPointF;
+       class operator Implicit( const P_:TSingle2D ) :TdSingle2D;
+       class operator Explicit( const P_:TdSingle2D ) :TSingle2D;
      case Byte of
       0:( _Xs :array [ 1..2 ] of TdSingle; );
       1:(  X  :TdSingle;
@@ -376,10 +376,10 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
        class operator Multiply( const A_:TdDouble; const B_:TdDouble2D ) :TdDouble2D; inline;
        class operator Divide( const A_:TdDouble2D; const B_:TdDouble ) :TdDouble2D; inline;
        ///// 型変換
-       class operator Implicit( const P_:TPointF ) :TdDouble2D; inline;
-       class operator Explicit( const P_:TdDouble2D ) :TPointF; inline;
-       class operator Implicit( const P_:TDouble2D ) :TdDouble2D; inline;
-       class operator Explicit( const P_:TdDouble2D ) :TDouble2D; inline;
+       class operator Implicit( const P_:TPointF ) :TdDouble2D;
+       class operator Explicit( const P_:TdDouble2D ) :TPointF;
+       class operator Implicit( const P_:TDouble2D ) :TdDouble2D;
+       class operator Explicit( const P_:TdDouble2D ) :TDouble2D;
      case Byte of
       0:( _Xs :array [ 1..2 ] of TdDouble; );
       1:(  X  :TdDouble;
@@ -413,10 +413,10 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
        class operator Multiply( const A_:Single; const B_:TSingleSiz2D ) :TSingleSiz2D; inline;
        class operator Divide( const A_:TSingleSiz2D; const B_:Single ) :TSingleSiz2D; inline;
        ///// 型変換
-       class operator Implicit( const V_:TPointF ) :TSingleSiz2D; inline;
-       class operator Implicit( const V_:TSingleSiz2D ) :TPointF; inline;
-       class operator Implicit( const V_:TSingle2D ) :TSingleSiz2D; inline;
-       class operator Implicit( const V_:TSingleSiz2D ) :TSingle2D; inline;
+       class operator Implicit( const V_:TPointF ) :TSingleSiz2D;
+       class operator Implicit( const V_:TSingleSiz2D ) :TPointF;
+       class operator Implicit( const V_:TSingle2D ) :TSingleSiz2D;
+       class operator Implicit( const V_:TSingleSiz2D ) :TSingle2D;
      end;
 
      //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TDoubleSiz2D
@@ -437,10 +437,10 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
        class operator Multiply( const A_:Double; const B_:TDoubleSiz2D ) :TDoubleSiz2D; inline;
        class operator Divide( const A_:TDoubleSiz2D; const B_:Double ) :TDoubleSiz2D; inline;
        ///// 型変換
-       class operator Implicit( const V_:TPointF ) :TDoubleSiz2D; inline;
-       class operator Implicit( const V_:TDoubleSiz2D ) :TPointF; inline;
-       class operator Implicit( const V_:TDouble2D ) :TDoubleSiz2D; inline;
-       class operator Implicit( const V_:TDoubleSiz2D ) :TDouble2D; inline;
+       class operator Implicit( const V_:TPointF ) :TDoubleSiz2D;
+       class operator Implicit( const V_:TDoubleSiz2D ) :TPointF;
+       class operator Implicit( const V_:TDouble2D ) :TDoubleSiz2D;
+       class operator Implicit( const V_:TDoubleSiz2D ) :TDouble2D;
      end;
 
      //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TdSingleSiz2D
@@ -469,8 +469,8 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
        class operator Multiply( const A_:TdSingle; const B_:TdSingleSiz2D ) :TdSingleSiz2D; inline;
        class operator Divide( const A_:TdSingleSiz2D; const B_:TdSingle ) :TdSingleSiz2D; inline;
        ///// 型変換
-       class operator Implicit( const V_:TdSingle2D ) :TdSingleSiz2D; inline;
-       class operator Implicit( const V_:TdSingleSiz2D ) :TdSingle2D; inline;
+       class operator Implicit( const V_:TdSingle2D ) :TdSingleSiz2D;
+       class operator Implicit( const V_:TdSingleSiz2D ) :TdSingle2D;
      end;
 
      //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TdDoubleSiz2D
@@ -499,8 +499,8 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
        class operator Multiply( const A_:TdDouble; const B_:TdDoubleSiz2D ) :TdDoubleSiz2D; inline;
        class operator Divide( const A_:TdDoubleSiz2D; const B_:TdDouble ) :TdDoubleSiz2D; inline;
        ///// 型変換
-       class operator Implicit( const V_:TdDouble2D ) :TdDoubleSiz2D; inline;
-       class operator Implicit( const V_:TdDoubleSiz2D ) :TdDouble2D; inline;
+       class operator Implicit( const V_:TdDouble2D ) :TdDoubleSiz2D;
+       class operator Implicit( const V_:TdDoubleSiz2D ) :TdDouble2D;
      end;
 
      //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TSingleCircle2D
@@ -613,6 +613,10 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
      private
        ///// アクセス
        function GetPoin( const I_:Integer ) :TSingle2D;
+       function GetCentX :Single;
+       procedure SetCentX( const CentX_:Single );
+       function GetCentY :Single;
+       procedure SetCentY( const CentY_:Single );
        function GetSizeX :Single;
        procedure SetSizeX( const SizeX_:Single );
        function GetSizeY :Single;
@@ -631,18 +635,25 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
        constructor Create( const Min_,Max_:TSingle2D ); overload;
        ///// プロパティ
        property Poin[ const I_:Integer ] :TSingle2D   read GetPoin                ;
+       property CentX                    :Single      read GetCentX write SetCentX;
+       property CentY                    :Single      read GetCentY write SetCentY;
        property SizeX                    :Single      read GetSizeX write SetSizeX;
        property SizeY                    :Single      read GetSizeY write SetSizeY;
        property ProjX                    :TSingleArea read GetProjX write SetProjX;
        property ProjY                    :TSingleArea read GetProjY write SetProjY;
        ///// 定数
-       class function NeInf :TSingleArea2D; inline; static;
-       class function NeMax :TSingleArea2D; inline; static;
-       class function Zero  :TSingleArea2D; inline; static;
-       class function PoMax :TSingleArea2D; inline; static;
-       class function PoInf :TSingleArea2D; inline; static;
+       class function NeInf :TSingleArea2D; static;
+       class function NeMax :TSingleArea2D; static;
+       class function Zero  :TSingleArea2D; static;
+       class function PoMax :TSingleArea2D; static;
+       class function PoInf :TSingleArea2D; static;
+       ///// 型変換
+       class operator Implicit( const V_:TSingleArea2D ) :TRectF;
+       class operator Implicit( const V_:TRectF ) :TSingleArea2D;
        ///// メソッド
        function Collision( const Area_:TSingleArea2D ) :Boolean;
+       procedure Add( const Poin_:TSingle2D ); overload;
+       procedure Add( const Poins_:TArray<TSingle2D> ); overload;
      end;
 
      //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TDoubleArea2D
@@ -651,6 +662,10 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
      private
        ///// アクセス
        function GetPoin( const I_:Integer ) :TDouble2D;
+       function GetCentX :Double;
+       procedure SetCentX( const CentX_:Double );
+       function GetCentY :Double;
+       procedure SetCentY( const CentY_:Double );
        function GetSizeX :Double;
        procedure SetSizeX( const SizeX_:Double );
        function GetSizeY :Double;
@@ -669,18 +684,25 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
        constructor Create( const Min_,Max_:TDouble2D ); overload;
        ///// プロパティ
        property Poin[ const I_:Integer ] :TDouble2D   read GetPoin                ;
+       property CentX                    :Double      read GetCentX write SetCentX;
+       property CentY                    :Double      read GetCentY write SetCentY;
        property SizeX                    :Double      read GetSizeX write SetSizeX;
        property SizeY                    :Double      read GetSizeY write SetSizeY;
        property ProjX                    :TDoubleArea read GetProjX write SetProjX;
        property ProjY                    :TDoubleArea read GetProjY write SetProjY;
        ///// 定数
-       class function NeInf :TDoubleArea2D; inline; static;
-       class function NeMax :TDoubleArea2D; inline; static;
-       class function Zero  :TDoubleArea2D; inline; static;
-       class function PoMax :TDoubleArea2D; inline; static;
-       class function PoInf :TDoubleArea2D; inline; static;
+       class function NeInf :TDoubleArea2D; static;
+       class function NeMax :TDoubleArea2D; static;
+       class function Zero  :TDoubleArea2D; static;
+       class function PoMax :TDoubleArea2D; static;
+       class function PoInf :TDoubleArea2D; static;
+       ///// 型変換
+       class operator Implicit( const V_:TDoubleArea2D ) :TRectF;
+       class operator Implicit( const V_:TRectF ) :TDoubleArea2D;
        ///// メソッド
        function Collision( const Area_:TDoubleArea2D ) :Boolean;
+       procedure Add( const Poin_:TDouble2D );overload;
+       procedure Add( const Poins_:TArray<TDouble2D> ); overload;
      end;
 
      //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【クラス】
@@ -2452,6 +2474,38 @@ end;
 
 //------------------------------------------------------------------------------
 
+function TSingleArea2D.GetCentX :Single;
+begin
+     Result := ( Max.X + Min.X ) / 2;
+end;
+
+procedure TSingleArea2D.SetCentX( const CentX_:Single );
+var
+   C, S :Single;
+begin
+     C := CentX_;  S := SizeX / 2;
+
+     Min.X := C - S;
+     Max.X := C + S;
+end;
+
+function TSingleArea2D.GetCentY :Single;
+begin
+     Result := ( Max.Y + Min.Y ) / 2;
+end;
+
+procedure TSingleArea2D.SetCentY( const CentY_:Single );
+var
+   C, S :Single;
+begin
+     C := CentY_;  S := SizeY / 2;
+
+     Min.Y := C - S;
+     Max.Y := C + S;
+end;
+
+//------------------------------------------------------------------------------
+
 function TSingleArea2D.GetSizeX :Single;
 begin
      Result := Max.X - Min.X;
@@ -2461,9 +2515,7 @@ procedure TSingleArea2D.SetSizeX( const SizeX_:Single );
 var
    C, S :Single;
 begin
-     C := ( Min.X + Max.X ) / 2;
-
-     S := SizeX_ / 2;
+     C := CentX;  S := SizeX_ / 2;
 
      Min.X := C - S;
      Max.X := C + S;
@@ -2478,9 +2530,7 @@ procedure TSingleArea2D.SetSizeY( const SizeY_:Single );
 var
    C, S :Single;
 begin
-     C := ( Min.Y + Max.Y ) / 2;
-
-     S := SizeY_ / 2;
+     C := CentY;  S := SizeY_ / 2;
 
      Min.Y := C - S;
      Max.Y := C + S;
@@ -2571,12 +2621,50 @@ begin
                                      Single.PositiveInfinity );
 end;
 
+///////////////////////////////////////////////////////////////////////// 型変換
+
+class operator TSingleArea2D.Implicit( const V_:TSingleArea2D ) :TRectF;
+begin
+     Result.Left   := V_.Min.X;
+     Result.Right  := V_.Max.X;
+     Result.Bottom := V_.Min.Y;
+     Result.Top    := V_.Max.Y;
+end;
+
+class operator TSingleArea2D.Implicit( const V_:TRectF ) :TSingleArea2D;
+begin
+     Result.Min.X := V_.Left  ;
+     Result.Max.X := V_.Right ;
+     Result.Min.Y := V_.Bottom;
+     Result.Max.Y := V_.Top   ;
+end;
+
 /////////////////////////////////////////////////////////////////////// メソッド
 
 function TSingleArea2D.Collision( const Area_:TSingleArea2D ) :Boolean;
 begin
      Result := ProjX.Collision( Area_.ProjX )
            and ProjY.Collision( Area_.ProjY );
+end;
+
+//------------------------------------------------------------------------------
+
+procedure TSingleArea2D.Add( const Poin_:TSingle2D );
+begin
+     with Poin_ do
+     begin
+          if X < Min.X then Min.X := X;
+          if Y < Min.Y then Min.Y := Y;
+          if Max.X < X then Max.X := X;
+          if Max.Y < Y then Max.Y := Y;
+     end;
+end;
+
+procedure TSingleArea2D.Add( const Poins_:TArray<TSingle2D> );
+var
+   P :TSingle2D;
+begin
+     for P in Poins_ do Add( P );
 end;
 
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TDoubleArea2D
@@ -2593,6 +2681,38 @@ begin
        2: Result := TDouble2D.Create( Min.X, Max.Y );
        3: Result := TDouble2D.Create( Max.X, Max.Y );
      end;
+end;
+
+//------------------------------------------------------------------------------
+
+function TDoubleArea2D.GetCentX :Double;
+begin
+     Result := ( Max.X + Min.X ) / 2;
+end;
+
+procedure TDoubleArea2D.SetCentX( const CentX_:Double );
+var
+   C, S :Double;
+begin
+     C := CentX_;  S := SizeX / 2;
+
+     Min.X := C - S;
+     Max.X := C + S;
+end;
+
+function TDoubleArea2D.GetCentY :Double;
+begin
+     Result := ( Max.Y + Min.Y ) / 2;
+end;
+
+procedure TDoubleArea2D.SetCentY( const CentY_:Double );
+var
+   C, S :Double;
+begin
+     C := CentY_;  S := SizeY / 2;
+
+     Min.Y := C - S;
+     Max.Y := C + S;
 end;
 
 //------------------------------------------------------------------------------
@@ -2716,12 +2836,50 @@ begin
                                      Double.PositiveInfinity );
 end;
 
+///////////////////////////////////////////////////////////////////////// 型変換
+
+class operator TDoubleArea2D.Implicit( const V_:TDoubleArea2D ) :TRectF;
+begin
+     Result.Left   := V_.Min.X;
+     Result.Right  := V_.Max.X;
+     Result.Bottom := V_.Min.Y;
+     Result.Top    := V_.Max.Y;
+end;
+
+class operator TDoubleArea2D.Implicit( const V_:TRectF ) :TDoubleArea2D;
+begin
+     Result.Min.X := V_.Left  ;
+     Result.Max.X := V_.Right ;
+     Result.Min.Y := V_.Bottom;
+     Result.Max.Y := V_.Top   ;
+end;
+
 /////////////////////////////////////////////////////////////////////// メソッド
 
 function TDoubleArea2D.Collision( const Area_:TDoubleArea2D ) :Boolean;
 begin
      Result := ProjX.Collision( Area_.ProjX )
            and ProjY.Collision( Area_.ProjY );
+end;
+
+//------------------------------------------------------------------------------
+
+procedure TDoubleArea2D.Add( const Poin_:TDouble2D );
+begin
+     with Poin_ do
+     begin
+          if X < Min.X then Min.X := X;
+          if Y < Min.Y then Min.Y := Y;
+          if Max.X < X then Max.X := X;
+          if Max.Y < Y then Max.Y := Y;
+     end;
+end;
+
+procedure TDoubleArea2D.Add( const Poins_:TArray<TDouble2D> );
+var
+   P :TDouble2D;
+begin
+     for P in Poins_ do Add( P );
 end;
 
 //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【クラス】
