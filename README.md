@@ -12,12 +12,12 @@ A Delphi (Object Pascal) binding and object-oriented wrapper for **FFTW 3**, the
 
 | Unit | Contents |
 |:---|:---|
-| `fftw3.pas` | Raw translation of the FFTW 3 C API: 69 entry points per precision — basic, advanced (`plan_many`) and guru (`plan_guru`, `plan_guru64`, split-array) plan constructors for c2c / r2c / c2r / r2r transforms, execution, wisdom import/export, multi-threading, allocators (`fftw_alloc_real`, `fftw_alloc_complex`), and planner diagnostics (`fftw_print_plan`, `fftw_cost`, `fftw_flops`). Declared for both `fftw_*` (double) and `fftwf_*` (single) |
+| `fftw3.pas` | Raw translation of the FFTW 3.3.11 C API: 72 entry points per precision — basic, advanced (`plan_many`) and guru (`plan_guru`, `plan_guru64`, split-array) plan constructors for c2c / r2c / c2r / r2r transforms, execution, plan copying (`fftw_copy_plan`), wisdom import/export, multi-threading (imported from the separate `libfftw3_threads-3.dll` / `libfftw3f_threads-3.dll`), allocators (`fftw_alloc_real`, `fftw_alloc_complex`), and planner diagnostics (`fftw_print_plan`, `fftw_cost`, `fftw_flops`). Declared for both `fftw_*` (double) and `fftwf_*` (single) |
 | `LUX.Signal.FFTW.pas` | `IDFT` interface and the generic base class `TDFT<_TItem_,_TTimes_,_TFreqs_>`, holding the two buffers, the two plans, and the `TransTF` / `TransFT` operations |
 | `D1/LUX.Signal.FFTW.D1.pas` | `IDFT1D` / `TDFT1D<…>` — buffers are `TPoinArray1D<_TItem_>`; a change of `PoinsX` propagates to the partner grid and triggers `RecreaPlans` |
 | `D1/LUX.Signal.FFTW.D1.Preset.pas` | Ready-made 1-D complex-to-complex transforms: `TSingleDFTcc1D` / `TDoubleDFTcc1D` (with `ISingleDFTcc1D` / `IDoubleDFTcc1D`) |
 | `D2/…`, `D3/…` | The same two-layer construction for rank 2 (`TPoinArray2D`, `fftw_plan_dft_2d`) and rank 3 (`TPoinArray3D`, `fftw_plan_dft_3d`) |
-| `_DLL/`, `：FFTW/` | Prebuilt Windows DLLs, and the vendored upstream FFTW 3.3.5 Windows distribution |
+| `_DLL/`, `：FFTW/` | Prebuilt Win64 runtime DLLs, and the vendored FFTW 3.3.11 Windows build from the MSYS2 `mingw-w64-fftw` package [6] |
 
 Naming convention of the presets: `T` + precision (`Single` / `Double`) + `DFT` + transform kind (`cc` = complex-to-complex) + rank (`1D` / `2D` / `3D`).
 
@@ -71,9 +71,11 @@ Plan construction is a search over algorithms, controlled by the flags declared 
 ```
 DLL binding
 
-・fftw3.pas                             ･･･ cdecl imports, 69 per precision
+・fftw3.pas                             ･･･ cdecl imports, 72 per precision
   ┣・libfftw3-3.dll                    ･･･ double, fftw_*
-  ┗・libfftw3f-3.dll                   ･･･ single, fftwf_*
+  ┣・libfftw3f-3.dll                   ･･･ single, fftwf_*
+  ┣・libfftw3_threads-3.dll            ･･･ double, threads API
+  ┗・libfftw3f_threads-3.dll           ･･･ single, threads API
 
 Class hierarchy — descendants listed under their ancestor
 
@@ -135,11 +137,9 @@ File layout:
   ┣・D2/                               ･･･ same construction for rank 2
   ┣・D3/                               ･･･ same construction for rank 3
   ┣・_DLL/
-  ┃  ┣・Win32/{Debug,Release}/        ･･･ libfftw3-3.dll, libfftw3f-3.dll
-  ┃  ┗・Win64/{Debug,Release}/        ･･･ libfftw3-3.dll, libfftw3f-3.dll
-  ┗・：FFTW/                           ･･･ FFTW 3.3.5 Windows distribution
-     ┣・fftw-3.3.5-dll32/              ･･･ DLLs, .def, fftw3.h, tools
-     ┗・fftw-3.3.5-dll64/              ･･･ the same, x64
+  ┃  ┗・Win64/{Debug,Release}/        ･･･ double/single + threads DLLs
+  ┗・：FFTW/                           ･･･ FFTW 3.3.11 (MSYS2 build)
+     ┗・fftw-3.3.11-msys2-x86_64/     ･･･ bin, include, lib, share, PKGINFO
 ```
 
 ## 4. Usage
@@ -178,11 +178,11 @@ end;
 
 ## 5. Requirements
 
-* **Delphi / RAD Studio** — any version with generics and record helpers. `fftw3.pas` imports Windows DLLs by name, so Win32 and Win64 are the supported targets.
+* **Delphi / RAD Studio** — any version with generics and record helpers. `fftw3.pas` imports Windows DLLs by name, so Win64 is the supported target.
 * **[LUX](https://github.com/LUXOPHIA/LUX)** base library — `LUX`, `LUX.Complex` (`TSingleC` / `TDoubleC`), `LUX.Data.Grid` (`TCoreArray<>`), and `LUX.Data.Grid.T1` … `T3` (`TPoinArray1D<>` … `TPoinArray3D<>`). In the current LUX tree these complex and grid units reside under the `--------/2022/` archive directory, which must therefore be on the compiler search path.
-* **Runtime DLLs** — `libfftw3-3.dll` (double precision) and `libfftw3f-3.dll` (single precision) must be reachable from the executable, normally by copying them next to it. Both are bundled in `_DLL\Win32\{Debug,Release}` and `_DLL\Win64\{Debug,Release}`; the complete upstream Windows distribution — including `libfftw3l-3.dll` (long double), the module-definition files, and the `fftw-wisdom` utilities — is vendored under `：FFTW\fftw-3.3.5-dll32` and `：FFTW\fftw-3.3.5-dll64`. Official Windows builds are published on the FFTW site [3].
-* **Git LFS** — `.gitattributes` declares `*.dll filter=lfs`, so a checkout without Git LFS yields pointer files instead of the DLLs.
-* **License of FFTW itself** — the bundled `COPYRIGHT` and `COPYING` files place FFTW under the GNU General Public License, version 2 or later; a separate commercial license is available from MIT [2].
+* **Runtime DLLs** — `libfftw3-3.dll` (double precision) and `libfftw3f-3.dll` (single precision) must be reachable from the executable, normally by copying them next to it; the multi-threading entry points are imported from the separate `libfftw3_threads-3.dll` / `libfftw3f_threads-3.dll`. All four are bundled in `_DLL\Win64\{Debug,Release}`. The complete MSYS2 `mingw-w64-fftw` 3.3.11 package [6] — including the long-double and OpenMP variants, the static and import libraries, `fftw3.h`, and the `fftw-wisdom` utilities — is vendored under `：FFTW\fftw-3.3.11-msys2-x86_64`. The official builds published on the FFTW site [3] remain at version 3.3.5.
+* **Git LFS** — `.gitattributes` declares `*.dll` and `*.a` under `filter=lfs`, so a checkout without Git LFS yields pointer files instead of the binaries.
+* **License of FFTW itself** — FFTW is distributed under the GNU General Public License, version 2 or later, as recorded in the vendored package's `PKGINFO`; a separate commercial license is available from MIT [2].
 
 ## 6. Limitations
 
@@ -200,6 +200,7 @@ Grounded in the current sources, and worth knowing before extending the wrapper:
 3. [*Installation on Windows*](https://www.fftw.org/install/windows.html), FFTW documentation.
 4. Cooley, J. W. and Tukey, J. W., [*An Algorithm for the Machine Calculation of Complex Fourier Series*](https://doi.org/10.1090/S0025-5718-1965-0178586-1), Mathematics of Computation, 19(90), pp. 297–301, 1965.
 5. [*Discrete Fourier transform*](https://en.wikipedia.org/wiki/Discrete_Fourier_transform), Wikipedia.
+6. [*mingw-w64-fftw*](https://packages.msys2.org/base/mingw-w64-fftw), MSYS2 Packages.
 
 ## 💖 [Embarcadero](https://www.embarcadero.com/) [**Delphi**](https://www.embarcadero.com/products/delphi)
 Integrated Development Environment (IDE) for Creating Native Cross-Platform Apps.
