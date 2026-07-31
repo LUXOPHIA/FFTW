@@ -12,12 +12,12 @@
 
 | ユニット | 内容 |
 |:---|:---|
-| `fftw3.pas` | FFTW 3 の C API の素の移植。精度ごとに 69 個のエントリポイント — c2c / r2c / c2r / r2r 変換の basic・advanced（`plan_many`）・guru（`plan_guru`, `plan_guru64`, split-array）プラン生成、実行、wisdom の入出力、マルチスレッド、アロケータ（`fftw_alloc_real`, `fftw_alloc_complex`）、プランナ診断（`fftw_print_plan`, `fftw_cost`, `fftw_flops`）。`fftw_*`（倍精度）と `fftwf_*`（単精度）の双方を宣言 |
+| `fftw3.pas` | FFTW 3.3.11 の C API の素の移植。精度ごとに 72 個のエントリポイント — c2c / r2c / c2r / r2r 変換の basic・advanced（`plan_many`）・guru（`plan_guru`, `plan_guru64`, split-array）プラン生成、実行、プラン複製（`fftw_copy_plan`）、wisdom の入出力、マルチスレッド（別 DLL `libfftw3_threads-3.dll` / `libfftw3f_threads-3.dll` からインポート）、アロケータ（`fftw_alloc_real`, `fftw_alloc_complex`）、プランナ診断（`fftw_print_plan`, `fftw_cost`, `fftw_flops`）。`fftw_*`（倍精度）と `fftwf_*`（単精度）の双方を宣言 |
 | `LUX.Signal.FFTW.pas` | `IDFT` インタフェースと汎用基底クラス `TDFT<_TItem_,_TTimes_,_TFreqs_>`。2 本のバッファ、2 個のプラン、`TransTF` / `TransFT` 操作を保持 |
 | `D1/LUX.Signal.FFTW.D1.pas` | `IDFT1D` / `TDFT1D<…>` — バッファは `TPoinArray1D<_TItem_>`。`PoinsX` の変更は相手側グリッドへ伝播し `RecreaPlans` を起動する |
 | `D1/LUX.Signal.FFTW.D1.Preset.pas` | 即用の 1 次元複素→複素変換：`TSingleDFTcc1D` / `TDoubleDFTcc1D`（および `ISingleDFTcc1D` / `IDoubleDFTcc1D`） |
 | `D2/…`, `D3/…` | 同じ 2 層構成の 2 階（`TPoinArray2D`, `fftw_plan_dft_2d`）および 3 階（`TPoinArray3D`, `fftw_plan_dft_3d`）版 |
-| `_DLL/`, `：FFTW/` | ビルド済み Windows DLL と、同梱した上流 FFTW 3.3.5 Windows 配布物 |
+| `_DLL/`, `：FFTW/` | ビルド済み Win64 実行時 DLL と、同梱した MSYS2 `mingw-w64-fftw` パッケージ由来の FFTW 3.3.11 Windows ビルド [6] |
 
 プリセットの命名規則：`T` ＋ 精度（`Single` / `Double`）＋ `DFT` ＋ 変換種別（`cc` ＝ 複素→複素）＋ 階数（`1D` / `2D` / `3D`）。
 
@@ -71,9 +71,11 @@ x_{n_1 \dots n_d}\, \exp\!\left(-2\pi i \sum_{j=1}^{d} \frac{k_j n_j}{N_j}\right
 ```
 DLL バインディング
 
-・fftw3.pas                             ･･･ cdecl インポート・精度ごとに 69 関数
+・fftw3.pas                             ･･･ cdecl インポート・精度ごとに 72 関数
   ┣・libfftw3-3.dll                    ･･･ 倍精度, fftw_*
-  ┗・libfftw3f-3.dll                   ･･･ 単精度, fftwf_*
+  ┣・libfftw3f-3.dll                   ･･･ 単精度, fftwf_*
+  ┣・libfftw3_threads-3.dll            ･･･ 倍精度, スレッド API
+  ┗・libfftw3f_threads-3.dll           ･･･ 単精度, スレッド API
 
 クラス階層 — 子孫は祖先の下に並べる
 
@@ -135,11 +137,9 @@ DLL バインディング
   ┣・D2/                               ･･･ 2 階の同一構成
   ┣・D3/                               ･･･ 3 階の同一構成
   ┣・_DLL/
-  ┃  ┣・Win32/{Debug,Release}/        ･･･ libfftw3-3.dll, libfftw3f-3.dll
-  ┃  ┗・Win64/{Debug,Release}/        ･･･ libfftw3-3.dll, libfftw3f-3.dll
-  ┗・：FFTW/                           ･･･ 上流 FFTW 3.3.5 Windows 配布物
-     ┣・fftw-3.3.5-dll32/              ･･･ DLL, .def, fftw3.h, ツール
-     ┗・fftw-3.3.5-dll64/              ･･･ 同上（x64）
+  ┃  ┗・Win64/{Debug,Release}/        ･･･ 倍・単精度＋スレッド DLL
+  ┗・：FFTW/                           ･･･ FFTW 3.3.11（MSYS2 ビルド）
+     ┗・fftw-3.3.11-msys2-x86_64/     ･･･ bin, include, lib, share, PKGINFO
 ```
 
 ## 4. 使い方
@@ -178,11 +178,11 @@ end;
 
 ## 5. 必要環境
 
-* **Delphi / RAD Studio** — ジェネリクスとレコードヘルパを備えた任意のバージョン。`fftw3.pas` は Windows DLL を名前でインポートするため、対象は Win32 と Win64。
+* **Delphi / RAD Studio** — ジェネリクスとレコードヘルパを備えた任意のバージョン。`fftw3.pas` は Windows DLL を名前でインポートするため、対象は Win64。
 * **[LUX](https://github.com/LUXOPHIA/LUX)** 基底ライブラリ — `LUX`、`LUX.Complex`（`TSingleC` / `TDoubleC`）、`LUX.Data.Grid`（`TCoreArray<>`）、`LUX.Data.Grid.T1` … `T3`（`TPoinArray1D<>` … `TPoinArray3D<>`）。現在の LUX ツリーではこれらの複素数・グリッドユニットは `--------/2022/` アーカイブディレクトリ下にあるため、そこをコンパイラの検索パスに加える必要がある。
-* **実行時 DLL** — `libfftw3-3.dll`（倍精度）と `libfftw3f-3.dll`（単精度）を実行ファイルから到達可能に置くこと（通常は実行ファイルの隣にコピーする）。両者は `_DLL\Win32\{Debug,Release}` および `_DLL\Win64\{Debug,Release}` に同梱されている。`libfftw3l-3.dll`（long double）、モジュール定義ファイル、`fftw-wisdom` ユーティリティを含む上流 Windows 配布物一式は `：FFTW\fftw-3.3.5-dll32` および `：FFTW\fftw-3.3.5-dll64` に格納されている。公式の Windows ビルドは FFTW サイトで公開されている [3]。
-* **Git LFS** — `.gitattributes` が `*.dll filter=lfs` を宣言しているため、Git LFS なしのチェックアウトでは DLL の代わりにポインタファイルが得られる。
-* **FFTW 自体のライセンス** — 同梱の `COPYRIGHT` および `COPYING` により、FFTW は GNU General Public License バージョン 2 以降の下に置かれる。別途 MIT から商用ライセンスが提供されている [2]。
+* **実行時 DLL** — `libfftw3-3.dll`（倍精度）と `libfftw3f-3.dll`（単精度）を実行ファイルから到達可能に置くこと（通常は実行ファイルの隣にコピーする）。マルチスレッド系のエントリポイントは別 DLL `libfftw3_threads-3.dll` / `libfftw3f_threads-3.dll` からインポートされる。4 本すべてが `_DLL\Win64\{Debug,Release}` に同梱されている。long double 版・OpenMP 版・静的／インポートライブラリ・`fftw3.h`・`fftw-wisdom` ユーティリティを含む MSYS2 `mingw-w64-fftw` 3.3.11 パッケージ一式 [6] は `：FFTW\fftw-3.3.11-msys2-x86_64` に格納されている。FFTW サイトで公開されている公式 Windows ビルド [3] は 3.3.5 のままである。
+* **Git LFS** — `.gitattributes` が `*.dll` と `*.a` を `filter=lfs` に宣言しているため、Git LFS なしのチェックアウトではバイナリの代わりにポインタファイルが得られる。
+* **FFTW 自体のライセンス** — FFTW は GNU General Public License バージョン 2 以降の下で配布される（同梱パッケージの `PKGINFO` に記載）。別途 MIT から商用ライセンスが提供されている [2]。
 
 ## 6. 制限事項
 
@@ -200,6 +200,7 @@ end;
 3. [*Installation on Windows*](https://www.fftw.org/install/windows.html), FFTW documentation.
 4. Cooley, J. W. and Tukey, J. W., [*An Algorithm for the Machine Calculation of Complex Fourier Series*](https://doi.org/10.1090/S0025-5718-1965-0178586-1), Mathematics of Computation, 19(90), pp. 297–301, 1965.
 5. [*Discrete Fourier transform*](https://en.wikipedia.org/wiki/Discrete_Fourier_transform), Wikipedia.
+6. [*mingw-w64-fftw*](https://packages.msys2.org/base/mingw-w64-fftw), MSYS2 Packages.
 
 ## 💖 [Embarcadero](https://www.embarcadero.com/jp/) [**Delphi**](https://www.embarcadero.com/jp/products/delphi)
 ネイティブなクロスプラットフォームアプリを開発するための統合開発環境（ＩＤＥ）。

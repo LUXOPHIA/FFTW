@@ -29,8 +29,10 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
 const //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【定数】
 
-      _DLLNAMED_ = 'libfftw3-3.dll';
-      _DLLNAMEF_ = 'libfftw3f-3.dll';
+      _DLLNAMED_  = 'libfftw3-3.dll';
+      _DLLNAMEF_  = 'libfftw3f-3.dll';
+      _DLLNAMEDT_ = 'libfftw3_threads-3.dll';
+      _DLLNAMEFT_ = 'libfftw3f_threads-3.dll';
 
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -489,6 +491,10 @@ const kind_         :PC_FFTW_R2R_KIND;
 {out} out_ :PC_DOUBLE
     ); cdecl; external _DLLNAMED_;
 
+    function fftw_copy_plan(
+      p_ :TC_PTR
+    ) :TC_PTR; cdecl; external _DLLNAMED_;
+
     procedure fftw_destroy_plan(
       p_ :TC_PTR
     ); cdecl; external _DLLNAMED_;
@@ -505,16 +511,24 @@ const kind_         :PC_FFTW_R2R_KIND;
 
     procedure fftw_plan_with_nthreads(
       nthreads_ :TC_INT
-    ); cdecl; external _DLLNAMED_;
+    ); cdecl; external _DLLNAMEDT_;
+
+    function fftw_planner_nthreads(
+    ) :TC_INT; cdecl; external _DLLNAMEDT_;
 
     function fftw_init_threads(
-    ) :TC_INT; cdecl; external _DLLNAMED_;
+    ) :TC_INT; cdecl; external _DLLNAMEDT_;
 
     procedure fftw_cleanup_threads(
-    ); cdecl; external _DLLNAMED_;
+    ); cdecl; external _DLLNAMEDT_;
+
+    procedure fftw_threads_set_callback(
+      parallel_loop_ :TC_FUNPTR;
+      data_          :TC_PTR
+    ); cdecl; external _DLLNAMEDT_;
 
     procedure fftw_make_planner_thread_safe(
-    ); cdecl; external _DLLNAMED_;
+    ); cdecl; external _DLLNAMEDT_;
 
     function fftw_export_wisdom_to_filename(
 const filename_ :PC_CHAR
@@ -1015,6 +1029,10 @@ const kind_         :PC_FFTW_R2R_KIND;
 {out} out_ :PC_FLOAT
     ); cdecl; external _DLLNAMEF_;
 
+    function fftwf_copy_plan(
+      p_ :TC_PTR
+    ) :TC_PTR; cdecl; external _DLLNAMEF_;
+
     procedure fftwf_destroy_plan(
       p_ :TC_PTR
     ); cdecl; external _DLLNAMEF_;
@@ -1031,16 +1049,24 @@ const kind_         :PC_FFTW_R2R_KIND;
 
     procedure fftwf_plan_with_nthreads(
       nthreads_ :TC_INT
-    ); cdecl; external _DLLNAMEF_;
+    ); cdecl; external _DLLNAMEFT_;
+
+    function fftwf_planner_nthreads(
+    ) :TC_INT; cdecl; external _DLLNAMEFT_;
 
     function fftwf_init_threads(
-    ) :TC_INT; cdecl; external _DLLNAMEF_;
+    ) :TC_INT; cdecl; external _DLLNAMEFT_;
 
     procedure fftwf_cleanup_threads(
-    ); cdecl; external _DLLNAMEF_;
+    ); cdecl; external _DLLNAMEFT_;
+
+    procedure fftwf_threads_set_callback(
+      parallel_loop_ :TC_FUNPTR;
+      data_          :TC_PTR
+    ); cdecl; external _DLLNAMEFT_;
 
     procedure fftwf_make_planner_thread_safe(
-    ); cdecl; external _DLLNAMEF_;
+    ); cdecl; external _DLLNAMEFT_;
 
     function fftwf_export_wisdom_to_filename(
 const filename_ :PC_CHAR
