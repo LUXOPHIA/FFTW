@@ -84,7 +84,7 @@ x_n = \frac{1}{N} \sum_{k=0}^{N-1} X_k\, e^{+2\pi i k n / N} \tag{2}
 ・FFTW/
   ┣・FFTW.dpr / FFTW.dproj     ･･･ FireMonkey デモプロジェクト
   ┣・Main.pas / Main.fmx       ･･･ フォーム：チャート・10ms タイマー・N バー
-  ┣・Win32/ , Win64/           ･･･ ビルド出力。同梱の FFTW DLL（Debug/Release）
+  ┣・Win64/                    ･･･ ビルド出力。同梱の FFTW DLL（Debug/Release）
   ┣・--------/_SCREENSHOT/     ･･･ スクリーンショット
   ┗・_LIBRARY/LUXOPHIA/        ･･･ ライブラリリポジトリの git-subtree コピー
      ┣・LUX/                   ･･･ 基礎数学・ユーティリティ（複素数など）
@@ -115,10 +115,10 @@ $N$ を変更すると `Times`/`Freqs` グリッドがリサイズされ、FFTW 
 
 * **IDE**：RAD Studio / Delphi（プロジェクト形式 19.5 = RAD Studio 11 Alexandria。以降のバージョンではプロジェクトをアップグレードできます）。
 * **フレームワーク**：FireMonkey（FMX）。
-* **プラットフォーム**：動作対象は Win32 と Win64 です — `fftw3.pas` は Windows 用 FFTW DLL とリンクします。
-* **必要な DLL**：`libfftw3-3.dll`（倍精度）と `libfftw3f-3.dll`（単精度）を `FFTW.exe` と同じ場所に置く必要があります。Windows 用のビルド済み DLL は FFTW のサイト（[https://www.fftw.org/install/windows.html](https://www.fftw.org/install/windows.html)）から入手できます。コピー（long double 版の `libfftw3l-3.dll` を含む）は `Win32\Debug|Release` および `Win64\Debug|Release` に同梱済みです。
+* **プラットフォーム**：動作対象は Win64 です — `fftw3.pas` は Windows 用 FFTW DLL とリンクします。
+* **必要な DLL**：`libfftw3-3.dll`（倍精度）と `libfftw3f-3.dll`（単精度）を `FFTW.exe` と同じ場所に置く必要があります。MSYS2 の [*mingw-w64-fftw*](https://packages.msys2.org/base/mingw-w64-fftw) パッケージ由来の FFTW 3.3.11 ビルドのコピー（`libfftw3_threads-3.dll` / `libfftw3f_threads-3.dll` を含む）が `Win64\Debug|Release` に同梱済みです。
 
-`FFTW.dproj` を開き、Windows プラットフォームを選択して実行してください。ライブラリユニットはすべて `_LIBRARY\` から直接参照されるため、検索パスの設定は不要です。
+`FFTW.dproj` を開き、Win64 プラットフォームを選択して実行してください。ライブラリユニットはすべて `_LIBRARY\` から直接参照されるため、検索パスの設定は不要です。
 
 ## 6. 参考文献
 
