@@ -84,7 +84,7 @@ File layout:
 ・FFTW/
   ┣・FFTW.dpr / FFTW.dproj     ･･･ FireMonkey demo project
   ┣・Main.pas / Main.fmx       ･･･ main form: charts, 10 ms timer, N scrollbar
-  ┣・Win32/ , Win64/           ･･･ build output with FFTW DLLs (Debug/Release)
+  ┣・Win64/                    ･･･ build output with FFTW DLLs (Debug/Release)
   ┣・--------/_SCREENSHOT/     ･･･ screenshot
   ┗・_LIBRARY/LUXOPHIA/        ･･･ git-subtree copies of library repositories
      ┣・LUX/                   ･･･ core math & utilities (complex numbers etc.)
@@ -114,10 +114,10 @@ Changing $N$ resizes the `Times`/`Freqs` grids, which automatically re-creates t
 
 * **IDE**: RAD Studio / Delphi (project format 19.5 = RAD Studio 11 Alexandria; later versions can upgrade the project).
 * **Framework**: FireMonkey (FMX).
-* **Platforms**: Win32 and Win64 are the working targets — `fftw3.pas` links against the Windows FFTW DLLs.
-* **Required DLLs**: `libfftw3-3.dll` (double precision) and `libfftw3f-3.dll` (single precision) must reside next to `FFTW.exe`. Precompiled Windows DLLs are available from the FFTW site ([https://www.fftw.org/install/windows.html](https://www.fftw.org/install/windows.html)); copies (including `libfftw3l-3.dll`, long double) are already bundled in `Win32\Debug|Release` and `Win64\Debug|Release`.
+* **Platforms**: Win64 is the working target — `fftw3.pas` links against the Windows FFTW DLLs.
+* **Required DLLs**: `libfftw3-3.dll` (double precision) and `libfftw3f-3.dll` (single precision) must reside next to `FFTW.exe`. Copies of the FFTW 3.3.11 build from the MSYS2 [*mingw-w64-fftw*](https://packages.msys2.org/base/mingw-w64-fftw) package — including the `libfftw3_threads-3.dll` / `libfftw3f_threads-3.dll` companions — are already bundled in `Win64\Debug|Release`.
 
-Open `FFTW.dproj`, select a Windows platform, and run. All library units are referenced directly from `_LIBRARY\` — no search-path setup is needed.
+Open `FFTW.dproj`, select the Win64 platform, and run. All library units are referenced directly from `_LIBRARY\` — no search-path setup is needed.
 
 ## 6. References
 
