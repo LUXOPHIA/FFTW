@@ -3,11 +3,11 @@
 interface //#################################################################### ■
 
 uses System.UITypes,
-     LUX, LUX.D4;
+     LUX;
 
-type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【型】
+type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【 T Y P E 】
 
-     //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【レコード】
+     //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【 R E C O R D 】
 
      //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TByteRGB
 
@@ -23,18 +23,16 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
        G :Byte;
        R :Byte;
      {$ENDIF}
-       /////
        constructor Create( const L_:Byte ); overload;
        constructor Create( const R_,G_,B_:Byte ); overload;
-       ///// プロパティ
-       ///// 演算子
+       ///// O P E R A T O R
        class operator Positive( const V_:TByteRGB ) :TByteRGB;
        class operator Add( const A_,B_:TByteRGB ) :TByteRGB;
        class operator Subtract( const A_,B_:TByteRGB ) :TByteRGB;
        class operator Multiply( const A_:Byte; const B_:TByteRGB ): TByteRGB;
        class operator Multiply( const A_:TByteRGB; const B_:Byte ): TByteRGB;
        class operator Divide( const A_:TByteRGB; const B_:Byte ): TByteRGB;
-       ///// 型変換
+       ///// C A S T
        class operator Implicit( const L_:Byte ) :TByteRGB;
        class operator Implicit( const C_:TAlphaColor ) :TByteRGB;
        class operator Implicit( const C_:TByteRGB ) :TAlphaColor;
@@ -46,7 +44,7 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
      TByteRGBA = packed record
      private
-       ///// アクセス
+       ///// A C C E S S O R
        function GetR :Byte;
        procedure SetR( const R_:Byte );
        function GetG :Byte;
@@ -61,21 +59,20 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
        C :TByteRGB;
        A :Byte;
      {$ENDIF}
-       /////
        constructor Create( const L_:Byte; const A_:Byte = $FF ); overload;
        constructor Create( const R_,G_,B_:Byte; const A_:Byte = $FF ); overload;
-       ///// プロパティ
+       ///// P R O P E R T Y
        property R :Byte read GetR write SetR;
        property G :Byte read GetG write SetG;
        property B :Byte read GetB write SetB;
-       ///// 演算子
+       ///// O P E R A T O R
        class operator Positive( const V_:TByteRGBA ) :TByteRGBA;
        class operator Add( const A_,B_:TByteRGBA ) :TByteRGBA;
        class operator Subtract( const A_,B_:TByteRGBA ) :TByteRGBA;
        class operator Multiply( const A_:Byte; const B_:TByteRGBA ): TByteRGBA;
        class operator Multiply( const A_:TByteRGBA; const B_:Byte ): TByteRGBA;
        class operator Divide( const A_:TByteRGBA; const B_:Byte ): TByteRGBA;
-       ///// 型変換
+       ///// C A S T
        class operator Implicit( const L_:Byte ) :TByteRGBA;
        class operator Implicit( const C_:TByteRGB ) :TByteRGBA;
        class operator Explicit( const C_:TByteRGBA ) :TByteRGB;
@@ -84,6 +81,8 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
      end;
 
      //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TSingleRGB
+
+     PSingleRGB = ^TSingleRGB;
 
      TSingleRGB = record
      private
@@ -94,20 +93,20 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
        /////
        constructor Create( const L_:Single ); overload;
        constructor Create( const R_,G_,B_:Single ); overload;
-       ///// プロパティ
-       ///// 演算子
+       ///// O P E R A T O R
        class operator Negative( const V_:TSingleRGB ) :TSingleRGB;
        class operator Positive( const V_:TSingleRGB ) :TSingleRGB;
        class operator Add( const A_,B_:TSingleRGB ) :TSingleRGB;
        class operator Subtract( const A_,B_:TSingleRGB ) :TSingleRGB;
+       class operator Multiply( const A_,B_:TSingleRGB ): TSingleRGB;
        class operator Multiply( const A_:Single; const B_:TSingleRGB ): TSingleRGB;
        class operator Multiply( const A_:TSingleRGB; const B_:Single ): TSingleRGB;
        class operator Divide( const A_:TSingleRGB; const B_:Single ): TSingleRGB;
-       ///// 型変換
+       ///// C A S T
        class operator Implicit( const L_:Single ) :TSingleRGB;
        class operator Implicit( const C_:TByteRGB ) :TSingleRGB;
        class operator Implicit( const C_:TSingleRGB ) :TByteRGB;
-       ///// メソッド
+       ///// M E T H O D
        function Gamma( const C_:Single = 2.2 ) :TSingleRGB;
        function ToneMap( const W_:Single = 1 ) :TSingleRGB;
      end;
@@ -122,7 +121,7 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
        B :UInt32;
        /////
        constructor Create( const R_,G_,B_:UInt32 ); overload;
-       ///// 型変換
+       ///// C A S T
        class operator Implicit( const L_:UInt32 ) :TUInt32xRGB;
        class operator Implicit( const C_:TByteRGB ) :TUInt32xRGB;
        class operator Explicit( const C_:TUInt32xRGB ) :TByteRGB;
@@ -137,19 +136,19 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
        A :UInt32;
        /////
        constructor Create( const R_,G_,B_:UInt32; const A_:UInt32 = 1 ); overload;
-       ///// 型変換
+       ///// C A S T
        class operator Implicit( const L_:UInt32 ) :TUInt32xRGBA;
        class operator Implicit( const C_:TByteRGBA ) :TUInt32xRGBA;
        class operator Explicit( const C_:TUInt32xRGBA ) :TByteRGBA;
-       class operator Implicit( const C_:TInt32u4D ) :TUInt32xRGBA;
-       class operator Implicit( const C_:TUInt32xRGBA ) :TInt32u4D;
      end;
 
      //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TSingleRGBA
 
+     PSingleRGBA = ^TSingleRGBA;
+
      TSingleRGBA = record
      private
-       ///// アクセス
+       ///// A C C E S S O R
        function GetR :Single;
        procedure SetR( const R_:Single );
        function GetG :Single;
@@ -162,11 +161,11 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
        /////
        constructor Create( const L_:Single; const A_:Single = 1 ); overload;
        constructor Create( const R_,G_,B_:Single; const A_:Single = 1 ); overload;
-       ///// プロパティ
+       ///// P R O P E R T Y
        property R :Single read GetR write SetR;
        property G :Single read GetG write SetG;
        property B :Single read GetB write SetB;
-       ///// 演算子
+       ///// O P E R A T O R
        class operator Negative( const V_:TSingleRGBA ) :TSingleRGBA;
        class operator Positive( const V_:TSingleRGBA ) :TSingleRGBA;
        class operator Add( const A_,B_:TSingleRGBA ) :TSingleRGBA;
@@ -174,7 +173,7 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
        class operator Multiply( const A_:Single; const B_:TSingleRGBA ): TSingleRGBA;
        class operator Multiply( const A_:TSingleRGBA; const B_:Single ): TSingleRGBA;
        class operator Divide( const A_:TSingleRGBA; const B_:Single ): TSingleRGBA;
-       ///// 型変換
+       ///// C A S T
        class operator Implicit( const L_:Single ) :TSingleRGBA;
        class operator Implicit( const C_:TByteRGBA ) :TSingleRGBA;
        class operator Explicit( const C_:TSingleRGBA ) :TByteRGBA;
@@ -182,16 +181,68 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
        class operator Explicit( const C_:TSingleRGBA ) :TSingleRGB;
        class operator Implicit( const C_:TSingleRGBA ) :TAlphaColorF;
        class operator Implicit( const C_:TAlphaColorF ) :TSingleRGBA;
-       ///// メソッド
+       ///// M E T H O D
        function Gamma( const C_:Single = 2.2 ) :TSingleRGBA;
        function ToneMap( const W_:Single = 1 ) :TSingleRGBA;
+     end;
+
+     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TWordRGB
+
+     PWordRGB = ^TWordRGB;
+
+     TWordRGB = packed record  // 記憶順は R,G,B（Skia の RGBA16161616 に一致）
+     private
+     public
+       R :Word;
+       G :Word;
+       B :Word;
+       constructor Create( const L_:Word ); overload;
+       constructor Create( const R_,G_,B_:Word ); overload;
+       ///// C A S T
+       class operator Implicit( const L_:Word ) :TWordRGB;
+       class operator Implicit( const C_:TByteRGB ) :TWordRGB;
+       class operator Explicit( const C_:TWordRGB ) :TByteRGB;
+       class operator Implicit( const C_:TWordRGB ) :TSingleRGB;
+       class operator Implicit( const C_:TSingleRGB ) :TWordRGB;
+     end;
+
+     //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TWordRGBA
+
+     PWordRGBA = ^TWordRGBA;
+
+     TWordRGBA = packed record  // 記憶順は R,G,B,A（Skia の RGBA16161616 に一致）
+     private
+       ///// A C C E S S O R
+       function GetR :Word;
+       procedure SetR( const R_:Word );
+       function GetG :Word;
+       procedure SetG( const G_:Word );
+       function GetB :Word;
+       procedure SetB( const B_:Word );
+     public
+       C :TWordRGB;
+       A :Word;
+       constructor Create( const L_:Word; const A_:Word = $FFFF ); overload;
+       constructor Create( const R_,G_,B_:Word; const A_:Word = $FFFF ); overload;
+       ///// P R O P E R T Y
+       property R :Word read GetR write SetR;
+       property G :Word read GetG write SetG;
+       property B :Word read GetB write SetB;
+       ///// C A S T
+       class operator Implicit( const L_:Word ) :TWordRGBA;
+       class operator Implicit( const C_:TWordRGB ) :TWordRGBA;
+       class operator Explicit( const C_:TWordRGBA ) :TWordRGB;
+       class operator Implicit( const C_:TByteRGBA ) :TWordRGBA;
+       class operator Explicit( const C_:TWordRGBA ) :TByteRGBA;
+       class operator Implicit( const C_:TWordRGBA ) :TSingleRGBA;
+       class operator Implicit( const C_:TSingleRGBA ) :TWordRGBA;
      end;
 
      //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TByteRGBE
 
      TByteRGBE = packed record
      private
-       ///// アクセス
+       ///// A C C E S S O R
        function GetR :Byte;
        procedure SetR( const R_:Byte );
        function GetG :Byte;
@@ -204,34 +255,27 @@ type //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
        /////
        constructor Create( const L_:Byte; const E_:Byte = 128 ); overload;
        constructor Create( const R_,G_,B_:Byte; const E_:Byte = 128 ); overload;
-       ///// プロパティ
+       ///// P R O P E R T Y
        property R :Byte read GetR write SetR;
        property G :Byte read GetG write SetG;
        property B :Byte read GetB write SetB;
-       ///// 演算子
-       ///// 型変換
+       ///// C A S T
        class operator Implicit( const L_:Byte ) :TByteRGBE;
        class operator Implicit( const C_:TByteRGBE ) :TSingleRGB;
        class operator Implicit( const C_:TSingleRGB ) :TByteRGBE;
      end;
 
-     //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【クラス】
+     //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【 C L A S S 】
 
-//const //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【定数】
-
-//var //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【変数】
-
-//$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【ルーチン】
+//$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【 R O U T I N E 】
 
 implementation //############################################################### ■
 
 uses System.Math;
 
-//$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【レコード】
+//$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【 R E C O R D 】
 
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TByteRGB
-
-//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& private
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
 
@@ -249,7 +293,7 @@ begin
      B := B_;
 end;
 
-///////////////////////////////////////////////////////////////////////// 演算子
+//////////////////////////////////////////////////////////////// O P E R A T O R
 
 class operator TByteRGB.Positive( const V_:TByteRGB ) :TByteRGB;
 begin
@@ -311,7 +355,7 @@ begin
      end;
 end;
 
-///////////////////////////////////////////////////////////////////////// 型変換
+//////////////////////////////////////////////////////////////////////// C A S T
 
 class operator TByteRGB.Implicit( const L_:Byte ) :TByteRGB;
 begin
@@ -337,7 +381,7 @@ end;
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& private
 
-/////////////////////////////////////////////////////////////////////// アクセス
+//////////////////////////////////////////////////////////////// A C C E S S O R
 
 function TByteRGBA.GetR :Byte;
 begin
@@ -385,7 +429,7 @@ begin
      A := A_;
 end;
 
-///////////////////////////////////////////////////////////////////////// 演算子
+//////////////////////////////////////////////////////////////// O P E R A T O R
 
 class operator TByteRGBA.Positive( const V_:TByteRGBA ) :TByteRGBA;
 begin
@@ -445,7 +489,7 @@ begin
      end;
 end;
 
-///////////////////////////////////////////////////////////////////////// 型変換
+//////////////////////////////////////////////////////////////////////// C A S T
 
 class operator TByteRGBA.Implicit( const L_:Byte ) :TByteRGBA;
 begin
@@ -482,8 +526,6 @@ end;
 
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TSingleRGB
 
-//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& private
-
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
 
 constructor TSingleRGB.Create( const L_:Single );
@@ -500,7 +542,7 @@ begin
      B := B_;
 end;
 
-///////////////////////////////////////////////////////////////////////// 演算子
+//////////////////////////////////////////////////////////////// O P E R A T O R
 
 class operator TSingleRGB.Negative( const V_:TSingleRGB ) :TSingleRGB;
 begin
@@ -542,6 +584,16 @@ begin
      end;
 end;
 
+class operator TSingleRGB.Multiply( const A_,B_:TSingleRGB ): TSingleRGB;
+begin
+     with Result do
+     begin
+          R := A_.R * B_.R;
+          G := A_.G * B_.G;
+          B := A_.B * B_.B;
+     end;
+end;
+
 class operator TSingleRGB.Multiply( const A_:Single; const B_:TSingleRGB ): TSingleRGB;
 begin
      with Result do
@@ -572,7 +624,7 @@ begin
      end;
 end;
 
-///////////////////////////////////////////////////////////////////////// 型変換
+//////////////////////////////////////////////////////////////////////// C A S T
 
 class operator TSingleRGB.Implicit( const L_:Single ) :TSingleRGB;
 begin
@@ -604,7 +656,7 @@ begin
      end;
 end;
 
-/////////////////////////////////////////////////////////////////////// メソッド
+//////////////////////////////////////////////////////////////////// M E T H O D
 
 function TSingleRGB.Gamma( const C_:Single = 2.2 ) :TSingleRGB;
 var
@@ -632,8 +684,6 @@ end;
 
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TUInt32xRGB
 
-//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& private
-
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
 
 constructor TUInt32xRGB.Create( const R_,G_,B_:UInt32 );
@@ -643,7 +693,7 @@ begin
      B := B_;
 end;
 
-///////////////////////////////////////////////////////////////////////// 型変換
+//////////////////////////////////////////////////////////////////////// C A S T
 
 class operator TUInt32xRGB.Implicit( const L_:UInt32 ) :TUInt32xRGB;
 begin
@@ -672,8 +722,6 @@ end;
 
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TUInt32xRGBA
 
-//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& private
-
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
 
 constructor TUInt32xRGBA.Create( const R_,G_,B_:UInt32; const A_:UInt32 = 1 );
@@ -682,7 +730,7 @@ begin
      A := A_;
 end;
 
-///////////////////////////////////////////////////////////////////////// 型変換
+//////////////////////////////////////////////////////////////////////// C A S T
 
 class operator TUInt32xRGBA.Implicit( const L_:UInt32 ) :TUInt32xRGBA;
 begin
@@ -704,29 +752,11 @@ begin
      Result.A :=           C_.A  ;
 end;
 
-//------------------------------------------------------------------------------
-
-class operator TUInt32xRGBA.Implicit( const C_:TInt32u4D ) :TUInt32xRGBA;
-begin
-     Result.C.R := C_.X;
-     Result.C.G := C_.Y;
-     Result.C.B := C_.Z;
-     Result.A   := C_.W;
-end;
-
-class operator TUInt32xRGBA.Implicit( const C_:TUInt32xRGBA ) :TInt32u4D;
-begin
-     Result.X := C_.C.R;
-     Result.Y := C_.C.G;
-     Result.Z := C_.C.B;
-     Result.W := C_  .A;
-end;
-
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TSingleRGBA
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& private
 
-/////////////////////////////////////////////////////////////////////// アクセス
+//////////////////////////////////////////////////////////////// A C C E S S O R
 
 function TSingleRGBA.GetR :Single;
 begin
@@ -774,7 +804,7 @@ begin
      A := A_;
 end;
 
-///////////////////////////////////////////////////////////////////////// 演算子
+//////////////////////////////////////////////////////////////// O P E R A T O R
 
 class operator TSingleRGBA.Negative( const V_:TSingleRGBA ) :TSingleRGBA;
 begin
@@ -839,7 +869,7 @@ begin
      end;
 end;
 
-///////////////////////////////////////////////////////////////////////// 型変換
+//////////////////////////////////////////////////////////////////////// C A S T
 
 class operator TSingleRGBA.Implicit( const L_:Single ) :TSingleRGBA;
 begin
@@ -909,7 +939,7 @@ begin
      end;
 end;
 
-/////////////////////////////////////////////////////////////////////// メソッド
+//////////////////////////////////////////////////////////////////// M E T H O D
 
 function TSingleRGBA.Gamma( const C_:Single = 2.2 ) :TSingleRGBA;
 begin
@@ -925,11 +955,183 @@ begin
      Result.A := A;
 end;
 
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TWordRGB
+
+//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
+
+constructor TWordRGB.Create( const L_:Word );
+begin
+     R := L_;
+     G := L_;
+     B := L_;
+end;
+
+constructor TWordRGB.Create( const R_,G_,B_:Word );
+begin
+     R := R_;
+     G := G_;
+     B := B_;
+end;
+
+//////////////////////////////////////////////////////////////////////// C A S T
+
+class operator TWordRGB.Implicit( const L_:Word ) :TWordRGB;
+begin
+     Result := TWordRGB.Create( L_ );
+end;
+
+class operator TWordRGB.Implicit( const C_:TByteRGB ) :TWordRGB;
+begin
+     with Result do
+     begin
+          R := C_.R * 257;  // $FF → $FFFF
+          G := C_.G * 257;
+          B := C_.B * 257;
+     end;
+end;
+
+class operator TWordRGB.Explicit( const C_:TWordRGB ) :TByteRGB;
+begin
+     with Result do
+     begin
+          R := C_.R shr 8;
+          G := C_.G shr 8;
+          B := C_.B shr 8;
+     end;
+end;
+
+class operator TWordRGB.Implicit( const C_:TWordRGB ) :TSingleRGB;
+begin
+     with Result do
+     begin
+          R := C_.R / $FFFF;
+          G := C_.G / $FFFF;
+          B := C_.B / $FFFF;
+     end;
+end;
+
+class operator TWordRGB.Implicit( const C_:TSingleRGB ) :TWordRGB;
+begin
+     with Result do
+     begin
+          R := Round( Clamp( C_.R, 0, 1 ) * $FFFF );
+          G := Round( Clamp( C_.G, 0, 1 ) * $FFFF );
+          B := Round( Clamp( C_.B, 0, 1 ) * $FFFF );
+     end;
+end;
+
+//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TWordRGBA
+
+//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& private
+
+//////////////////////////////////////////////////////////////// A C C E S S O R
+
+function TWordRGBA.GetR :Word;
+begin
+     Result := C.R;
+end;
+
+procedure TWordRGBA.SetR( const R_:Word );
+begin
+     C.R := R_;
+end;
+
+function TWordRGBA.GetG :Word;
+begin
+     Result := C.G;
+end;
+
+procedure TWordRGBA.SetG( const G_:Word );
+begin
+     C.G := G_;
+end;
+
+function TWordRGBA.GetB :Word;
+begin
+     Result := C.B;
+end;
+
+procedure TWordRGBA.SetB( const B_:Word );
+begin
+     C.B := B_;
+end;
+
+//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& public
+
+constructor TWordRGBA.Create( const L_:Word; const A_:Word );
+begin
+     C := L_;
+     A := A_;
+end;
+
+constructor TWordRGBA.Create( const R_,G_,B_:Word; const A_:Word );
+begin
+     C := TWordRGB.Create( R_, G_, B_ );
+     A := A_;
+end;
+
+//////////////////////////////////////////////////////////////////////// C A S T
+
+class operator TWordRGBA.Implicit( const L_:Word ) :TWordRGBA;
+begin
+     Result := TWordRGBA.Create( L_ );
+end;
+
+class operator TWordRGBA.Implicit( const C_:TWordRGB ) :TWordRGBA;
+begin
+     with Result do
+     begin
+          C := C_;
+          A := $FFFF;
+     end;
+end;
+
+class operator TWordRGBA.Explicit( const C_:TWordRGBA ) :TWordRGB;
+begin
+     Result := C_.C;
+end;
+
+class operator TWordRGBA.Implicit( const C_:TByteRGBA ) :TWordRGBA;
+begin
+     with Result do
+     begin
+          C := C_.C;
+          A := C_.A * 257;
+     end;
+end;
+
+class operator TWordRGBA.Explicit( const C_:TWordRGBA ) :TByteRGBA;
+begin
+     with Result do
+     begin
+          C := TByteRGB( C_.C );
+          A := C_.A shr 8;
+     end;
+end;
+
+class operator TWordRGBA.Implicit( const C_:TWordRGBA ) :TSingleRGBA;
+begin
+     with Result do
+     begin
+          C := C_.C;
+          A := C_.A / $FFFF;
+     end;
+end;
+
+class operator TWordRGBA.Implicit( const C_:TSingleRGBA ) :TWordRGBA;
+begin
+     with Result do
+     begin
+          C := C_.C;
+          A := Round( Clamp( C_.A, 0, 1 ) * $FFFF );
+     end;
+end;
+
 //%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TByteRGBE
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& private
 
-/////////////////////////////////////////////////////////////////////// アクセス
+//////////////////////////////////////////////////////////////// A C C E S S O R
 
 function TByteRGBE.GetR :Byte;
 begin
@@ -977,9 +1179,7 @@ begin
      E := E_;
 end;
 
-///////////////////////////////////////////////////////////////////////// 演算子
-
-///////////////////////////////////////////////////////////////////////// 型変換
+//////////////////////////////////////////////////////////////////////// C A S T
 
 class operator TByteRGBE.Implicit( const L_:Byte ) :TByteRGBE;
 begin
@@ -1022,14 +1222,8 @@ begin
      Result.E := 128 + E;
 end;
 
-//$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【クラス】
+//$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【 C L A S S 】
 
-//$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【ルーチン】
-
-//############################################################################## □
-
-initialization //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ 初期化
-
-finalization //$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ 最終化
+//$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$【 R O U T I N E 】
 
 end. //######################################################################### ■
