@@ -121,8 +121,8 @@ destructor TDFT<_TItem_,_TTimes_,_TFreqs_>.Destroy;
 begin
      DestroPlans;
 
-     _Times.DisposeOf;
-     _Freqs.DisposeOf;
+     _Times.Free;
+     _Freqs.Free;
 
      inherited;
 end;
