@@ -12,7 +12,7 @@ uses
   LUX.Complex,
   LUX.Complex.D1,
   LUX.Chart.Viewer,
-  LUX.Signal.FFTW.D1.Preset;
+  LUX.FFTW.D1.Preset;
 
 type
   TForm1 = class(TForm)

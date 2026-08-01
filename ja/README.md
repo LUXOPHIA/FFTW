@@ -10,12 +10,12 @@
 
 * [**LUX**](https://github.com/LUXOPHIA/LUX) ：LUXOPHIA プロジェクトの基盤数学ライブラリ。
 * [**LUX.Chart**](https://github.com/LUXOPHIA/LUX.Chart) ：`TChartViewer` フレームを提供するチャート描画ライブラリ。
-* [**LUX.Signal.FFTW**](https://github.com/LUXOPHIA/LUX.Signal.FFTW) ：FFTW 3 ライブラリの Delphi バインディングとオブジェクト指向ラッパ。
+* [**LUX.FFTW**](https://github.com/LUXOPHIA/LUX.FFTW) ：FFTW 3 ライブラリの Delphi バインディングとオブジェクト指向ラッパ。
 
 ## 1. 概要
 
 * **FFTW 3 の生バインディング** — `fftw3.pas` は FFTW の C API を Delphi へ翻訳したものです。プラン生成（basic / advanced / guru インタフェース）、複素→複素・実→複素／複素→実・実→実プラン、wisdom の入出力、スレッド対応、`fftw_malloc` 系アロケータを、倍精度（`libfftw3-3.dll`）と単精度（`libfftw3f-3.dll`）の両ライブラリについて網羅しています。
-* **オブジェクト指向ラッパ** — `LUX.Signal.FFTW` はプランをジェネリッククラス（`TDFT<...>`、`TDFT1D<...>`）で包み、入出力バッファをグリッドオブジェクトとして扱います。グリッドをリサイズするとプランは自動的に再生成されます。
+* **オブジェクト指向ラッパ** — `LUX.FFTW` はプランをジェネリッククラス（`TDFT<...>`、`TDFT1D<...>`）で包み、入出力バッファをグリッドオブジェクトとして扱います。グリッドをリサイズするとプランは自動的に再生成されます。
 * **既成プリセット** — `TSingleDFTcc1D` / `TDoubleDFTcc1D` が 1 次元の複素→複素変換をそのまま提供します（ライブラリには 2 次元・3 次元のプリセットユニットも含まれます）。
 * **ライブデモアプリ** — FireMonkey フォームがメトロポリス型の複素ランダムウォークをアニメーションさせ、タイマーごとに順変換を実行し、`TChartViewer` で両領域を表示します。変換長は実行中に変更できます。
 
@@ -61,13 +61,13 @@ x_n = \frac{1}{N} \sum_{k=0}^{N-1} X_k\, e^{+2\pi i k n / N} \tag{2}
 クラス階層
 
 ・IDFT
-  ┗・TDFT<_TItem_,_TTimes_,_TFreqs_>       ･･･ LUX.Signal.FFTW.pas
+  ┗・TDFT<_TItem_,_TTimes_,_TFreqs_>       ･･･ LUX.FFTW.pas
      ┣・_Times / _Freqs                    ･･･ グリッドバッファ
      ┣・_PlanTF / _PlanFT                  ･･･ プラン。TransTF/TransFT が実行
-     ┗・TDFT1D<...>                        ･･･ LUX.Signal.FFTW.D1.pas
+     ┗・TDFT1D<...>                        ･･･ LUX.FFTW.D1.pas
         ┣・グリッドのリサイズ
         ┃  ┗・RecreaPlans                 ･･･ プランを破棄して再生成
-        ┗・TSingleDFTcc1D / TDoubleDFTcc1D ･･･ LUX.Signal.FFTW.D1.Preset.pas
+        ┗・TSingleDFTcc1D / TDoubleDFTcc1D ･･･ LUX.FFTW.D1.Preset.pas
 
 バインディング階層（呼び出しの連鎖）
 
@@ -82,21 +82,21 @@ x_n = \frac{1}{N} \sum_{k=0}^{N-1} X_k\, e^{+2\pi i k n / N} \tag{2}
 
 ```
 ・FFTW/
-  ┣・FFTW.dpr / FFTW.dproj     ･･･ FireMonkey デモプロジェクト
-  ┣・Main.pas / Main.fmx       ･･･ フォーム：チャート・10ms タイマー・N バー
-  ┣・Win64/                    ･･･ ビルド出力。同梱の FFTW DLL（Debug/Release）
-  ┣・--------/_SCREENSHOT/     ･･･ スクリーンショット
-  ┗・_LIBRARY/LUXOPHIA/        ･･･ ライブラリリポジトリの git-subtree コピー
-     ┣・LUX/                   ･･･ 基礎数学・ユーティリティ（複素数など）
-     ┃  ┗・--------/2022/     ･･･ 2022 年版ユニット（.dpr 参照）
-     ┣・LUX.Chart/             ･･･ TChartViewer 描画フレーム
-     ┗・LUX.Signal.FFTW/       ･･･ FFTW バインディングとラッパクラス
-        ┣・fftw3.pas           ･･･ FFTW 3 API の生翻訳
-        ┣・LUX.Signal.FFTW.pas ･･･ ジェネリックな TDFT 基底クラス
-        ┗・D1/ D2/ D3/         ･･･ 1次元／2次元／3次元のラッパとプリセット
+  ┣・FFTW.dpr / FFTW.dproj ･･･ FireMonkey デモプロジェクト
+  ┣・Main.pas / Main.fmx   ･･･ フォーム：チャート・10ms タイマー・N バー
+  ┣・Win64/                ･･･ ビルド出力。同梱の FFTW DLL（Debug/Release）
+  ┣・--------/_SCREENSHOT/ ･･･ スクリーンショット
+  ┗・_LIBRARY/LUXOPHIA/    ･･･ ライブラリリポジトリの git-subtree コピー
+     ┣・LUX/               ･･･ 基礎数学・ユーティリティ（複素数など）
+     ┃  ┗・--------/2022/  ･･･ 2022 年版ユニット（.dpr 参照）
+     ┣・LUX.Chart/         ･･･ TChartViewer 描画フレーム
+     ┗・LUX.FFTW/          ･･･ FFTW バインディングとラッパクラス
+        ┣・fftw3.pas       ･･･ FFTW 3 API の生翻訳
+        ┣・LUX.FFTW.pas    ･･･ ジェネリックな TDFT 基底クラス
+        ┗・D1/ D2/ D3/     ･･･ 1次元／2次元／3次元のラッパとプリセット
 ```
 
-ライブラリリポジトリ：[LUX](https://github.com/LUXOPHIA/LUX)、[LUX.Chart](https://github.com/LUXOPHIA/LUX.Chart)、[LUX.Signal.FFTW](https://github.com/LUXOPHIA/LUX.Signal.FFTW)。
+ライブラリリポジトリ：[LUX](https://github.com/LUXOPHIA/LUX)、[LUX.Chart](https://github.com/LUXOPHIA/LUX.Chart)、[LUX.FFTW](https://github.com/LUXOPHIA/LUX.FFTW)。
 
 ## 4. 使い方／操作
 

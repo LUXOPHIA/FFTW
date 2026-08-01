@@ -107,20 +107,20 @@
             <FormType>fmx</FormType>
         </DCCReference>
         <DCCReference Include="_LIBRARY\LUXOPHIA\LUX\--------\2022\FMX\LUX.FMX.Forms.pas"/>
-        <DCCReference Include="_LIBRARY\LUXOPHIA\LUX.Signal.FFTW\fftw3.pas"/>
-        <DCCReference Include="_LIBRARY\LUXOPHIA\LUX.Signal.FFTW\LUX.Signal.FFTW.pas"/>
+        <DCCReference Include="_LIBRARY\LUXOPHIA\LUX.FFTW\fftw3.pas"/>
+        <DCCReference Include="_LIBRARY\LUXOPHIA\LUX.FFTW\LUX.FFTW.pas"/>
         <DCCReference Include="_LIBRARY\LUXOPHIA\LUX.Chart\_FMX\LUX.Chart.Viewer.pas">
             <Form>ChartViewer</Form>
             <DesignClass>TFrame</DesignClass>
         </DCCReference>
         <DCCReference Include="_LIBRARY\LUXOPHIA\LUX\--------\2022\Complex\LUX.Complex.D1.pas"/>
         <DCCReference Include="_LIBRARY\LUXOPHIA\LUX\--------\2022\Complex\LUX.Complex.pas"/>
-        <DCCReference Include="_LIBRARY\LUXOPHIA\LUX.Signal.FFTW\D1\LUX.Signal.FFTW.D1.pas"/>
-        <DCCReference Include="_LIBRARY\LUXOPHIA\LUX.Signal.FFTW\D1\LUX.Signal.FFTW.D1.Preset.pas"/>
-        <DCCReference Include="_LIBRARY\LUXOPHIA\LUX.Signal.FFTW\D3\LUX.Signal.FFTW.D3.pas"/>
-        <DCCReference Include="_LIBRARY\LUXOPHIA\LUX.Signal.FFTW\D2\LUX.Signal.FFTW.D2.pas"/>
-        <DCCReference Include="_LIBRARY\LUXOPHIA\LUX.Signal.FFTW\D2\LUX.Signal.FFTW.D2.Preset.pas"/>
-        <DCCReference Include="_LIBRARY\LUXOPHIA\LUX.Signal.FFTW\D3\LUX.Signal.FFTW.D3.Preset.pas"/>
+        <DCCReference Include="_LIBRARY\LUXOPHIA\LUX.FFTW\D1\LUX.FFTW.D1.pas"/>
+        <DCCReference Include="_LIBRARY\LUXOPHIA\LUX.FFTW\D1\LUX.FFTW.D1.Preset.pas"/>
+        <DCCReference Include="_LIBRARY\LUXOPHIA\LUX.FFTW\D3\LUX.FFTW.D3.pas"/>
+        <DCCReference Include="_LIBRARY\LUXOPHIA\LUX.FFTW\D2\LUX.FFTW.D2.pas"/>
+        <DCCReference Include="_LIBRARY\LUXOPHIA\LUX.FFTW\D2\LUX.FFTW.D2.Preset.pas"/>
+        <DCCReference Include="_LIBRARY\LUXOPHIA\LUX.FFTW\D3\LUX.FFTW.D3.Preset.pas"/>
         <DCCReference Include="_LIBRARY\LUXOPHIA\LUX\--------\2022\FMX\LUX.FMX.Controls.pas"/>
         <DCCReference Include="_LIBRARY\LUXOPHIA\LUX\--------\2022\Data\Grid\LUX.Data.Grid.T1.D1.pas"/>
         <DCCReference Include="_LIBRARY\LUXOPHIA\LUX\--------\2022\Data\Grid\LUX.Data.Grid.T1.pas"/>
