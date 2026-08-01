@@ -120,7 +120,7 @@ Lifecycle of a transform object:
 
 ・Destroy
   ┗・DestroPlans
-     ┗・_Times.DisposeOf / _Freqs.DisposeOf
+     ┗・_Times.Free / _Freqs.Free
 ```
 
 Buffers are LUX grid objects (`TCoreArray<_TItem_>` descendants), so `Elem0P` hands FFTW a pointer to contiguous storage of `TSingleC` / `TDoubleC` records — memory-compatible with the C types `fftwf_complex` / `fftw_complex` — while `PoinsX` / `PoinsY` / `PoinsZ` supply the extents. Because a grid raises `_OnChange` whenever its size changes, plan validity is maintained automatically and the two grids are always kept at equal extents.
