@@ -180,7 +180,7 @@ end;
 
 * **Delphi / RAD Studio** — ジェネリクスとレコードヘルパを備えた任意のバージョン。`fftw3.pas` は Windows DLL を名前でインポートするため、対象は Win64。
 * **[LUX](https://github.com/LUXOPHIA/LUX)** 基底ライブラリ — `LUX`、`LUX.Complex`（`TSingleC` / `TDoubleC`）、`LUX.Data.Grid`（`TCoreArray<>`）、`LUX.Data.Grid.T1` … `T3`（`TPoinArray1D<>` … `TPoinArray3D<>`）。現在の LUX ツリーではこれらの複素数・グリッドユニットは `--------/2022/` アーカイブディレクトリ下にあるため、そこをコンパイラの検索パスに加える必要がある。
-* **実行時 DLL** — `libfftw3-3.dll`（倍精度）と `libfftw3f-3.dll`（単精度）を実行ファイルから到達可能に置くこと（通常は実行ファイルの隣にコピーする）。マルチスレッド系のエントリポイントは別 DLL `libfftw3_threads-3.dll` / `libfftw3f_threads-3.dll` からインポートされる。4 本すべてが `_DLL\Win64\{Debug,Release}` に同梱されている。long double 版・OpenMP 版・静的／インポートライブラリ・`fftw3.h`・`fftw-wisdom` ユーティリティを含む MSYS2 `mingw-w64-fftw` 3.3.11 パッケージ一式 [6] は `：FFTW\fftw-3.3.11-msys2-x86_64` に格納されている。FFTW サイトで公開されている公式 Windows ビルド [3] は 3.3.5 のままである。
+* **実行時 DLL** — `libfftw3-3.dll`（倍精度）と `libfftw3f-3.dll`（単精度）を実行ファイルから到達可能に置くこと（通常は実行ファイルの隣にコピーする）。マルチスレッド系のエントリポイントは別 DLL `libfftw3_threads-3.dll` / `libfftw3f_threads-3.dll` からインポートされる。4 本すべてが `_DLL\Win64\{Debug,Release}` に同梱されている。long double 版・OpenMP 版・静的／インポートライブラリ・`fftw3.h`・`fftw-wisdom` ユーティリティを含む MSYS2 `mingw-w64-fftw` 3.3.11 パッケージ一式 [6] は `：FFTW\fftw-3.3.11-msys2-x86_64` に格納されている。公式の Windows ビルドは FFTW サイトで公開されている [3]。
 * **Git LFS** — `.gitattributes` が `*.dll` と `*.a` を `filter=lfs` に宣言しているため、Git LFS なしのチェックアウトではバイナリの代わりにポインタファイルが得られる。
 * **FFTW 自体のライセンス** — FFTW は GNU General Public License バージョン 2 以降の下で配布される（同梱パッケージの `PKGINFO` に記載）。別途 MIT から商用ライセンスが提供されている [2]。
 
