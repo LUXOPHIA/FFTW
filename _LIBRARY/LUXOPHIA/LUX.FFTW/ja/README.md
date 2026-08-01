@@ -120,7 +120,7 @@ DLL バインディング
 
 ・Destroy
   ┗・DestroPlans
-     ┗・_Times.DisposeOf / _Freqs.DisposeOf
+     ┗・_Times.Free / _Freqs.Free
 ```
 
 バッファは LUX のグリッドオブジェクト（`TCoreArray<_TItem_>` の子孫）であり、`Elem0P` が `TSingleC` / `TDoubleC` レコードの連続領域へのポインタを FFTW に渡す。これらは C の `fftwf_complex` / `fftw_complex` とメモリ互換であり、範囲は `PoinsX` / `PoinsY` / `PoinsZ` が供給する。グリッドはサイズ変更のたびに `_OnChange` を発火するため、プランの有効性は自動的に維持され、2 本のグリッドは常に等しい範囲に保たれる。
