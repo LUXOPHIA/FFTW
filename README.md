@@ -10,12 +10,12 @@ A minimal Delphi/FireMonkey demonstration of how to use the fast Fourier transfo
 
 * [**LUX**](https://github.com/LUXOPHIA/LUX) ：Foundational mathematics library for the LUXOPHIA projects.
 * [**LUX.Chart**](https://github.com/LUXOPHIA/LUX.Chart) ：Chart-plotting library providing the `TChartViewer` frame.
-* [**LUX.Signal.FFTW**](https://github.com/LUXOPHIA/LUX.Signal.FFTW) ：Delphi binding and object-oriented wrapper for the FFTW 3 library.
+* [**LUX.FFTW**](https://github.com/LUXOPHIA/LUX.FFTW) ：Delphi binding and object-oriented wrapper for the FFTW 3 library.
 
 ## 1. Overview
 
 * **Raw FFTW 3 binding** — `fftw3.pas` translates the FFTW C API to Delphi: plan creation (basic / advanced / guru interfaces), complex-to-complex, real-to-complex/complex-to-real and real-to-real plans, wisdom import/export, threading, and `fftw_malloc`-family allocators, for both the double-precision (`libfftw3-3.dll`) and single-precision (`libfftw3f-3.dll`) libraries.
-* **Object-oriented wrapper** — `LUX.Signal.FFTW` wraps plans in generic classes (`TDFT<...>`, `TDFT1D<...>`) whose input/output buffers are grid objects; resizing a grid automatically re-creates the plans.
+* **Object-oriented wrapper** — `LUX.FFTW` wraps plans in generic classes (`TDFT<...>`, `TDFT1D<...>`) whose input/output buffers are grid objects; resizing a grid automatically re-creates the plans.
 * **Ready-made presets** — `TSingleDFTcc1D` / `TDoubleDFTcc1D` provide 1-D complex-to-complex transforms out of the box (2-D and 3-D preset units are also included in the library).
 * **Live demo app** — a FireMonkey form animates a Metropolis-type complex random walk, executes the forward transform each timer tick, and displays both domains with `TChartViewer`; the transform length is adjustable at run time.
 
@@ -61,13 +61,13 @@ Data flow (one timer tick)
 Class hierarchy
 
 ・IDFT
-  ┗・TDFT<_TItem_,_TTimes_,_TFreqs_>       ･･･ LUX.Signal.FFTW.pas
+  ┗・TDFT<_TItem_,_TTimes_,_TFreqs_>       ･･･ LUX.FFTW.pas
      ┣・_Times / _Freqs                    ･･･ grid buffers
      ┣・_PlanTF / _PlanFT                  ･･･ plans, run by TransTF/TransFT
-     ┗・TDFT1D<...>                        ･･･ LUX.Signal.FFTW.D1.pas
+     ┗・TDFT1D<...>                        ･･･ LUX.FFTW.D1.pas
         ┣・grid resize
         ┃  ┗・RecreaPlans                 ･･･ destroy + re-create plans
-        ┗・TSingleDFTcc1D / TDoubleDFTcc1D ･･･ LUX.Signal.FFTW.D1.Preset.pas
+        ┗・TSingleDFTcc1D / TDoubleDFTcc1D ･･･ LUX.FFTW.D1.Preset.pas
 
 Binding layers (call chain)
 
@@ -82,20 +82,20 @@ File layout:
 
 ```
 ・FFTW/
-  ┣・FFTW.dpr / FFTW.dproj     ･･･ FireMonkey demo project
-  ┣・Main.pas / Main.fmx       ･･･ main form: charts, 10 ms timer, N scrollbar
-  ┣・Win64/                    ･･･ build output with FFTW DLLs (Debug/Release)
-  ┣・--------/_SCREENSHOT/     ･･･ screenshot
-  ┗・_LIBRARY/LUXOPHIA/        ･･･ git-subtree copies of library repositories
-     ┣・LUX/                   ･･･ core math & utilities (complex numbers etc.)
-     ┣・LUX.Chart/             ･･･ TChartViewer plotting frame
-     ┗・LUX.Signal.FFTW/       ･･･ FFTW binding and wrapper classes
-        ┣・fftw3.pas           ･･･ raw FFTW 3 API translation
-        ┣・LUX.Signal.FFTW.pas ･･･ generic TDFT base classes
-        ┗・D1/ D2/ D3/         ･･･ 1-D/2-D/3-D wrappers and presets
+  ┣・FFTW.dpr / FFTW.dproj ･･･ FireMonkey demo project
+  ┣・Main.pas / Main.fmx   ･･･ main form: charts, 10 ms timer, N scrollbar
+  ┣・Win64/                ･･･ build output with FFTW DLLs (Debug/Release)
+  ┣・--------/_SCREENSHOT/ ･･･ screenshot
+  ┗・_LIBRARY/LUXOPHIA/    ･･･ git-subtree copies of library repositories
+     ┣・LUX/               ･･･ core math & utilities (complex numbers etc.)
+     ┣・LUX.Chart/         ･･･ TChartViewer plotting frame
+     ┗・LUX.FFTW/          ･･･ FFTW binding and wrapper classes
+        ┣・fftw3.pas       ･･･ raw FFTW 3 API translation
+        ┣・LUX.FFTW.pas    ･･･ generic TDFT base classes
+        ┗・D1/ D2/ D3/     ･･･ 1-D/2-D/3-D wrappers and presets
 ```
 
-Library repositories: [LUX](https://github.com/LUXOPHIA/LUX), [LUX.Chart](https://github.com/LUXOPHIA/LUX.Chart), [LUX.Signal.FFTW](https://github.com/LUXOPHIA/LUX.Signal.FFTW).
+Library repositories: [LUX](https://github.com/LUXOPHIA/LUX), [LUX.Chart](https://github.com/LUXOPHIA/LUX.Chart), [LUX.FFTW](https://github.com/LUXOPHIA/LUX.FFTW).
 
 ## 4. Usage / Controls
 
